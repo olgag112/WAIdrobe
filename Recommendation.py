@@ -10,9 +10,8 @@ class EnhancedOutfitRecommender:
     def __init__(self, wardrobe_df, rule_weight=0.5):
         self.df = wardrobe_df.copy()
         self.rule_weight = rule_weight
-        # One-hot encode features for content-based part
         self.feature_cols = pd.get_dummies(
-            self.df[['type', 'color', 'material', 'season', 'style', 'special_property']]
+            self.df[['type', 'color', 'material', 'season', 'style', 'special_property']]#cechy ubran
         ).columns
         self.df = pd.concat([
             self.df,
