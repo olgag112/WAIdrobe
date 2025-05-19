@@ -1,0 +1,316 @@
+user_id,item_id,type,color,material,size,season,style,favorite,special_property
+1,1,Koszula,Zielony,Wełna,XL,Lato,Sportowy,0,Niekrępujące ruchu
+1,2,Płaszcz,Niebieski,Skóra,L,Wiosna/Jesień,Wieczorowy,0,Niwelujące otarcia
+1,3,Bluza,Czerwony,Jeans,XXL,Zima,Wieczorowy,1,Ocieplane
+1,4,Kurtka,Szary,Skóra,L,Lato,Codzienny,0,Niekrępujące ruchu
+1,5,Kurtka,Czerwony,Len,XXL,Zima,Sportowy,0,Szybkoschnące
+1,6,Spódnica,Czerwony,Bawełna,M,Lato,Sportowy,0,Ocieplane
+1,7,Spódnica,Czarny,Len,XS,Wiosna/Jesień,Formalny,1,Ocieplane
+1,8,Kurtka,Zielony,Poliester,L,Wiosna/Jesień,Sportowy,0,Szybkoschnące
+1,9,Spodnie,Beżowy,Wełna,XXL,Lato,Wieczorowy,0,Szybkoschnące
+2,10,Sukienka,Szary,Poliester,L,Zima,Codzienny,1,Przeciwdeszczowe
+2,11,Bluza,Czarny,Jeans,L,Zima,Sportowy,1,Brak
+2,12,Spódnica,Czerwony,Bawełna,XXL,Wiosna/Jesień,Codzienny,0,Przeciwdeszczowe
+2,13,Marynarka,Czarny,Bawełna,L,Wiosna/Jesień,Wieczorowy,0,Niwelujące otarcia
+3,14,T-shirt,Biały,Bawełna,XS,Wiosna/Jesień,Wieczorowy,0,Przeciwwiatrowe
+3,15,Sweter,Biały,Wełna,M,Lato,Sportowy,0,Niekrępujące ruchu
+3,16,Kurtka,Biały,Len,XS,Wiosna/Jesień,Wieczorowy,0,Brak
+3,17,Spódnica,Beżowy,Jeans,XL,Całoroczne,Wieczorowy,0,Przeciwwiatrowe
+3,18,Sweter,Biały,Wełna,XL,Całoroczne,Formalny,1,Niwelujące otarcia
+3,19,Kurtka,Beżowy,Jeans,M,Lato,Sportowy,0,Przeciwdeszczowe
+3,20,Sweter,Beżowy,Bawełna,L,Lato,Wieczorowy,0,Niwelujące otarcia
+3,21,Spódnica,Beżowy,Skóra,M,Lato,Wieczorowy,1,Niekrępujące ruchu
+3,22,Płaszcz,Niebieski,Jeans,L,Zima,Formalny,1,Ocieplane
+4,23,Sukienka,Czerwony,Len,L,Wiosna/Jesień,Wieczorowy,1,Przeciwwiatrowe
+4,24,Kurtka,Beżowy,Len,XS,Całoroczne,Formalny,0,Ocieplane
+4,25,Płaszcz,Szary,Bawełna,L,Lato,Codzienny,0,Oddychające
+4,26,Spodnie,Niebieski,Bawełna,XXL,Lato,Codzienny,0,Szybkoschnące
+4,27,Spodnie,Beżowy,Wełna,XXL,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+4,28,T-shirt,Szary,Bawełna,S,Wiosna/Jesień,Wieczorowy,0,Przeciwdeszczowe
+4,29,Sweter,Biały,Skóra,XS,Wiosna/Jesień,Codzienny,0,Przeciwdeszczowe
+5,30,Sukienka,Beżowy,Skóra,XS,Lato,Sportowy,0,Niwelujące otarcia
+5,31,Kurtka,Szary,Len,M,Wiosna/Jesień,Sportowy,0,Oddychające
+5,32,Spodnie,Zielony,Len,S,Zima,Formalny,0,Brak
+5,33,T-shirt,Biały,Len,M,Zima,Wieczorowy,0,Szybkoschnące
+6,34,Płaszcz,Czerwony,Wełna,S,Całoroczne,Sportowy,0,Brak
+6,35,Spódnica,Czerwony,Bawełna,XS,Wiosna/Jesień,Wieczorowy,0,Brak
+6,36,T-shirt,Niebieski,Len,XS,Lato,Formalny,1,Oddychające
+6,37,Kurtka,Niebieski,Len,S,Wiosna/Jesień,Codzienny,0,Ocieplane
+6,38,Bluza,Biały,Jeans,L,Lato,Codzienny,1,Niekrępujące ruchu
+6,39,Szorty,Biały,Wełna,M,Wiosna/Jesień,Wieczorowy,1,Brak
+7,40,Spodnie,Biały,Len,M,Lato,Wieczorowy,0,Brak
+7,41,Koszula,Szary,Wełna,XXL,Lato,Sportowy,1,Przeciwdeszczowe
+7,42,Bluza,Czarny,Jeans,M,Wiosna/Jesień,Codzienny,0,Ocieplane
+7,43,Koszula,Biały,Jeans,XL,Wiosna/Jesień,Wieczorowy,0,Brak
+7,44,Spódnica,Niebieski,Bawełna,XS,Wiosna/Jesień,Wieczorowy,0,Oddychające
+7,45,Spódnica,Szary,Jeans,XXL,Zima,Formalny,0,Oddychające
+7,46,Spodnie,Niebieski,Wełna,S,Lato,Formalny,0,Niekrępujące ruchu
+7,47,T-shirt,Zielony,Len,XL,Wiosna/Jesień,Sportowy,0,Brak
+8,48,T-shirt,Czerwony,Len,XXL,Lato,Formalny,1,Przeciwwiatrowe
+8,49,Szorty,Zielony,Skóra,XS,Zima,Codzienny,0,Szybkoschnące
+8,50,T-shirt,Czerwony,Skóra,XL,Wiosna/Jesień,Sportowy,0,Przeciwwiatrowe
+9,51,Bluza,Biały,Poliester,XXL,Zima,Sportowy,0,Brak
+9,52,Bluza,Beżowy,Jeans,S,Całoroczne,Sportowy,0,Przeciwdeszczowe
+9,53,T-shirt,Biały,Bawełna,M,Zima,Wieczorowy,0,Przeciwdeszczowe
+9,54,Spódnica,Czarny,Wełna,S,Lato,Wieczorowy,1,Przeciwdeszczowe
+9,55,Spódnica,Biały,Len,XL,Wiosna/Jesień,Codzienny,0,Oddychające
+9,56,Sweter,Beżowy,Len,S,Zima,Wieczorowy,0,Oddychające
+9,57,Sweter,Biały,Poliester,XXL,Lato,Formalny,0,Oddychające
+9,58,T-shirt,Czerwony,Poliester,XXL,Całoroczne,Formalny,0,Niwelujące otarcia
+9,59,T-shirt,Zielony,Len,L,Wiosna/Jesień,Codzienny,0,Oddychające
+9,60,Koszula,Szary,Wełna,L,Wiosna/Jesień,Codzienny,1,Przeciwdeszczowe
+10,61,Sweter,Biały,Wełna,L,Zima,Sportowy,0,Przeciwdeszczowe
+10,62,Marynarka,Szary,Bawełna,L,Lato,Codzienny,0,Ocieplane
+10,63,Bluza,Szary,Jeans,XS,Wiosna/Jesień,Codzienny,0,Brak
+10,64,Spódnica,Beżowy,Skóra,XXL,Lato,Sportowy,0,Przeciwdeszczowe
+10,65,Sweter,Zielony,Jeans,XS,Lato,Formalny,0,Niekrępujące ruchu
+10,66,T-shirt,Szary,Jeans,XXL,Wiosna/Jesień,Codzienny,0,Przeciwdeszczowe
+10,67,Kurtka,Zielony,Len,XS,Zima,Formalny,0,Przeciwdeszczowe
+10,68,Kurtka,Szary,Skóra,L,Zima,Wieczorowy,0,Przeciwdeszczowe
+11,69,Kurtka,Biały,Skóra,XL,Wiosna/Jesień,Wieczorowy,0,Niekrępujące ruchu
+11,70,Bluza,Biały,Len,M,Wiosna/Jesień,Wieczorowy,0,Przeciwwiatrowe
+11,71,T-shirt,Biały,Skóra,M,Całoroczne,Codzienny,0,Ocieplane
+11,72,T-shirt,Czarny,Wełna,L,Lato,Codzienny,0,Oddychające
+11,73,Bluza,Zielony,Wełna,S,Całoroczne,Sportowy,0,Brak
+12,74,Kurtka,Czarny,Poliester,XXL,Zima,Sportowy,0,Szybkoschnące
+12,75,Kurtka,Zielony,Poliester,XL,Całoroczne,Codzienny,0,Ocieplane
+12,76,Marynarka,Zielony,Bawełna,L,Zima,Codzienny,0,Brak
+12,77,Sweter,Biały,Wełna,L,Zima,Codzienny,0,Brak
+12,78,Spódnica,Szary,Skóra,L,Lato,Sportowy,0,Ocieplane
+12,79,Sweter,Biały,Jeans,XS,Lato,Formalny,0,Ocieplane
+12,80,Sukienka,Zielony,Wełna,M,Lato,Wieczorowy,0,Ocieplane
+13,81,Szorty,Beżowy,Len,XXL,Całoroczne,Wieczorowy,0,Przeciwdeszczowe
+13,82,Marynarka,Zielony,Wełna,L,Lato,Wieczorowy,0,Szybkoschnące
+13,83,Marynarka,Beżowy,Bawełna,XL,Lato,Formalny,1,Oddychające
+13,84,Kurtka,Zielony,Wełna,XL,Całoroczne,Sportowy,0,Szybkoschnące
+13,85,Szorty,Czarny,Poliester,L,Lato,Codzienny,1,Oddychające
+14,86,Spodnie,Czarny,Bawełna,S,Całoroczne,Formalny,0,Niwelujące otarcia
+14,87,Marynarka,Szary,Wełna,XL,Lato,Formalny,1,Niekrępujące ruchu
+14,88,Spódnica,Biały,Skóra,L,Wiosna/Jesień,Formalny,0,Przeciwwiatrowe
+14,89,Sukienka,Beżowy,Wełna,S,Zima,Sportowy,0,Przeciwwiatrowe
+14,90,Bluza,Czerwony,Jeans,S,Wiosna/Jesień,Wieczorowy,0,Niekrępujące ruchu
+14,91,Szorty,Beżowy,Bawełna,M,Lato,Wieczorowy,1,Niekrępujące ruchu
+14,92,T-shirt,Biały,Bawełna,XXL,Lato,Formalny,1,Niwelujące otarcia
+15,93,Marynarka,Szary,Skóra,M,Wiosna/Jesień,Codzienny,0,Przeciwwiatrowe
+15,94,Koszula,Biały,Poliester,XS,Lato,Formalny,0,Ocieplane
+15,95,Marynarka,Szary,Jeans,M,Wiosna/Jesień,Sportowy,0,Szybkoschnące
+15,96,Kurtka,Szary,Len,L,Lato,Wieczorowy,0,Szybkoschnące
+15,97,Kurtka,Czarny,Len,S,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+15,98,Płaszcz,Szary,Bawełna,XS,Lato,Codzienny,1,Szybkoschnące
+15,99,Sweter,Zielony,Jeans,S,Całoroczne,Wieczorowy,0,Ocieplane
+15,100,Bluza,Czarny,Jeans,S,Całoroczne,Codzienny,0,Brak
+15,101,T-shirt,Szary,Bawełna,S,Wiosna/Jesień,Sportowy,0,Niwelujące otarcia
+15,102,Kurtka,Beżowy,Bawełna,XXL,Całoroczne,Sportowy,0,Ocieplane
+16,103,Szorty,Niebieski,Bawełna,XL,Wiosna/Jesień,Sportowy,1,Ocieplane
+16,104,Marynarka,Beżowy,Skóra,XXL,Całoroczne,Codzienny,0,Niwelujące otarcia
+16,105,Marynarka,Czarny,Poliester,M,Lato,Codzienny,0,Oddychające
+16,106,T-shirt,Niebieski,Skóra,XL,Wiosna/Jesień,Formalny,1,Brak
+17,107,Bluza,Czerwony,Poliester,S,Zima,Formalny,0,Przeciwwiatrowe
+17,108,Bluza,Czerwony,Bawełna,XXL,Wiosna/Jesień,Codzienny,0,Przeciwwiatrowe
+17,109,Szorty,Biały,Skóra,XL,Zima,Formalny,1,Niekrępujące ruchu
+17,110,Sukienka,Czerwony,Poliester,XXL,Zima,Formalny,0,Niekrępujące ruchu
+17,111,Płaszcz,Niebieski,Poliester,L,Lato,Formalny,0,Niekrępujące ruchu
+17,112,Spódnica,Czarny,Wełna,XS,Lato,Codzienny,0,Brak
+17,113,T-shirt,Czarny,Bawełna,L,Wiosna/Jesień,Wieczorowy,0,Oddychające
+17,114,Marynarka,Czarny,Skóra,XXL,Całoroczne,Sportowy,0,Przeciwwiatrowe
+17,115,Szorty,Beżowy,Wełna,XXL,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+17,116,Spodnie,Biały,Wełna,M,Całoroczne,Codzienny,1,Niwelujące otarcia
+18,117,Sweter,Niebieski,Skóra,XL,Zima,Wieczorowy,0,Oddychające
+18,118,Marynarka,Szary,Bawełna,XL,Lato,Wieczorowy,0,Przeciwdeszczowe
+18,119,T-shirt,Szary,Poliester,XL,Całoroczne,Codzienny,0,Niekrępujące ruchu
+18,120,Szorty,Szary,Jeans,M,Całoroczne,Wieczorowy,0,Przeciwdeszczowe
+19,121,T-shirt,Biały,Wełna,XL,Wiosna/Jesień,Sportowy,0,Brak
+19,122,Sukienka,Szary,Poliester,L,Całoroczne,Formalny,0,Niwelujące otarcia
+19,123,Kurtka,Szary,Wełna,M,Całoroczne,Sportowy,1,Oddychające
+19,124,Płaszcz,Beżowy,Len,XL,Zima,Formalny,0,Przeciwwiatrowe
+19,125,Szorty,Beżowy,Skóra,L,Zima,Sportowy,0,Niekrępujące ruchu
+19,126,Sukienka,Czarny,Jeans,L,Lato,Codzienny,0,Ocieplane
+20,127,Kurtka,Niebieski,Bawełna,XL,Zima,Sportowy,0,Oddychające
+20,128,Bluza,Beżowy,Bawełna,L,Całoroczne,Formalny,0,Oddychające
+20,129,Koszula,Czarny,Poliester,M,Wiosna/Jesień,Sportowy,1,Niwelujące otarcia
+20,130,Szorty,Biały,Skóra,XXL,Lato,Formalny,0,Brak
+20,131,Koszula,Szary,Wełna,XXL,Zima,Formalny,0,Niekrępujące ruchu
+20,132,Szorty,Beżowy,Wełna,M,Całoroczne,Wieczorowy,0,Brak
+21,133,Sukienka,Czarny,Len,L,Całoroczne,Wieczorowy,0,Oddychające
+21,134,T-shirt,Szary,Jeans,M,Zima,Codzienny,0,Przeciwwiatrowe
+21,135,Spodnie,Czarny,Wełna,XL,Wiosna/Jesień,Codzienny,0,Oddychające
+21,136,Koszula,Niebieski,Len,XS,Wiosna/Jesień,Codzienny,0,Ocieplane
+21,137,Kurtka,Szary,Jeans,XL,Zima,Sportowy,1,Niwelujące otarcia
+21,138,Płaszcz,Niebieski,Bawełna,XXL,Zima,Wieczorowy,0,Niekrępujące ruchu
+21,139,Kurtka,Czerwony,Poliester,XL,Wiosna/Jesień,Formalny,0,Niekrępujące ruchu
+21,140,Marynarka,Biały,Bawełna,XS,Całoroczne,Sportowy,0,Niekrępujące ruchu
+21,141,Sweter,Szary,Bawełna,XL,Zima,Wieczorowy,1,Oddychające
+22,142,Spodnie,Niebieski,Bawełna,S,Wiosna/Jesień,Sportowy,0,Brak
+22,143,Sukienka,Czerwony,Skóra,M,Lato,Codzienny,0,Oddychające
+22,144,Sweter,Zielony,Skóra,XL,Całoroczne,Sportowy,0,Oddychające
+22,145,Koszula,Biały,Skóra,S,Lato,Formalny,1,Niekrępujące ruchu
+22,146,Spodnie,Szary,Wełna,XL,Zima,Codzienny,0,Niekrępujące ruchu
+22,147,T-shirt,Biały,Bawełna,XS,Całoroczne,Sportowy,0,Niwelujące otarcia
+22,148,Spodnie,Niebieski,Wełna,XXL,Zima,Sportowy,0,Brak
+23,149,Koszula,Beżowy,Skóra,XS,Wiosna/Jesień,Formalny,1,Szybkoschnące
+23,150,Sukienka,Biały,Bawełna,XL,Lato,Sportowy,0,Oddychające
+23,151,Koszula,Szary,Poliester,S,Lato,Sportowy,0,Oddychające
+23,152,Sukienka,Zielony,Len,XL,Wiosna/Jesień,Wieczorowy,0,Niwelujące otarcia
+24,153,Marynarka,Zielony,Len,L,Lato,Formalny,0,Przeciwwiatrowe
+24,154,Sweter,Czerwony,Len,S,Całoroczne,Sportowy,0,Przeciwwiatrowe
+24,155,Kurtka,Szary,Jeans,S,Zima,Sportowy,0,Niwelujące otarcia
+24,156,Spodnie,Szary,Poliester,XS,Lato,Sportowy,0,Przeciwwiatrowe
+24,157,Koszula,Czerwony,Skóra,XL,Wiosna/Jesień,Sportowy,0,Szybkoschnące
+24,158,Kurtka,Biały,Jeans,M,Lato,Formalny,1,Oddychające
+24,159,Płaszcz,Beżowy,Bawełna,XXL,Lato,Codzienny,0,Szybkoschnące
+24,160,Sukienka,Beżowy,Bawełna,XS,Całoroczne,Formalny,0,Brak
+24,161,Marynarka,Beżowy,Bawełna,XL,Lato,Formalny,1,Niwelujące otarcia
+24,162,Kurtka,Biały,Wełna,L,Lato,Formalny,1,Przeciwdeszczowe
+25,163,Bluza,Niebieski,Poliester,M,Lato,Wieczorowy,0,Szybkoschnące
+25,164,Płaszcz,Niebieski,Jeans,XS,Całoroczne,Wieczorowy,0,Brak
+25,165,T-shirt,Biały,Skóra,M,Zima,Formalny,0,Niwelujące otarcia
+25,166,T-shirt,Beżowy,Bawełna,L,Lato,Codzienny,0,Oddychające
+25,167,Spodnie,Biały,Bawełna,XL,Zima,Sportowy,0,Brak
+25,168,Sweter,Szary,Jeans,XL,Lato,Codzienny,0,Brak
+25,169,Spodnie,Niebieski,Poliester,XS,Zima,Sportowy,0,Przeciwdeszczowe
+25,170,Sukienka,Czerwony,Bawełna,S,Zima,Formalny,0,Szybkoschnące
+25,171,T-shirt,Zielony,Wełna,S,Zima,Sportowy,0,Szybkoschnące
+26,172,Spódnica,Beżowy,Len,S,Całoroczne,Codzienny,0,Ocieplane
+26,173,Spódnica,Niebieski,Wełna,XL,Wiosna/Jesień,Formalny,0,Niwelujące otarcia
+26,174,Sweter,Niebieski,Bawełna,L,Całoroczne,Wieczorowy,0,Brak
+27,175,Spodnie,Szary,Wełna,L,Wiosna/Jesień,Codzienny,0,Oddychające
+27,176,Spódnica,Czarny,Poliester,XS,Całoroczne,Codzienny,0,Niwelujące otarcia
+27,177,Sweter,Czerwony,Skóra,L,Zima,Formalny,1,Niwelujące otarcia
+27,178,Koszula,Niebieski,Poliester,S,Całoroczne,Sportowy,0,Szybkoschnące
+27,179,Marynarka,Zielony,Jeans,XXL,Lato,Formalny,1,Przeciwwiatrowe
+27,180,Koszula,Czarny,Jeans,L,Wiosna/Jesień,Codzienny,1,Brak
+27,181,Płaszcz,Szary,Bawełna,S,Całoroczne,Codzienny,0,Brak
+27,182,Bluza,Zielony,Bawełna,XS,Zima,Formalny,1,Szybkoschnące
+27,183,Kurtka,Czarny,Skóra,XL,Zima,Sportowy,0,Oddychające
+27,184,Bluza,Zielony,Poliester,L,Lato,Formalny,0,Niwelujące otarcia
+28,185,Sukienka,Czarny,Len,XL,Zima,Formalny,0,Ocieplane
+28,186,Sukienka,Niebieski,Poliester,L,Lato,Codzienny,0,Przeciwdeszczowe
+28,187,T-shirt,Czarny,Skóra,L,Zima,Formalny,0,Przeciwdeszczowe
+29,188,Sukienka,Niebieski,Bawełna,M,Lato,Wieczorowy,0,Niwelujące otarcia
+29,189,Marynarka,Niebieski,Wełna,L,Lato,Sportowy,0,Przeciwwiatrowe
+29,190,Sukienka,Czarny,Jeans,XXL,Lato,Wieczorowy,0,Szybkoschnące
+29,191,Koszula,Niebieski,Wełna,L,Całoroczne,Codzienny,0,Niwelujące otarcia
+29,192,Płaszcz,Czarny,Bawełna,S,Zima,Codzienny,0,Brak
+29,193,T-shirt,Biały,Bawełna,XL,Całoroczne,Wieczorowy,0,Niekrępujące ruchu
+30,194,Sweter,Czarny,Skóra,L,Wiosna/Jesień,Sportowy,0,Przeciwdeszczowe
+30,195,Sweter,Zielony,Len,M,Całoroczne,Codzienny,0,Przeciwdeszczowe
+30,196,Szorty,Beżowy,Bawełna,L,Zima,Wieczorowy,1,Brak
+30,197,Marynarka,Biały,Skóra,XXL,Wiosna/Jesień,Formalny,1,Przeciwdeszczowe
+30,198,Szorty,Czerwony,Wełna,S,Lato,Codzienny,0,Brak
+31,199,Spódnica,Biały,Poliester,XL,Zima,Formalny,0,Niekrępujące ruchu
+31,200,Marynarka,Beżowy,Bawełna,M,Wiosna/Jesień,Wieczorowy,1,Niekrępujące ruchu
+31,201,Bluza,Beżowy,Jeans,L,Całoroczne,Sportowy,0,Przeciwdeszczowe
+31,202,Spódnica,Biały,Jeans,M,Wiosna/Jesień,Wieczorowy,0,Przeciwwiatrowe
+32,203,Płaszcz,Czarny,Len,XS,Wiosna/Jesień,Codzienny,0,Niwelujące otarcia
+32,204,Bluza,Biały,Skóra,S,Wiosna/Jesień,Formalny,0,Przeciwwiatrowe
+32,205,Kurtka,Czarny,Jeans,M,Całoroczne,Codzienny,0,Brak
+32,206,Sweter,Niebieski,Jeans,L,Lato,Formalny,0,Oddychające
+32,207,Marynarka,Czerwony,Bawełna,L,Całoroczne,Codzienny,0,Ocieplane
+32,208,Spódnica,Czerwony,Skóra,XS,Zima,Codzienny,0,Oddychające
+32,209,Spodnie,Szary,Poliester,L,Zima,Formalny,0,Brak
+33,210,Marynarka,Szary,Bawełna,XS,Lato,Wieczorowy,0,Przeciwwiatrowe
+33,211,Kurtka,Zielony,Skóra,XL,Całoroczne,Wieczorowy,0,Brak
+33,212,Spodnie,Niebieski,Jeans,XL,Zima,Codzienny,0,Szybkoschnące
+34,213,Spodnie,Czerwony,Skóra,XXL,Lato,Sportowy,0,Przeciwdeszczowe
+34,214,Płaszcz,Czarny,Bawełna,S,Lato,Codzienny,1,Brak
+34,215,Sukienka,Zielony,Skóra,XXL,Całoroczne,Sportowy,1,Przeciwwiatrowe
+34,216,Koszula,Czarny,Bawełna,XL,Całoroczne,Formalny,0,Przeciwdeszczowe
+34,217,T-shirt,Niebieski,Wełna,XXL,Lato,Wieczorowy,0,Ocieplane
+35,218,Koszula,Szary,Skóra,S,Całoroczne,Codzienny,0,Przeciwwiatrowe
+35,219,Szorty,Niebieski,Bawełna,S,Wiosna/Jesień,Formalny,1,Brak
+35,220,Szorty,Zielony,Wełna,M,Zima,Wieczorowy,0,Oddychające
+36,221,Płaszcz,Zielony,Poliester,S,Zima,Codzienny,0,Niwelujące otarcia
+36,222,Marynarka,Zielony,Bawełna,S,Wiosna/Jesień,Codzienny,0,Niwelujące otarcia
+36,223,Sweter,Czarny,Wełna,S,Wiosna/Jesień,Sportowy,1,Ocieplane
+36,224,Sukienka,Niebieski,Len,XS,Całoroczne,Sportowy,0,Niwelujące otarcia
+36,225,Płaszcz,Zielony,Bawełna,XL,Zima,Wieczorowy,0,Oddychające
+36,226,Spódnica,Zielony,Wełna,XL,Zima,Codzienny,0,Niekrępujące ruchu
+36,227,Kurtka,Czarny,Wełna,XL,Zima,Sportowy,0,Szybkoschnące
+36,228,Bluza,Szary,Skóra,XL,Wiosna/Jesień,Sportowy,0,Niwelujące otarcia
+36,229,Płaszcz,Biały,Bawełna,XS,Wiosna/Jesień,Sportowy,0,Brak
+36,230,Spodnie,Zielony,Wełna,XXL,Całoroczne,Formalny,0,Ocieplane
+37,231,Bluza,Beżowy,Len,L,Całoroczne,Formalny,0,Oddychające
+37,232,Koszula,Czerwony,Len,S,Wiosna/Jesień,Sportowy,0,Szybkoschnące
+37,233,Sukienka,Biały,Poliester,XXL,Lato,Formalny,0,Przeciwwiatrowe
+37,234,Bluza,Czarny,Jeans,XL,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+37,235,Spódnica,Zielony,Wełna,XS,Zima,Sportowy,0,Przeciwwiatrowe
+37,236,Płaszcz,Czarny,Poliester,S,Zima,Formalny,1,Ocieplane
+37,237,Sweter,Zielony,Bawełna,XL,Lato,Sportowy,0,Przeciwdeszczowe
+37,238,Koszula,Szary,Wełna,M,Całoroczne,Codzienny,1,Brak
+37,239,Marynarka,Beżowy,Skóra,M,Wiosna/Jesień,Formalny,0,Niwelujące otarcia
+37,240,Sweter,Niebieski,Bawełna,S,Wiosna/Jesień,Formalny,0,Niwelujące otarcia
+38,241,T-shirt,Biały,Len,S,Całoroczne,Wieczorowy,0,Brak
+38,242,Szorty,Biały,Skóra,XL,Wiosna/Jesień,Sportowy,0,Przeciwdeszczowe
+38,243,Koszula,Beżowy,Wełna,XL,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+38,244,Kurtka,Niebieski,Len,XXL,Całoroczne,Codzienny,0,Niekrępujące ruchu
+38,245,T-shirt,Szary,Len,L,Wiosna/Jesień,Codzienny,0,Ocieplane
+39,246,Sukienka,Szary,Skóra,XL,Zima,Wieczorowy,0,Brak
+39,247,T-shirt,Zielony,Poliester,XXL,Wiosna/Jesień,Formalny,0,Niekrępujące ruchu
+39,248,Sukienka,Niebieski,Skóra,XS,Lato,Wieczorowy,0,Brak
+39,249,Płaszcz,Szary,Wełna,XS,Lato,Wieczorowy,1,Brak
+39,250,Sukienka,Szary,Len,L,Lato,Formalny,0,Przeciwdeszczowe
+39,251,T-shirt,Czarny,Bawełna,XS,Lato,Codzienny,0,Niwelujące otarcia
+40,252,Kurtka,Szary,Poliester,XXL,Całoroczne,Formalny,0,Przeciwdeszczowe
+40,253,Bluza,Czarny,Len,XS,Wiosna/Jesień,Sportowy,0,Przeciwwiatrowe
+40,254,Sukienka,Biały,Jeans,XS,Całoroczne,Sportowy,0,Przeciwdeszczowe
+40,255,Spodnie,Czarny,Len,XXL,Wiosna/Jesień,Formalny,0,Niekrępujące ruchu
+40,256,Spódnica,Niebieski,Len,L,Zima,Formalny,0,Niekrępujące ruchu
+40,257,Sweter,Beżowy,Bawełna,L,Zima,Formalny,0,Oddychające
+41,258,Spódnica,Czerwony,Skóra,XS,Lato,Sportowy,0,Niekrępujące ruchu
+41,259,Koszula,Zielony,Skóra,XL,Całoroczne,Wieczorowy,0,Przeciwdeszczowe
+41,260,Sukienka,Czarny,Wełna,XXL,Lato,Wieczorowy,0,Przeciwwiatrowe
+41,261,Sweter,Czerwony,Poliester,M,Całoroczne,Codzienny,0,Niekrępujące ruchu
+41,262,T-shirt,Beżowy,Len,XS,Zima,Codzienny,0,Niwelujące otarcia
+41,263,Spodnie,Czerwony,Skóra,L,Wiosna/Jesień,Wieczorowy,0,Szybkoschnące
+42,264,Bluza,Biały,Wełna,XS,Wiosna/Jesień,Formalny,0,Brak
+42,265,Koszula,Czarny,Poliester,L,Zima,Sportowy,0,Przeciwwiatrowe
+42,266,Kurtka,Szary,Skóra,L,Całoroczne,Codzienny,0,Niwelujące otarcia
+42,267,T-shirt,Niebieski,Poliester,L,Wiosna/Jesień,Formalny,0,Szybkoschnące
+42,268,Bluza,Beżowy,Skóra,XL,Zima,Codzienny,0,Oddychające
+42,269,Spodnie,Beżowy,Bawełna,L,Zima,Sportowy,0,Przeciwwiatrowe
+42,270,Szorty,Biały,Len,S,Całoroczne,Codzienny,0,Ocieplane
+42,271,Spodnie,Czerwony,Len,XL,Całoroczne,Sportowy,0,Przeciwdeszczowe
+42,272,Sweter,Szary,Jeans,S,Lato,Formalny,0,Ocieplane
+42,273,T-shirt,Zielony,Len,M,Wiosna/Jesień,Codzienny,0,Oddychające
+43,274,Szorty,Niebieski,Skóra,XL,Wiosna/Jesień,Codzienny,0,Brak
+43,275,Spodnie,Czerwony,Jeans,L,Całoroczne,Codzienny,0,Oddychające
+43,276,Bluza,Biały,Skóra,L,Zima,Codzienny,0,Przeciwwiatrowe
+43,277,Sukienka,Zielony,Skóra,M,Lato,Codzienny,0,Oddychające
+43,278,Kurtka,Czerwony,Skóra,S,Wiosna/Jesień,Sportowy,0,Przeciwdeszczowe
+43,279,Szorty,Czarny,Skóra,XS,Całoroczne,Sportowy,0,Przeciwwiatrowe
+44,280,Spódnica,Czerwony,Jeans,L,Całoroczne,Wieczorowy,0,Szybkoschnące
+44,281,Bluza,Czarny,Len,S,Lato,Codzienny,0,Niwelujące otarcia
+44,282,Sukienka,Zielony,Jeans,S,Lato,Sportowy,1,Przeciwwiatrowe
+44,283,Kurtka,Szary,Poliester,S,Lato,Formalny,1,Brak
+45,284,Płaszcz,Biały,Jeans,L,Lato,Codzienny,0,Brak
+45,285,Marynarka,Zielony,Bawełna,S,Zima,Wieczorowy,0,Brak
+45,286,Sukienka,Beżowy,Bawełna,XS,Lato,Codzienny,1,Ocieplane
+46,287,Szorty,Niebieski,Len,S,Lato,Formalny,0,Oddychające
+46,288,Sweter,Szary,Poliester,S,Lato,Codzienny,0,Niwelujące otarcia
+46,289,Płaszcz,Biały,Jeans,XXL,Całoroczne,Codzienny,0,Ocieplane
+46,290,Kurtka,Beżowy,Skóra,M,Wiosna/Jesień,Codzienny,0,Ocieplane
+46,291,T-shirt,Niebieski,Len,XXL,Zima,Sportowy,0,Oddychające
+46,292,Kurtka,Czarny,Jeans,XS,Całoroczne,Codzienny,1,Brak
+46,293,Bluza,Szary,Len,XL,Lato,Formalny,0,Niwelujące otarcia
+47,294,Marynarka,Beżowy,Len,L,Całoroczne,Sportowy,0,Oddychające
+47,295,Bluza,Czerwony,Wełna,M,Lato,Codzienny,0,Niekrępujące ruchu
+47,296,Marynarka,Czerwony,Bawełna,L,Całoroczne,Sportowy,0,Niwelujące otarcia
+47,297,Sukienka,Niebieski,Poliester,XXL,Lato,Wieczorowy,0,Szybkoschnące
+48,298,Płaszcz,Zielony,Len,M,Wiosna/Jesień,Wieczorowy,0,Oddychające
+48,299,Bluza,Czarny,Bawełna,XL,Wiosna/Jesień,Formalny,0,Przeciwwiatrowe
+48,300,Spódnica,Beżowy,Len,S,Całoroczne,Codzienny,0,Niekrępujące ruchu
+48,301,Spodnie,Biały,Poliester,XL,Zima,Wieczorowy,1,Szybkoschnące
+48,302,Sukienka,Beżowy,Jeans,XS,Wiosna/Jesień,Wieczorowy,0,Niekrępujące ruchu
+48,303,Płaszcz,Zielony,Jeans,XXL,Lato,Formalny,0,Przeciwdeszczowe
+48,304,Szorty,Beżowy,Poliester,S,Lato,Codzienny,1,Brak
+48,305,T-shirt,Czarny,Wełna,XL,Wiosna/Jesień,Formalny,0,Szybkoschnące
+49,306,Spódnica,Czarny,Bawełna,S,Całoroczne,Wieczorowy,0,Niekrępujące ruchu
+49,307,Bluza,Zielony,Bawełna,M,Wiosna/Jesień,Formalny,0,Niwelujące otarcia
+49,308,T-shirt,Szary,Skóra,M,Wiosna/Jesień,Sportowy,0,Przeciwdeszczowe
+49,309,Szorty,Szary,Skóra,XL,Lato,Formalny,0,Brak
+49,310,Sweter,Beżowy,Skóra,S,Całoroczne,Formalny,0,Niekrępujące ruchu
+49,311,Szorty,Biały,Wełna,L,Zima,Sportowy,0,Oddychające
+50,312,Spódnica,Zielony,Jeans,L,Wiosna/Jesień,Codzienny,1,Przeciwwiatrowe
+50,313,Szorty,Biały,Wełna,XXL,Lato,Sportowy,0,Ocieplane
+50,314,Bluza,Czerwony,Skóra,L,Całoroczne,Wieczorowy,0,Oddychające
+50,315,Spodnie,Czarny,Wełna,XXL,Wiosna/Jesień,Codzienny,0,Oddychające
