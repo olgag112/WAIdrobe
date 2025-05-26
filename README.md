@@ -1,1 +1,2 @@
 hello
+ & c:/Users/48668/OneDrive/Pulpit/DataEngeneering/DiplomaThesis/venv/Scripts/python.exe c:/Users/48668/OneDrive/Pulpit/DataEngeneering/DiplomaThesis/Recommendation.py --user-id 7 --temperature 5 --season Zima --rain 60 --wind 25 --top-k 5 
