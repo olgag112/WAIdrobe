@@ -1,2 +1,4 @@
-hello
- & c:/Users/48668/OneDrive/Pulpit/DataEngeneering/DiplomaThesis/venv/Scripts/python.exe c:/Users/48668/OneDrive/Pulpit/DataEngeneering/DiplomaThesis/Recommendation.py --user-id 7 --temperature 5 --season Zima --rain 60 --wind 25 --top-k 5 
+How to run:
+
+python Recommendation.py --input synthetic_wardrobe.csv --user-id 1 --rule-weight 0.6 --top-k 5 --temperature 15 --rain 30 --wind 10 --season "Wiosna/Jesień"
+python DataGenerator.py --users 50 --min-tops 5 --min-bottoms 5 --min-others 0 --seed 42 --output synthetic_wardrobe.csv
