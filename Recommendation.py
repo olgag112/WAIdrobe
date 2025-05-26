@@ -239,5 +239,4 @@ def main():
                 print(f"Komplet {i}: Góra -> [ID {tid}: {tname}], Dół -> [ID {bid}: {bname}] (score: {sc:.2f})")
 
 if __name__=='__main__':
-    print("Running recommender...")
     main()
