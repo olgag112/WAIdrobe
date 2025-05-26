@@ -226,8 +226,17 @@ def main():
     if not pairs:
         print("Brak wystarczających ubrań, by stworzyć komplet.")
     else:
-        for i,(tid,tname,bid,bname,sc) in enumerate(pairs,1):
-            print(f"Komplet {i}: Góra -> [ID {tid}: {tname}], Dół -> [ID {bid}: {bname}] (score: {sc:.2f})")
+        # minimum score to show users recommendations
+        threshold = 1.5
+        # if all the suggested outfits are below threshold (1.5), it won't show any recommendations
+        if all(score < threshold for _, _, _, _, score in pairs):
+            print("Nie znaleziono dobrze dopasowanych kompletów.\n" \
+            "Rozważ dodanie więcej ubrań do swojej garderoby.\n" \
+            "Jesli nie masz juz nic do dodania, zalecane jest pojscie na zakupy :)")
+
+        else:
+            for i,(tid,tname,bid,bname,sc) in enumerate(pairs,1):
+                print(f"Komplet {i}: Góra -> [ID {tid}: {tname}], Dół -> [ID {bid}: {bname}] (score: {sc:.2f})")
 
 if __name__=='__main__':
     main()
