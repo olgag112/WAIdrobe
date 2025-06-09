@@ -1,0 +1,19 @@
+ python3 train.py
+Epoch 1/10, Loss: 8.8620
+Epoch 2/10, Loss: 5.7586
+Epoch 3/10, Loss: 4.2865
+Epoch 4/10, Loss: 2.9471
+Epoch 5/10, Loss: 1.6354
+Epoch 6/10, Loss: 0.8574
+Epoch 7/10, Loss: 0.5892
+Epoch 8/10, Loss: 0.4990
+Epoch 9/10, Loss: 0.7028
+Epoch 10/10, Loss: 0.8822
+
+Przykładowe przewidywania:
+User: 1, Weather: {'temperature': 15.0, 'rain_chance': 30.0, 'wind_speed': 10.0, 'season': 'Wiosna/Jesień'}, Predicted score: 2.4676876068115234, True score: 1.8799999952316284
+User: 20, Weather: {'temperature': 20.0, 'rain_chance': 40.0, 'wind_speed': 10.0, 'season': 'Wiosna/Jesień'}, Predicted score: 2.8411502838134766, True score: 2.700000047683716
+User: 1, Weather: {'temperature': 15.0, 'rain_chance': 30.0, 'wind_speed': 10.0, 'season': 'Wiosna/Jesień'}, Predicted score: 2.4062600135803223, True score: 2.4800000190734863
+User: 25, Weather: {'temperature': 25.0, 'rain_chance': 20.0, 'wind_speed': 10.0, 'season': 'Wiosna/Jesień'}, Predicted score: 2.6018712520599365, True score: 2.4000000953674316
+User: 1, Weather: {'temperature': 15.0, 'rain_chance': 30.0, 'wind_speed': 10.0, 'season': 'Wiosna/Jesień'}, Predicted score: 2.4960250854492188, True score: 2.359999895095825
+

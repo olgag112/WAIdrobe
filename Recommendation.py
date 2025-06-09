@@ -1,9 +1,12 @@
 # recommender.py
+import os
+
 import pandas as pd
 import numpy as np
 import argparse
 from sklearn.metrics.pairwise import cosine_similarity
 from DataGenerator import TOP_TYPES, BOTTOM_TYPES
+import csv
 
 class OutfitPairRecommender:
     def __init__(self, df, rule_weight=0.5):
@@ -237,6 +240,36 @@ def main():
         else:
             for i,(tid,tname,bid,bname,sc) in enumerate(pairs,1):
                 print(f"Komplet {i}: Góra -> [ID {tid}: {tname}], Dół -> [ID {bid}: {bname}] (score: {sc:.2f})")
+
+
+
+        # Zapisz rekomendacje do nowego pliku CSV
+        output_filename = 'recommendations_output.csv'
+        file_exists = os.path.exists(output_filename)
+
+        with open(output_filename, mode='a', newline='', encoding='utf-8') as f:
+            writer = csv.writer(f)
+
+            if not file_exists:
+                writer.writerow(['user_id', 'temperature', 'rain_chance', 'wind_speed', 'season',
+                             'top_id', 'top_name', 'bottom_id', 'bottom_name', 'score'])
+
+            for tid, tname, bid, bname, score in pairs:
+                writer.writerow([
+                    args.user_id,
+                    args.temperature,
+                    args.rain,
+                    args.wind,
+                    args.season,
+                    tid,
+                    tname,
+                    bid,
+                    bname,
+                    round(score, 2)
+                ])
+
+        print(f"\nRekomendacje zapisano do pliku: {output_filename}")
+
 
 if __name__=='__main__':
     main()
