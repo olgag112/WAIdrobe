@@ -5,6 +5,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { AppContext } from "../context/AppContext";
+import SingleFileUploader from '../components/ui/SingleFileUploader';
 
 
 function Wardrobe() {
@@ -170,6 +171,7 @@ function Wardrobe() {
                 </div>
               )}
             </div>
+            <SingleFileUploader />
           </div>
         </CardContent>
       </Card>
