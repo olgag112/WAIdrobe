@@ -8,7 +8,7 @@ import os
 BATCH_SIZE = 32
 EPOCHS = 10
 LEARNING_RATE = 0.001
-MODEL_PATH = "model_checkpoint.pth"
+MODEL_PATH = "model_save_SGD.pth"
 
 # dostosowywanie danych aby przevchowac w batchu
 def custom_collate_fn(batch):
@@ -24,7 +24,7 @@ def custom_collate_fn(batch):
 
 
 # Dataset
-dataset = FashionDataset("training_dataset.csv")
+dataset = FashionDataset("training.csv")
 dataloader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True, collate_fn=custom_collate_fn)
 
 # Rozmiary embeddingów - kategorie jako liczby modyfikujace sie podczas uczenia
@@ -33,7 +33,7 @@ emb_dims = [min(50, (dim + 1) // 2) for dim in cat_dims]  # heuristic
 
 # Model
 model = RecommenderNet(cat_dims, emb_dims, num_input_dim=5)
-optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
+optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
 #criterion = torch.nn.MSELoss() # funcja straty - regresja, mean squared error
 #criterion = torch.nn.L1Loss() # mean absolute error
 criterion = torch.nn.HuberLoss() # najbardziej korzystna loss function dla nas
