@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Wardrobe from "./pages/Wardrobe";
 import Recommendation from "./pages/Recommendation"
+import LoginPage from "./pages/LoginPage"
 import './App.css'
 import logo from "./images/logo.png";
 import name from "./images/name.png";
@@ -17,14 +18,15 @@ function App() {
         </div>
 
         <div className="nav-right">
-          <Link to="/">Home</Link>
+          <Link to="/user">About me</Link>
           <Link to="/wardrobe">Wardrobe</Link>
           <Link to="/recommendations">See your recommendations!</Link>
         </div>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/user" element={<Home />} />
         <Route path="/wardrobe" element={<Wardrobe />} />
         <Route path="/recommendations" element={<Recommendation />}/>
       </Routes>

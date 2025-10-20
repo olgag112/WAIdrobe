@@ -1,29 +1,86 @@
 import React, { useState, useContext } from 'react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
-import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { AppContext } from "../context/AppContext";
 import SingleFileUploader from '../components/ui/SingleFileUploader';
 
 
+
 function Wardrobe() {
-  const { wardrobe, setWardrobe, newItem, setNewItem } = useContext(AppContext);
-//   const [wardrobe, setWardrobe] = useState([]);
-//   const [newItem, setNewItem] = useState({
-//     type: 'T-shirt', color: 'Biały', material: 'Bawełna', size: 'M', season: 'Lato', style: 'Codzienny', favorite: 0, special_property: 'Brak'
-//   });
+  const { wardrobe, setWardrobe, newItem, setNewItem, user} = useContext(AppContext);
+  const {file} = useContext(AppContext);
 
-  const addItem = () => {
-    setWardrobe([...wardrobe, { ...newItem }]);
-  };
+  const topTypes = ['T-shirt', 'Bluza', 'Sweter', 'Koszula', 'Marynarka', 'Kurtka', 'Płaszcz'];
+  const bottomTypes = ['Spodnie', 'Szorty', 'Spódnica', 'Sukienka'];
 
-  const removeItem = (index) => {
-    const copy = [...wardrobe];
-    copy.splice(index, 1);
-    setWardrobe(copy);
-  };
+  const addItem = async () => {
+  let category = 'other';
+  if (topTypes.includes(newItem.type)) category = 'top';
+  else if (bottomTypes.includes(newItem.type)) category = 'bottom';
+  const itemToAdd = { ...newItem, category };
+
+  try {
+    // 1️⃣ Upload image first (if file selected)
+    let imageUrl = null;
+    if (file) {  // you’ll pass file from SingleFileUploader
+      const formData = new FormData();
+      formData.append("file", file);
+      const uploadResponse = await fetch("http://localhost:8000/upload_image", {
+        method: "POST",
+        body: formData
+      });
+      const uploadData = await uploadResponse.json();
+      imageUrl = uploadData.url;
+    }
+    let finalItem = { ...itemToAdd, image_url: imageUrl}
+
+    // 3️⃣ Save item to DB
+    const response = await fetch(`http://localhost:8000/add_item?user_id=${user}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(finalItem),
+    });
+
+    if (!response.ok) throw new Error("Failed to save item");
+
+    const data = await response.json();
+    console.log("✅ Item saved:", data);
+
+    finalItem = {...finalItem, id: data.item_id};
+
+    setWardrobe([...wardrobe, finalItem]);
+    alert("Item added successfully!");
+  } catch (err) {
+    console.error("Error adding item:", err);
+    alert("Failed to add item.");
+  }
+};
+
+  const removeItem = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:8000/delete_item/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete item");
+    }
+
+    // Remove from local state
+    setWardrobe(wardrobe.filter(item => item.id !== id));
+    console.log(`Item ${id} deleted`);
+  } catch (err) {
+    console.error("Error deleting item:", err);
+  }
+};
+
+  // const removeItem = (index) => {
+  //   const copy = [...wardrobe];
+  //   copy.splice(index, 1);
+  //   setWardrobe(copy);
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 p-2">
@@ -36,7 +93,8 @@ function Wardrobe() {
             {/* Form do dodawania pozycji */}
             <div className="col-span-1 sm:col-span-2 lg:col-span-4">
               <h3 className="text-lg font-semibold mb-2">Dodaj element garderoby</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <SingleFileUploader />
+              <div style={{margin: '10px 0 0 0'}} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 <div>
                   <Label>Typ</Label>
                   <Select value={newItem.type} onValueChange={val => setNewItem({ ...newItem, type: val })}>
@@ -150,7 +208,7 @@ function Wardrobe() {
                   </Select>
                 </div>
               </div>
-              <Button className="mt-4" onClick={addItem}>Dodaj do garderoby</Button>
+              <Button style={{margin: '10px 0 0 0'}} onClick={addItem}>Dodaj do garderoby</Button>
             </div>
 
             {/* Lista dodanych elementów */}
@@ -163,15 +221,21 @@ function Wardrobe() {
                   {wardrobe.map((item, idx) => (
                     <Card key={idx} className="border flex justify-between items-center p-2">
                       <div>
-                        <p><strong>{item.type}</strong>, {item.color}, {item.material}, {item.size}, {item.season}, {item.style}, ulubione: {item.favorite ? 'Tak' : 'Nie'}, {item.special_property}</p>
+                        {item.image_url && (
+                          <img
+                            src={item.image_url}
+                            alt={item.type}
+                            style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                          />
+                        )}
+                        <p><strong>{item.category}: {item.type}</strong>, {item.color}, {item.material}, {item.size}, {item.season}, {item.style}, ulubione: {item.favorite ? 'Tak' : 'Nie'}, {item.special_property}</p>
                       </div>
-                      <Button size="sm" onClick={() => removeItem(idx)}>Usuń</Button>
+                      <Button size="sm" onClick={() => removeItem(item.id)}>Usuń</Button>
                     </Card>
                   ))}
                 </div>
               )}
             </div>
-            <SingleFileUploader />
           </div>
         </CardContent>
       </Card>

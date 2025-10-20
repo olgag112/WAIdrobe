@@ -21,15 +21,18 @@ function Recommendation() {
 
   // lokalne
   const [error, setError] = useState('');
+  const [errorCity, setErrorCity] = useState('');
   const [loading, setLoading] = useState(false);
   const [score, setScore] = useState({});
 
   const handleScoreChange = (idx, value) => {
-  const updated = recommendations.map((rec, i) =>
-    i === idx ? { ...rec, userScore: value } : rec
-  );
-  setRecommendations(updated);
-};
+    const updated = recommendations.map((rec, i) =>
+      i === idx ? { ...rec, userScore: value } : rec
+    );
+    setRecommendations(updated);
+  };
+
+  const dummy = () => {};
 
 
 const fetchWeather = async () => {
@@ -43,12 +46,12 @@ const fetchWeather = async () => {
 
       const data = await res.json();
       setForecastData(data.forecast);
-      setError("");
+      setErrorCity("");
       // If date is already selected, immediately update weather
       if (date) updateWeatherForDate(date, data.forecast);
     } catch (err) {
       console.error(err);
-      setError("Takie miasto nie istnieje!");
+      setErrorCity("Takie miasto nie istnieje!");
     }
   };
 
@@ -129,14 +132,14 @@ const fetchWeather = async () => {
                 <h3 className="text-lg font-semibold mb-2">Miasto</h3>
                 <Input
                     type="text"
-                    value={city} // controlled input with city state
+                    value={city}
                     onChange={(e) => setCity(e.target.value)}
                     className="mt-2"
                 />
                 <Button onClick={() => fetchWeather(city)}>
                     Akceptuj
                 </Button>
-                {error && <p className="text-red-600 col-span-1 sm:col-span-2 lg:col-span-4">{error}</p>}
+                {errorCity && <p className="text-red-600 col-span-1 sm:col-span-2 lg:col-span-4">{errorCity}</p>}
             <div>
                 <h3 className="text-lg font-semibold mb-2">Na jaki dzien</h3>
                 <CalendarInput value={date} onChange={setDate} />
@@ -188,6 +191,16 @@ const fetchWeather = async () => {
                 <SelectItem value="Wiosna/Jesień">Wiosna/Jesień</SelectItem>
                 </SelectContent>
             </Select>
+            <Label>Typ wyjscia: </Label>
+            <Select value={weather.season} onValueChange={val => setWeather({ ...weather, season: val })}>
+                <SelectTrigger className="mt-1 w-full"><SelectValue /></SelectTrigger>
+                <SelectContent>
+                <SelectItem value="Formalny">Formalny</SelectItem>
+                <SelectItem value="Casualowy">Casualowy</SelectItem>
+                <SelectItem value="Sportowy">Sportowy</SelectItem>
+                <SelectItem value="Wieczorowy">Wieczorowy</SelectItem>
+                </SelectContent>
+            </Select>
             </div>
         </div>
 
@@ -205,34 +218,55 @@ const fetchWeather = async () => {
             <div className="col-span-1 sm:col-span-2 lg:col-span-4 mt-6">
             <h3 className="text-lg font-semibold mb-2">Rekomendowane komplety</h3>
             <div className="space-y-4">
-                {recommendations.map((rec, idx) => (
+                {recommendations.map((rec, idx) => {
+                  const topItem = wardrobe.find(item => item.id === rec.topId + 10);
+                  const bottomItem = wardrobe.find(item => item.id === rec.bottomId + 10);
+                return (
                 <Card key={idx} className="border p-4 flex justify-between items-center">
                     <div>
                     <p><strong>Komplet {idx + 1}:</strong></p>
                     <p>Góra: [ID {rec.topId}] {rec.topType}</p>
                     <p>Dół: [ID {rec.bottomId}] {rec.bottomType}</p>
+                    {topItem && topItem.image_url && (
+                          <img
+                            src={topItem.image_url}
+                            alt={topItem.type}
+                            style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                          />
+                    )}
+                    {bottomItem && bottomItem.image_url && (
+                          <img
+                            src={bottomItem.image_url}
+                            alt={bottomItem.type}
+                            style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                          />
+                    )}
                     </div>
                     <div>
                     <p>Score: {rec.score.toFixed(2)}</p>
+                    <p>user Score: {rec.userScore}</p>
                     <div className="flex flex-col">
                         <Label>Score this outfit (0-10)</Label>
                         <Input
                             type="number"
                             min="0"
                             max="10"
-                            value={rec.userScore ?? score[idx] ?? ''} // temp value
+                            value={score[idx] ?? ''}
                             onChange={(e) =>
                                 setScore({ ...score, [idx]: e.target.value })
                             }
                             className="mt-1 w-24"
                             />
-                        <Button onClick={() => handleScoreChange(idx, score[idx])} style={{ fontSize: '0.8rem', padding: '0px' }}>
+                        <Button onClick={() => handleScoreChange(idx, score[idx])} style={{ fontSize: '0.8rem', padding: '0px', margin: '1px' }}>
                             Submit Score
+                        </Button>
+                        <Button onClick={() => dummy()} style={{ fontSize: '0.8rem', padding: '0px', margin: '1px'}}>
+                            Save the outfit
                         </Button>
                     </div>
                     </div>
                 </Card>
-                ))}
+                )})}
             </div>
             </div>
         )}

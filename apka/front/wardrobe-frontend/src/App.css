@@ -43,6 +43,10 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  /* position: fixed; */
+  /* z-index: 1000;
+  top: 0;
+  left: 0; */
 }
 
 nav a {

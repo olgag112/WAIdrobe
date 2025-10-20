@@ -4,3 +4,5 @@ pandas
 numpy
 scikit-learn
 pydantic
+python-multipart
+requests
