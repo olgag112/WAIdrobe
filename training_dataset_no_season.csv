@@ -1,0 +1,201 @@
+user_id,temperature,rain_chance,wind_speed,top_id,top_name,bottom_id,bottom_name,score,top_type,top_color,top_material,top_size,top_style,top_favorite,top_special_property,bottom_type,bottom_color,bottom_material,bottom_size,bottom_style,bottom_favorite,bottom_special_property
+1,15.0,30.0,10.0,1,Płaszcz,10,Szorty,2.48,Płaszcz,Czerwony,Skóra,M,Codzienny,0,Przeciwdeszczowe,Szorty,Czerwony,Poliester,XXL,Formalny,0,Oddychające
+1,15.0,30.0,10.0,3,Sweter,10,Szorty,2.36,Sweter,Szary,Skóra,S,Wieczorowy,1,Przeciwdeszczowe,Szorty,Czerwony,Poliester,XXL,Formalny,0,Oddychające
+1,15.0,30.0,10.0,5,T-shirt,10,Szorty,2.06,T-shirt,Niebieski,Wełna,S,Wieczorowy,1,Niekrępujące ruchu,Szorty,Czerwony,Poliester,XXL,Formalny,0,Oddychające
+1,15.0,30.0,10.0,3,Sweter,6,Szorty,1.96,Sweter,Szary,Skóra,S,Wieczorowy,1,Przeciwdeszczowe,Szorty,Szary,Jeans,M,Sportowy,1,Ocieplane
+1,15.0,30.0,10.0,1,Płaszcz,11,Spódnica,1.88,Płaszcz,Czerwony,Skóra,M,Codzienny,0,Przeciwdeszczowe,Spódnica,Czerwony,Poliester,S,Wieczorowy,0,Brak
+5,15.0,30.0,10.0,54,Bluza,60,Spodnie,1.5,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spodnie,Beżowy,Len,XXL,Wieczorowy,0,Niekrępujące ruchu
+5,15.0,30.0,10.0,58,Kurtka,60,Spodnie,1.38,Kurtka,Czarny,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Beżowy,Len,XXL,Wieczorowy,0,Niekrępujące ruchu
+5,15.0,30.0,10.0,54,Bluza,61,Spódnica,1.2,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spódnica,Beżowy,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+5,15.0,30.0,10.0,54,Bluza,62,Spodnie,1.2,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spodnie,Beżowy,Wełna,L,Sportowy,0,Przeciwdeszczowe
+5,15.0,30.0,10.0,58,Kurtka,59,Szorty,1.08,Kurtka,Czarny,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Szorty,Niebieski,Len,XL,Wieczorowy,0,Szybkoschnące
+10,15.0,30.0,10.0,130,T-shirt,132,Szorty,2.4,T-shirt,Czerwony,Poliester,M,Codzienny,0,Szybkoschnące,Szorty,Czerwony,Poliester,S,Wieczorowy,0,Oddychające
+10,15.0,30.0,10.0,129,Płaszcz,132,Szorty,2.36,Płaszcz,Szary,Poliester,XXL,Codzienny,1,Szybkoschnące,Szorty,Czerwony,Poliester,S,Wieczorowy,0,Oddychające
+10,15.0,30.0,10.0,129,Płaszcz,131,Spódnica,2.26,Płaszcz,Szary,Poliester,XXL,Codzienny,1,Szybkoschnące,Spódnica,Szary,Poliester,XS,Sportowy,0,Niwelujące otarcia
+10,15.0,30.0,10.0,126,Marynarka,132,Szorty,1.76,Marynarka,Czarny,Jeans,M,Sportowy,0,Niekrępujące ruchu,Szorty,Czerwony,Poliester,S,Wieczorowy,0,Oddychające
+10,15.0,30.0,10.0,129,Płaszcz,137,Szorty,1.76,Płaszcz,Szary,Poliester,XXL,Codzienny,1,Szybkoschnące,Szorty,Czarny,Wełna,S,Codzienny,0,Oddychające
+15,15.0,30.0,10.0,196,Sweter,199,Spódnica,2.96,Sweter,Niebieski,Poliester,XL,Wieczorowy,1,Oddychające,Spódnica,Beżowy,Skóra,XS,Codzienny,0,Oddychające
+15,15.0,30.0,10.0,202,Marynarka,199,Spódnica,2.48,Marynarka,Beżowy,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu,Spódnica,Beżowy,Skóra,XS,Codzienny,0,Oddychające
+15,15.0,30.0,10.0,196,Sweter,201,Szorty,2.36,Sweter,Niebieski,Poliester,XL,Wieczorowy,1,Oddychające,Szorty,Beżowy,Poliester,XS,Formalny,0,Przeciwdeszczowe
+15,15.0,30.0,10.0,205,Marynarka,199,Spódnica,2.28,Marynarka,Niebieski,Poliester,L,Sportowy,1,Szybkoschnące,Spódnica,Beżowy,Skóra,XS,Codzienny,0,Oddychające
+15,15.0,30.0,10.0,196,Sweter,197,Szorty,2.14,Sweter,Niebieski,Poliester,XL,Wieczorowy,1,Oddychające,Szorty,Czerwony,Wełna,XL,Sportowy,1,Niwelujące otarcia
+20,15.0,30.0,10.0,272,Kurtka,278,Spódnica,2.1,Kurtka,Zielony,Bawełna,XXL,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,15.0,30.0,10.0,270,Marynarka,279,Spódnica,1.8,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Spódnica,Beżowy,Jeans,L,Codzienny,0,Oddychające
+20,15.0,30.0,10.0,270,Marynarka,280,Szorty,1.8,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Szorty,Beżowy,Skóra,L,Codzienny,0,Przeciwwiatrowe
+20,15.0,30.0,10.0,270,Marynarka,278,Spódnica,1.68,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,15.0,30.0,10.0,274,T-shirt,278,Spódnica,1.68,T-shirt,Czerwony,Poliester,M,Codzienny,0,Brak,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,20.0,40.0,10.0,272,Kurtka,278,Spódnica,2.7,Kurtka,Zielony,Bawełna,XXL,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,20.0,40.0,10.0,270,Marynarka,278,Spódnica,2.28,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,20.0,40.0,10.0,274,T-shirt,278,Spódnica,2.28,T-shirt,Czerwony,Poliester,M,Codzienny,0,Brak,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,20.0,40.0,10.0,270,Marynarka,279,Spódnica,1.8,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Spódnica,Beżowy,Jeans,L,Codzienny,0,Oddychające
+20,20.0,40.0,10.0,270,Marynarka,280,Szorty,1.8,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Szorty,Beżowy,Skóra,L,Codzienny,0,Przeciwwiatrowe
+25,10.0,60.0,10.0,345,Płaszcz,351,Spódnica,3.48,Płaszcz,Niebieski,Len,XXL,Sportowy,0,Oddychające,Spódnica,Biały,Skóra,L,Formalny,0,Przeciwdeszczowe
+25,10.0,60.0,10.0,345,Płaszcz,359,Spódnica,3.48,Płaszcz,Niebieski,Len,XXL,Sportowy,0,Oddychające,Spódnica,Zielony,Skóra,XXL,Wieczorowy,0,Przeciwdeszczowe
+25,10.0,60.0,10.0,347,Marynarka,351,Spódnica,3.45,Marynarka,Czarny,Poliester,XL,Codzienny,0,Przeciwdeszczowe,Spódnica,Biały,Skóra,L,Formalny,0,Przeciwdeszczowe
+25,10.0,60.0,10.0,345,Płaszcz,352,Spodnie,3.26,Płaszcz,Niebieski,Len,XXL,Sportowy,0,Oddychające,Spodnie,Biały,Bawełna,XS,Codzienny,1,Przeciwdeszczowe
+25,10.0,60.0,10.0,347,Marynarka,352,Spodnie,3.23,Marynarka,Czarny,Poliester,XL,Codzienny,0,Przeciwdeszczowe,Spodnie,Biały,Bawełna,XS,Codzienny,1,Przeciwdeszczowe
+25,25.0,20.0,10.0,349,Sweter,357,Spodnie,3.0,Sweter,Biały,Len,M,Codzienny,1,Niekrępujące ruchu,Spodnie,Biały,Skóra,L,Wieczorowy,0,Oddychające
+25,25.0,20.0,10.0,349,Sweter,351,Spódnica,2.4,Sweter,Biały,Len,M,Codzienny,1,Niekrępujące ruchu,Spódnica,Biały,Skóra,L,Formalny,0,Przeciwdeszczowe
+25,25.0,20.0,10.0,346,Marynarka,357,Spodnie,2.28,Marynarka,Szary,Poliester,XXL,Codzienny,0,Niekrępujące ruchu,Spodnie,Biały,Skóra,L,Wieczorowy,0,Oddychające
+25,25.0,20.0,10.0,349,Sweter,356,Spodnie,2.28,Sweter,Biały,Len,M,Codzienny,1,Niekrępujące ruchu,Spodnie,Zielony,Bawełna,M,Codzienny,1,Przeciwwiatrowe
+25,25.0,20.0,10.0,347,Marynarka,357,Spodnie,2.25,Marynarka,Czarny,Poliester,XL,Codzienny,0,Przeciwdeszczowe,Spodnie,Biały,Skóra,L,Wieczorowy,0,Oddychające
+30,18.0,20.0,10.0,411,Bluza,414,Szorty,1.58,Bluza,Czerwony,Poliester,XS,Formalny,0,Oddychające,Szorty,Czerwony,Len,XS,Codzienny,0,Niekrępujące ruchu
+30,18.0,20.0,10.0,409,Płaszcz,418,Spódnica,1.2,Płaszcz,Zielony,Len,S,Wieczorowy,0,Oddychające,Spódnica,Zielony,Len,XXL,Formalny,0,Brak
+30,18.0,20.0,10.0,424,Bluza,415,Spodnie,1.2,Bluza,Beżowy,Len,L,Codzienny,0,Oddychające,Spodnie,Beżowy,Jeans,S,Wieczorowy,0,Szybkoschnące
+30,18.0,20.0,10.0,424,Bluza,416,Szorty,1.2,Bluza,Beżowy,Len,L,Codzienny,0,Oddychające,Szorty,Beżowy,Wełna,XL,Sportowy,0,Brak
+30,18.0,20.0,10.0,409,Płaszcz,414,Szorty,1.16,Płaszcz,Zielony,Len,S,Wieczorowy,0,Oddychające,Szorty,Czerwony,Len,XS,Codzienny,0,Niekrępujące ruchu
+50,15.0,30.0,10.0,726,T-shirt,718,Szorty,2.7,T-shirt,Niebieski,Poliester,XXL,Sportowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,15.0,30.0,10.0,726,T-shirt,720,Szorty,2.33,T-shirt,Niebieski,Poliester,XXL,Sportowy,0,Niekrępujące ruchu,Szorty,Szary,Poliester,XS,Sportowy,1,Przeciwdeszczowe
+50,15.0,30.0,10.0,727,T-shirt,718,Szorty,2.28,T-shirt,Biały,Poliester,XL,Codzienny,1,Brak,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,15.0,30.0,10.0,712,Bluza,718,Szorty,2.25,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,15.0,30.0,10.0,715,Płaszcz,718,Szorty,2.25,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+5,15.0,30.0,10.0,54,Bluza,60,Spodnie,1.58,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spodnie,Beżowy,Len,XXL,Wieczorowy,0,Niekrępujące ruchu
+5,15.0,30.0,10.0,58,Kurtka,60,Spodnie,1.38,Kurtka,Czarny,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Beżowy,Len,XXL,Wieczorowy,0,Niekrępujące ruchu
+5,15.0,30.0,10.0,54,Bluza,61,Spódnica,1.36,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spódnica,Beżowy,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+5,15.0,30.0,10.0,54,Bluza,62,Spodnie,1.36,Bluza,Beżowy,Poliester,M,Codzienny,0,Szybkoschnące,Spodnie,Beżowy,Wełna,L,Sportowy,0,Przeciwdeszczowe
+5,15.0,30.0,10.0,58,Kurtka,61,Spódnica,1.16,Kurtka,Czarny,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Spódnica,Beżowy,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+50,5.0,30.0,10.0,712,Bluza,718,Szorty,3.45,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,30.0,10.0,715,Płaszcz,718,Szorty,3.45,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,30.0,10.0,712,Bluza,720,Szorty,3.38,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Szary,Poliester,XS,Sportowy,1,Przeciwdeszczowe
+50,5.0,30.0,10.0,715,Płaszcz,720,Szorty,3.38,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Szary,Poliester,XS,Sportowy,1,Przeciwdeszczowe
+50,5.0,30.0,10.0,726,T-shirt,718,Szorty,3.3,T-shirt,Niebieski,Poliester,XXL,Sportowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,722,T-shirt,718,Szorty,2.4,T-shirt,Niebieski,Len,XS,Formalny,0,Niwelujące otarcia,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,724,T-shirt,718,Szorty,2.36,T-shirt,Czerwony,Wełna,M,Wieczorowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,712,Bluza,718,Szorty,2.25,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,715,Płaszcz,718,Szorty,2.25,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,712,Bluza,720,Szorty,2.18,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Szary,Poliester,XS,Sportowy,1,Przeciwdeszczowe
+50,5.0,0.0,10.0,722,T-shirt,718,Szorty,2.4,T-shirt,Niebieski,Len,XS,Formalny,0,Niwelujące otarcia,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,724,T-shirt,718,Szorty,2.28,T-shirt,Czerwony,Wełna,M,Wieczorowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,712,Bluza,718,Szorty,2.25,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,715,Płaszcz,718,Szorty,2.25,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,726,T-shirt,718,Szorty,2.18,T-shirt,Niebieski,Poliester,XXL,Sportowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,722,T-shirt,718,Szorty,2.4,T-shirt,Niebieski,Len,XS,Formalny,0,Niwelujące otarcia,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,724,T-shirt,718,Szorty,2.28,T-shirt,Czerwony,Wełna,M,Wieczorowy,0,Niekrępujące ruchu,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,712,Bluza,718,Szorty,2.25,Bluza,Szary,Skóra,XXL,Sportowy,0,Ocieplane,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,715,Płaszcz,718,Szorty,2.25,Płaszcz,Szary,Skóra,S,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Skóra,XXL,Wieczorowy,1,Niekrępujące ruchu
+50,5.0,0.0,10.0,725,T-shirt,719,Spódnica,2.18,T-shirt,Zielony,Jeans,XS,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,XS,Codzienny,0,Niekrępujące ruchu
+20,12.0,80.0,18.0,274,T-shirt,275,Spodnie,3.28,T-shirt,Czerwony,Poliester,M,Codzienny,0,Brak,Spodnie,Beżowy,Wełna,S,Formalny,0,Przeciwdeszczowe
+20,12.0,80.0,18.0,270,Marynarka,275,Spodnie,3.12,Marynarka,Beżowy,Bawełna,M,Wieczorowy,0,Oddychające,Spodnie,Beżowy,Wełna,S,Formalny,0,Przeciwdeszczowe
+20,12.0,80.0,18.0,274,T-shirt,278,Spódnica,2.99,T-shirt,Czerwony,Poliester,M,Codzienny,0,Brak,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,12.0,80.0,18.0,272,Kurtka,278,Spódnica,2.84,Kurtka,Zielony,Bawełna,XXL,Wieczorowy,0,Oddychające,Spódnica,Zielony,Skóra,L,Codzienny,1,Szybkoschnące
+20,12.0,80.0,18.0,271,Płaszcz,275,Spodnie,2.7,Płaszcz,Czarny,Len,XXL,Formalny,0,Niwelujące otarcia,Spodnie,Beżowy,Wełna,S,Formalny,0,Przeciwdeszczowe
+31,12.0,80.0,18.0,437,Kurtka,433,Spodnie,3.7,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Spodnie,Beżowy,Bawełna,M,Codzienny,1,Przeciwwiatrowe
+31,12.0,80.0,18.0,437,Kurtka,436,Szorty,3.4,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Beżowy,Jeans,M,Codzienny,0,Brak
+31,12.0,80.0,18.0,437,Kurtka,442,Szorty,3.27,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Czerwony,Wełna,L,Wieczorowy,1,Niwelujące otarcia
+31,12.0,80.0,18.0,437,Kurtka,435,Szorty,2.98,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Szary,Jeans,L,Wieczorowy,0,Przeciwwiatrowe
+31,12.0,80.0,18.0,437,Kurtka,434,Spodnie,2.97,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Spodnie,Szary,Wełna,M,Sportowy,0,Brak
+31,12.0,80.0,18.0,437,Kurtka,433,Spodnie,3.7,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Spodnie,Beżowy,Bawełna,M,Codzienny,1,Przeciwwiatrowe
+31,12.0,80.0,18.0,437,Kurtka,436,Szorty,3.4,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Beżowy,Jeans,M,Codzienny,0,Brak
+31,12.0,80.0,18.0,437,Kurtka,442,Szorty,3.27,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Czerwony,Wełna,L,Wieczorowy,1,Niwelujące otarcia
+31,12.0,80.0,18.0,437,Kurtka,435,Szorty,2.98,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Szorty,Szary,Jeans,L,Wieczorowy,0,Przeciwwiatrowe
+31,12.0,80.0,18.0,437,Kurtka,434,Spodnie,2.97,Kurtka,Beżowy,Jeans,XS,Formalny,1,Przeciwdeszczowe,Spodnie,Szary,Wełna,M,Sportowy,0,Brak
+13,8.0,80.0,8.0,163,Płaszcz,171,Spodnie,4.19,Płaszcz,Szary,Wełna,XL,Codzienny,0,Przeciwdeszczowe,Spodnie,Niebieski,Poliester,XS,Sportowy,0,Przeciwdeszczowe
+13,8.0,80.0,8.0,162,Marynarka,164,Spodnie,4.04,Marynarka,Zielony,Poliester,XXL,Formalny,1,Ocieplane,Spodnie,Zielony,Poliester,XS,Sportowy,0,Przeciwdeszczowe
+13,8.0,80.0,8.0,162,Marynarka,167,Szorty,4.04,Marynarka,Zielony,Poliester,XXL,Formalny,1,Ocieplane,Szorty,Zielony,Bawełna,XS,Sportowy,0,Przeciwdeszczowe
+13,8.0,80.0,8.0,163,Płaszcz,165,Spódnica,4.01,Płaszcz,Szary,Wełna,XL,Codzienny,0,Przeciwdeszczowe,Spódnica,Szary,Poliester,S,Formalny,1,Brak
+13,8.0,80.0,8.0,163,Płaszcz,164,Spodnie,3.92,Płaszcz,Szary,Wełna,XL,Codzienny,0,Przeciwdeszczowe,Spodnie,Zielony,Poliester,XS,Sportowy,0,Przeciwdeszczowe
+14,8.0,80.0,8.0,184,Płaszcz,183,Spódnica,4.63,Płaszcz,Biały,Jeans,XXL,Formalny,1,Przeciwdeszczowe,Spódnica,Biały,Poliester,M,Formalny,0,Przeciwdeszczowe
+14,8.0,80.0,8.0,186,Koszula,183,Spódnica,4.32,Koszula,Biały,Jeans,S,Codzienny,0,Przeciwdeszczowe,Spódnica,Biały,Poliester,M,Formalny,0,Przeciwdeszczowe
+14,8.0,80.0,8.0,189,T-shirt,183,Spódnica,4.17,T-shirt,Czarny,Skóra,L,Formalny,0,Przeciwdeszczowe,Spódnica,Biały,Poliester,M,Formalny,0,Przeciwdeszczowe
+14,8.0,80.0,8.0,185,Bluza,183,Spódnica,3.9,Bluza,Beżowy,Skóra,M,Formalny,0,Przeciwdeszczowe,Spódnica,Biały,Poliester,M,Formalny,0,Przeciwdeszczowe
+14,8.0,80.0,8.0,184,Płaszcz,179,Spodnie,3.64,Płaszcz,Biały,Jeans,XXL,Formalny,1,Przeciwdeszczowe,Spodnie,Niebieski,Len,XL,Formalny,1,Niekrępujące ruchu
+15,8.0,80.0,8.0,203,Bluza,201,Szorty,4.3,Bluza,Beżowy,Jeans,L,Sportowy,0,Przeciwdeszczowe,Szorty,Beżowy,Poliester,XS,Formalny,0,Przeciwdeszczowe
+15,8.0,80.0,8.0,202,Marynarka,201,Szorty,3.71,Marynarka,Beżowy,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu,Szorty,Beżowy,Poliester,XS,Formalny,0,Przeciwdeszczowe
+15,8.0,80.0,8.0,203,Bluza,199,Spódnica,3.69,Bluza,Beżowy,Jeans,L,Sportowy,0,Przeciwdeszczowe,Spódnica,Beżowy,Skóra,XS,Codzienny,0,Oddychające
+15,8.0,80.0,8.0,205,Marynarka,201,Szorty,3.59,Marynarka,Niebieski,Poliester,L,Sportowy,1,Szybkoschnące,Szorty,Beżowy,Poliester,XS,Formalny,0,Przeciwdeszczowe
+15,8.0,80.0,8.0,196,Sweter,201,Szorty,3.59,Sweter,Niebieski,Poliester,XL,Wieczorowy,1,Oddychające,Szorty,Beżowy,Poliester,XS,Formalny,0,Przeciwdeszczowe
+16,2.0,40.0,8.0,218,Marynarka,214,Spodnie,5.21,Marynarka,Zielony,Jeans,XS,Sportowy,0,Ocieplane,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+16,2.0,40.0,8.0,209,T-shirt,214,Spodnie,4.9,T-shirt,Zielony,Jeans,XL,Codzienny,0,Szybkoschnące,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+16,2.0,40.0,8.0,218,Marynarka,216,Spódnica,4.8,Marynarka,Zielony,Jeans,XS,Sportowy,0,Ocieplane,Spódnica,Czerwony,Skóra,XXL,Sportowy,0,Przeciwdeszczowe
+16,2.0,40.0,8.0,208,Marynarka,216,Spódnica,4.5,Marynarka,Czarny,Wełna,M,Formalny,0,Oddychające,Spódnica,Czerwony,Skóra,XXL,Sportowy,0,Przeciwdeszczowe
+16,2.0,40.0,8.0,221,Marynarka,216,Spódnica,4.5,Marynarka,Czarny,Wełna,XS,Sportowy,0,Niwelujące otarcia,Spódnica,Czerwony,Skóra,XXL,Sportowy,0,Przeciwdeszczowe
+16,22.0,40.0,8.0,209,T-shirt,214,Spodnie,1.9,T-shirt,Zielony,Jeans,XL,Codzienny,0,Szybkoschnące,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+16,22.0,40.0,8.0,211,T-shirt,215,Szorty,1.74,T-shirt,Szary,Bawełna,M,Formalny,0,Przeciwdeszczowe,Szorty,Niebieski,Jeans,XL,Codzienny,0,Szybkoschnące
+16,22.0,40.0,8.0,209,T-shirt,213,Spódnica,1.5,T-shirt,Zielony,Jeans,XL,Codzienny,0,Szybkoschnące,Spódnica,Biały,Bawełna,XS,Wieczorowy,0,Przeciwdeszczowe
+16,22.0,40.0,8.0,209,T-shirt,216,Spódnica,1.49,T-shirt,Zielony,Jeans,XL,Codzienny,0,Szybkoschnące,Spódnica,Czerwony,Skóra,XXL,Sportowy,0,Przeciwdeszczowe
+16,22.0,40.0,8.0,211,T-shirt,213,Spódnica,1.49,T-shirt,Szary,Bawełna,M,Formalny,0,Przeciwdeszczowe,Spódnica,Biały,Bawełna,XS,Wieczorowy,0,Przeciwdeszczowe
+16,12.0,0.0,80.0,210,Płaszcz,214,Spodnie,2.67,Płaszcz,Biały,Poliester,XXL,Sportowy,0,Niwelujące otarcia,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+16,12.0,0.0,80.0,210,Płaszcz,217,Spódnica,2.66,Płaszcz,Biały,Poliester,XXL,Sportowy,0,Niwelujące otarcia,Spódnica,Czarny,Bawełna,S,Codzienny,1,Brak
+16,12.0,0.0,80.0,210,Płaszcz,213,Spódnica,2.51,Płaszcz,Biały,Poliester,XXL,Sportowy,0,Niwelujące otarcia,Spódnica,Biały,Bawełna,XS,Wieczorowy,0,Przeciwdeszczowe
+16,12.0,0.0,80.0,218,Marynarka,214,Spodnie,2.51,Marynarka,Zielony,Jeans,XS,Sportowy,0,Ocieplane,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+16,12.0,0.0,80.0,209,T-shirt,214,Spodnie,2.5,T-shirt,Zielony,Jeans,XL,Codzienny,0,Szybkoschnące,Spodnie,Zielony,Skóra,M,Formalny,1,Niekrępujące ruchu
+26,23.0,0.0,20.0,364,Płaszcz,370,Szorty,1.05,Płaszcz,Czerwony,Poliester,M,Sportowy,0,Przeciwdeszczowe,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,23.0,0.0,20.0,363,Marynarka,370,Szorty,1.03,Marynarka,Czerwony,Len,M,Formalny,0,Niwelujące otarcia,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,23.0,0.0,20.0,362,T-shirt,370,Szorty,0.94,T-shirt,Biały,Bawełna,S,Formalny,1,Przeciwdeszczowe,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,23.0,0.0,20.0,362,T-shirt,367,Spodnie,0.93,T-shirt,Biały,Bawełna,S,Formalny,1,Przeciwdeszczowe,Spodnie,Zielony,Wełna,S,Formalny,1,Ocieplane
+26,23.0,0.0,20.0,364,Płaszcz,366,Szorty,0.73,Płaszcz,Czerwony,Poliester,M,Sportowy,0,Przeciwdeszczowe,Szorty,Czerwony,Jeans,L,Wieczorowy,0,Oddychające
+26,13.0,0.0,20.0,364,Płaszcz,370,Szorty,2.25,Płaszcz,Czerwony,Poliester,M,Sportowy,0,Przeciwdeszczowe,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,13.0,0.0,20.0,363,Marynarka,370,Szorty,2.23,Marynarka,Czerwony,Len,M,Formalny,0,Niwelujące otarcia,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,13.0,0.0,20.0,362,T-shirt,370,Szorty,2.14,T-shirt,Biały,Bawełna,S,Formalny,1,Przeciwdeszczowe,Szorty,Czerwony,Skóra,XL,Formalny,0,Niekrępujące ruchu
+26,13.0,0.0,20.0,362,T-shirt,367,Spodnie,2.13,T-shirt,Biały,Bawełna,S,Formalny,1,Przeciwdeszczowe,Spodnie,Zielony,Wełna,S,Formalny,1,Ocieplane
+26,13.0,0.0,20.0,364,Płaszcz,366,Szorty,1.93,Płaszcz,Czerwony,Poliester,M,Sportowy,0,Przeciwdeszczowe,Szorty,Czerwony,Jeans,L,Wieczorowy,0,Oddychające
+36,3.0,15.0,20.0,505,Kurtka,509,Szorty,5.08,Kurtka,Niebieski,Wełna,M,Wieczorowy,0,Brak,Szorty,Szary,Wełna,XXL,Sportowy,0,Ocieplane
+36,3.0,15.0,20.0,506,Bluza,509,Szorty,4.79,Bluza,Zielony,Skóra,M,Formalny,0,Brak,Szorty,Szary,Wełna,XXL,Sportowy,0,Ocieplane
+36,3.0,15.0,20.0,513,Marynarka,509,Szorty,4.51,Marynarka,Beżowy,Jeans,XXL,Wieczorowy,0,Niekrępujące ruchu,Szorty,Szary,Wełna,XXL,Sportowy,0,Ocieplane
+36,3.0,15.0,20.0,504,Płaszcz,509,Szorty,4.51,Płaszcz,Biały,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Szorty,Szary,Wełna,XXL,Sportowy,0,Ocieplane
+36,3.0,15.0,20.0,505,Kurtka,508,Szorty,4.22,Kurtka,Niebieski,Wełna,M,Wieczorowy,0,Brak,Szorty,Czarny,Skóra,L,Sportowy,0,Niekrępujące ruchu
+36,30.0,0.0,20.0,504,Płaszcz,514,Spodnie,2.68,Płaszcz,Biały,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Czarny,Len,XXL,Formalny,1,Niekrępujące ruchu
+36,30.0,0.0,20.0,507,T-shirt,514,Spodnie,2.11,T-shirt,Beżowy,Poliester,S,Wieczorowy,0,Przeciwdeszczowe,Spodnie,Czarny,Len,XXL,Formalny,1,Niekrępujące ruchu
+36,30.0,0.0,20.0,503,Marynarka,514,Spodnie,2.09,Marynarka,Czerwony,Bawełna,XS,Sportowy,0,Brak,Spodnie,Czarny,Len,XXL,Formalny,1,Niekrępujące ruchu
+36,30.0,0.0,20.0,504,Płaszcz,511,Spodnie,1.95,Płaszcz,Biały,Poliester,XXL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Biały,Jeans,XS,Sportowy,1,Przeciwdeszczowe
+36,30.0,0.0,20.0,513,Marynarka,514,Spodnie,1.81,Marynarka,Beżowy,Jeans,XXL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Czarny,Len,XXL,Formalny,1,Niekrępujące ruchu
+38,27.0,0.0,20.0,549,Bluza,542,Szorty,2.93,Bluza,Szary,Poliester,XXL,Sportowy,0,Oddychające,Szorty,Niebieski,Len,XXL,Codzienny,0,Szybkoschnące
+38,27.0,0.0,20.0,544,Marynarka,541,Spódnica,2.81,Marynarka,Czerwony,Len,M,Codzienny,0,Szybkoschnące,Spódnica,Czerwony,Poliester,L,Wieczorowy,1,Niwelujące otarcia
+38,27.0,0.0,20.0,534,Kurtka,542,Szorty,2.68,Kurtka,Biały,Len,L,Sportowy,0,Szybkoschnące,Szorty,Niebieski,Len,XXL,Codzienny,0,Szybkoschnące
+38,27.0,0.0,20.0,544,Marynarka,542,Szorty,2.66,Marynarka,Czerwony,Len,M,Codzienny,0,Szybkoschnące,Szorty,Niebieski,Len,XXL,Codzienny,0,Szybkoschnące
+38,27.0,0.0,20.0,534,Kurtka,546,Spódnica,2.54,Kurtka,Biały,Len,L,Sportowy,0,Szybkoschnące,Spódnica,Biały,Poliester,XL,Wieczorowy,0,Brak
+39,27.0,0.0,20.0,558,Marynarka,562,Spódnica,2.69,Marynarka,Czarny,Len,XL,Wieczorowy,0,Niekrępujące ruchu,Spódnica,Biały,Bawełna,XL,Codzienny,0,Szybkoschnące
+39,27.0,0.0,20.0,558,Marynarka,561,Spodnie,2.53,Marynarka,Czarny,Len,XL,Wieczorowy,0,Niekrępujące ruchu,Spodnie,Czarny,Len,XS,Wieczorowy,1,Przeciwdeszczowe
+39,27.0,0.0,20.0,554,Bluza,562,Spódnica,2.41,Bluza,Szary,Len,L,Codzienny,1,Przeciwdeszczowe,Spódnica,Biały,Bawełna,XL,Codzienny,0,Szybkoschnące
+39,27.0,0.0,20.0,554,Bluza,563,Spodnie,2.22,Bluza,Szary,Len,L,Codzienny,1,Przeciwdeszczowe,Spodnie,Szary,Wełna,M,Sportowy,0,Oddychające
+39,27.0,0.0,20.0,557,T-shirt,562,Spódnica,2.12,T-shirt,Niebieski,Len,S,Codzienny,0,Ocieplane,Spódnica,Biały,Bawełna,XL,Codzienny,0,Szybkoschnące
+40,22.0,55.0,30.0,567,Kurtka,570,Spódnica,3.13,Kurtka,Czarny,Skóra,XS,Wieczorowy,0,Przeciwwiatrowe,Spódnica,Czarny,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+40,22.0,55.0,30.0,567,Kurtka,573,Spodnie,2.69,Kurtka,Czarny,Skóra,XS,Wieczorowy,0,Przeciwwiatrowe,Spodnie,Czerwony,Poliester,XL,Wieczorowy,0,Przeciwwiatrowe
+40,22.0,55.0,30.0,564,Bluza,572,Spódnica,2.55,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Zielony,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu
+40,22.0,55.0,30.0,564,Bluza,570,Spódnica,2.44,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Czarny,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+40,22.0,55.0,30.0,564,Bluza,573,Spodnie,2.42,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spodnie,Czerwony,Poliester,XL,Wieczorowy,0,Przeciwwiatrowe
+40,14.0,55.0,30.0,567,Kurtka,570,Spódnica,4.33,Kurtka,Czarny,Skóra,XS,Wieczorowy,0,Przeciwwiatrowe,Spódnica,Czarny,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+40,14.0,55.0,30.0,567,Kurtka,573,Spodnie,3.89,Kurtka,Czarny,Skóra,XS,Wieczorowy,0,Przeciwwiatrowe,Spodnie,Czerwony,Poliester,XL,Wieczorowy,0,Przeciwwiatrowe
+40,14.0,55.0,30.0,564,Bluza,572,Spódnica,3.75,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Zielony,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu
+40,14.0,55.0,30.0,564,Bluza,570,Spódnica,3.64,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Czarny,Len,XL,Wieczorowy,0,Przeciwwiatrowe
+40,14.0,55.0,30.0,564,Bluza,573,Spodnie,3.62,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spodnie,Czerwony,Poliester,XL,Wieczorowy,0,Przeciwwiatrowe
+40,14.0,55.0,0.0,564,Bluza,572,Spódnica,3.15,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Zielony,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu
+40,14.0,55.0,0.0,568,Sweter,572,Spódnica,3.14,Sweter,Zielony,Wełna,L,Sportowy,0,Szybkoschnące,Spódnica,Zielony,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu
+40,14.0,55.0,0.0,564,Bluza,569,Spódnica,2.72,Bluza,Zielony,Len,XL,Codzienny,0,Szybkoschnące,Spódnica,Beżowy,Poliester,XL,Formalny,0,Przeciwdeszczowe
+40,14.0,55.0,0.0,565,T-shirt,572,Spódnica,2.72,T-shirt,Czarny,Bawełna,S,Codzienny,1,Niekrępujące ruchu,Spódnica,Zielony,Bawełna,M,Wieczorowy,1,Niekrępujące ruchu
+40,14.0,55.0,0.0,565,T-shirt,569,Spódnica,2.7,T-shirt,Czarny,Bawełna,S,Codzienny,1,Niekrępujące ruchu,Spódnica,Beżowy,Poliester,XL,Formalny,0,Przeciwdeszczowe
+41,16.0,45.0,3.0,586,Bluza,584,Spodnie,1.62,Bluza,Niebieski,Bawełna,XL,Codzienny,0,Szybkoschnące,Spodnie,Niebieski,Len,XS,Sportowy,1,Brak
+41,16.0,45.0,3.0,577,Sweter,584,Spodnie,1.45,Sweter,Szary,Len,L,Formalny,0,Szybkoschnące,Spodnie,Niebieski,Len,XS,Sportowy,1,Brak
+41,16.0,45.0,3.0,577,Sweter,580,Spódnica,1.3,Sweter,Szary,Len,L,Formalny,0,Szybkoschnące,Spódnica,Szary,Len,XXL,Formalny,0,Ocieplane
+41,16.0,45.0,3.0,586,Bluza,583,Spódnica,1.22,Bluza,Niebieski,Bawełna,XL,Codzienny,0,Szybkoschnące,Spódnica,Biały,Wełna,XL,Formalny,0,Niekrępujące ruchu
+41,16.0,45.0,3.0,577,Sweter,583,Spódnica,1.2,Sweter,Szary,Len,L,Formalny,0,Szybkoschnące,Spódnica,Biały,Wełna,XL,Formalny,0,Niekrępujące ruchu
+41,26.0,5.0,0.0,586,Bluza,584,Spodnie,2.82,Bluza,Niebieski,Bawełna,XL,Codzienny,0,Szybkoschnące,Spodnie,Niebieski,Len,XS,Sportowy,1,Brak
+41,26.0,5.0,0.0,575,Marynarka,581,Spódnica,2.72,Marynarka,Szary,Bawełna,XS,Codzienny,0,Oddychające,Spódnica,Beżowy,Poliester,S,Sportowy,0,Oddychające
+41,26.0,5.0,0.0,586,Bluza,581,Spódnica,2.7,Bluza,Niebieski,Bawełna,XL,Codzienny,0,Szybkoschnące,Spódnica,Beżowy,Poliester,S,Sportowy,0,Oddychające
+41,26.0,5.0,0.0,589,Koszula,581,Spódnica,2.7,Koszula,Czarny,Bawełna,M,Wieczorowy,0,Oddychające,Spódnica,Beżowy,Poliester,S,Sportowy,0,Oddychające
+41,26.0,5.0,0.0,575,Marynarka,584,Spodnie,2.69,Marynarka,Szary,Bawełna,XS,Codzienny,0,Oddychające,Spodnie,Niebieski,Len,XS,Sportowy,1,Brak
+42,23.0,30.0,0.0,593,Sweter,599,Spódnica,1.2,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spódnica,Czarny,Jeans,L,Codzienny,0,Niekrępujące ruchu
+42,23.0,30.0,0.0,593,Sweter,602,Spódnica,1.19,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spódnica,Biały,Poliester,XXL,Codzienny,1,Ocieplane
+42,23.0,30.0,0.0,593,Sweter,597,Spodnie,1.13,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spodnie,Szary,Bawełna,XL,Wieczorowy,0,Oddychające
+42,23.0,30.0,0.0,603,Marynarka,599,Spódnica,1.04,Marynarka,Czarny,Poliester,L,Codzienny,0,Szybkoschnące,Spódnica,Czarny,Jeans,L,Codzienny,0,Niekrępujące ruchu
+42,23.0,30.0,0.0,595,Kurtka,600,Spódnica,1.02,Kurtka,Beżowy,Wełna,S,Sportowy,1,Przeciwdeszczowe,Spódnica,Beżowy,Jeans,M,Formalny,0,Szybkoschnące
+42,23.0,60.0,0.0,595,Kurtka,600,Spódnica,2.22,Kurtka,Beżowy,Wełna,S,Sportowy,1,Przeciwdeszczowe,Spódnica,Beżowy,Jeans,M,Formalny,0,Szybkoschnące
+42,23.0,60.0,0.0,595,Kurtka,596,Spodnie,1.79,Kurtka,Beżowy,Wełna,S,Sportowy,1,Przeciwdeszczowe,Spodnie,Biały,Len,XXL,Sportowy,0,Szybkoschnące
+42,23.0,60.0,0.0,603,Marynarka,596,Spodnie,1.77,Marynarka,Czarny,Poliester,L,Codzienny,0,Szybkoschnące,Spodnie,Biały,Len,XXL,Sportowy,0,Szybkoschnące
+42,23.0,60.0,0.0,603,Marynarka,599,Spódnica,1.64,Marynarka,Czarny,Poliester,L,Codzienny,0,Szybkoschnące,Spódnica,Czarny,Jeans,L,Codzienny,0,Niekrępujące ruchu
+42,23.0,60.0,0.0,604,Płaszcz,600,Spódnica,1.51,Płaszcz,Niebieski,Wełna,S,Codzienny,0,Przeciwdeszczowe,Spódnica,Beżowy,Jeans,M,Formalny,0,Szybkoschnące
+42,13.0,30.0,0.0,593,Sweter,599,Spódnica,2.4,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spódnica,Czarny,Jeans,L,Codzienny,0,Niekrępujące ruchu
+42,13.0,30.0,0.0,593,Sweter,602,Spódnica,2.39,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spódnica,Biały,Poliester,XXL,Codzienny,1,Ocieplane
+42,13.0,30.0,0.0,593,Sweter,597,Spodnie,2.33,Sweter,Niebieski,Len,M,Formalny,1,Niekrępujące ruchu,Spodnie,Szary,Bawełna,XL,Wieczorowy,0,Oddychające
+42,13.0,30.0,0.0,603,Marynarka,599,Spódnica,2.24,Marynarka,Czarny,Poliester,L,Codzienny,0,Szybkoschnące,Spódnica,Czarny,Jeans,L,Codzienny,0,Niekrępujące ruchu
+42,13.0,30.0,0.0,595,Kurtka,600,Spódnica,2.22,Kurtka,Beżowy,Wełna,S,Sportowy,1,Przeciwdeszczowe,Spódnica,Beżowy,Jeans,M,Formalny,0,Szybkoschnące
+44,7.0,10.0,0.0,627,Płaszcz,629,Spodnie,2.22,Płaszcz,Zielony,Wełna,XXL,Wieczorowy,0,Ocieplane,Spodnie,Zielony,Skóra,XS,Wieczorowy,0,Niekrępujące ruchu
+44,7.0,10.0,0.0,625,Kurtka,631,Spódnica,2.2,Kurtka,Czarny,Len,S,Sportowy,1,Szybkoschnące,Spódnica,Czarny,Bawełna,XL,Sportowy,0,Brak
+44,7.0,10.0,0.0,635,Płaszcz,629,Spodnie,2.13,Płaszcz,Niebieski,Jeans,XS,Formalny,0,Niekrępujące ruchu,Spodnie,Zielony,Skóra,XS,Wieczorowy,0,Niekrępujące ruchu
+44,7.0,10.0,0.0,634,Płaszcz,629,Spodnie,2.12,Płaszcz,Szary,Bawełna,XXL,Formalny,1,Szybkoschnące,Spodnie,Zielony,Skóra,XS,Wieczorowy,0,Niekrępujące ruchu
+44,7.0,10.0,0.0,625,Kurtka,629,Spodnie,2.1,Kurtka,Czarny,Len,S,Sportowy,1,Szybkoschnące,Spodnie,Zielony,Skóra,XS,Wieczorowy,0,Niekrępujące ruchu
+44,7.0,10.0,30.0,635,Płaszcz,633,Szorty,3.31,Płaszcz,Niebieski,Jeans,XS,Formalny,0,Niekrępujące ruchu,Szorty,Beżowy,Bawełna,XS,Codzienny,0,Przeciwwiatrowe
+44,7.0,10.0,30.0,634,Płaszcz,633,Szorty,3.3,Płaszcz,Szary,Bawełna,XXL,Formalny,1,Szybkoschnące,Szorty,Beżowy,Bawełna,XS,Codzienny,0,Przeciwwiatrowe
+44,7.0,10.0,30.0,625,Kurtka,633,Szorty,3.27,Kurtka,Czarny,Len,S,Sportowy,1,Szybkoschnące,Szorty,Beżowy,Bawełna,XS,Codzienny,0,Przeciwwiatrowe
+44,7.0,10.0,30.0,628,Płaszcz,633,Szorty,3.01,Płaszcz,Niebieski,Jeans,XXL,Codzienny,0,Oddychające,Szorty,Beżowy,Bawełna,XS,Codzienny,0,Przeciwwiatrowe
+44,7.0,10.0,30.0,624,Bluza,633,Szorty,3.0,Bluza,Niebieski,Skóra,S,Formalny,0,Szybkoschnące,Szorty,Beżowy,Bawełna,XS,Codzienny,0,Przeciwwiatrowe

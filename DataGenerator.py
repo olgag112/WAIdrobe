@@ -4,17 +4,17 @@ import numpy as np
 import argparse
 
 # Define categories for tops and bottoms
-TOP_TYPES = ["T-shirt", "Bluza", "Sweter", "Koszula", "Marynarka", "Kurtka", "Płaszcz"]
-BOTTOM_TYPES = ["Spodnie", "Szorty", "Spódnica"]
-ALL_TYPES = TOP_TYPES + BOTTOM_TYPES + ["Sukienka"]
+TOP_TYPES = ["Coat", "Sweater", "Shirt", "T-shirt","Sweatshirt","Jacket","Blazer"]
+BOTTOM_TYPES = ["Skirt", "Trousers", "Shorts"] #dwa razy bylo skirt
+ALL_TYPES = TOP_TYPES + BOTTOM_TYPES + ["Dress"]
 
-COLORS = ["Biały", "Czarny", "Niebieski", "Czerwony", "Zielony", "Szary", "Beżowy"]
-MATERIALS = ["Bawełna", "Poliester", "Wełna", "Len", "Skóra", "Jeans"]
+COLORS = ["White", "Black", "Blue", "Red", "Green", "Gray", "Beige"]
+MATERIALS = ["Cotton", "Polyester", "Wool", "Linen", "Leather", "Jeans"]
 SIZES = ["XS", "S", "M", "L", "XL", "XXL"]
-SEASONS = ["Lato", "Zima", "Całoroczne", "Wiosna/Jesień"]
-STYLES = ["Codzienny", "Formalny", "Sportowy", "Wieczorowy"]
-SPECIAL = ["Ocieplane", "Przeciwdeszczowe", "Przeciwwiatrowe", "Szybkoschnące",
-           "Niwelujące otarcia", "Oddychające", "Niekrępujące ruchu", "Brak"]
+SEASONS = ["Summer", "Winter", "All-year", "Spring/Autumn"]
+STYLES = ["Casual", "Formal", "Sporty", "Evening"]
+SPECIAL = ["Insulated", "Waterproof", "Windproof", "Quick-drying",  # insulated = quilted
+           "Anti-chafing", "Breathable", "Non-restrictive", "None"]
 
 
 def generate_synthetic_data(num_users, min_tops, min_bottoms, min_others, seed=42):
@@ -29,7 +29,7 @@ def generate_synthetic_data(num_users, min_tops, min_bottoms, min_others, seed=4
             records.append(_make_item(user_id, item_id, BOTTOM_TYPES)); item_id += 1
         # Optional others
         for _ in range(min_others):
-            records.append(_make_item(user_id, item_id, ["Sukienka"])); item_id += 1
+            records.append(_make_item(user_id, item_id, ["Dress"])); item_id += 1
         # Extra random items
         extra = np.random.randint(0, min_tops + min_bottoms + 1)
         for _ in range(extra):
