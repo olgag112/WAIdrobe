@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import argparse
 from sklearn.metrics.pairwise import cosine_similarity
-from DataGenerator import TOP_TYPES, BOTTOM_TYPES
+from DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
 import csv
 
 class OutfitPairRecommender:
@@ -19,13 +19,10 @@ class OutfitPairRecommender:
         if c1 == c2:
             return 1.0
         pairs = {('Black', 'White'), ('White', 'Black'), ('Blue', 'Gray'), ('Gray', 'Blue')}
-        return 0.75 if (c1,c2) in pairs else 0.3
+        return 0.75 if (c1, c2) in pairs or (c2, c1) in pairs else 0.3
 
     def rule_score(self, row, weather):
-        """
-        Compute rule-based score given an item row and weather dict.
-        Keys in weather: 'temperature', 'rain_chance', 'wind_speed'.
-        """
+        """Rule-based score given weather conditions."""
         score = 0.0
         temp = weather.get('temperature', 20)
         rain = weather.get('rain_chance', 0)
@@ -69,19 +66,20 @@ class OutfitPairRecommender:
         if row.get('favorite', 0) == 1:
             score += 0.5
 
+        # --- Extra bonus for wool outerwear if cold ---
+        if temp < 10 and row['type'] in ['Jacket', 'Coat'] and row['material'] == 'Wool':
+            score += 2
+
         return round(score, 2)
 
     def recommend_pairs(self, user_id, weather, top_k=5):
-        # Filtrowanie ubrań użytkownika i natychmiastowe tworzenie kopii
         user = self.df[self.df['user_id'] == user_id].copy()
         tops = user[user['type'].isin(TOP_TYPES)].copy()
         bottoms = user[user['type'].isin(BOTTOM_TYPES)].copy()
+        outers = user[user['type'].isin(TOP_OUTER_TYPES)].copy()
 
-        # Stworzenie wektora pogodowego dla content-based
-       # weather_vec = np.array([1 if c == f'season_{weather["season"]}' else 0 for c in self.feature_cols])
-
-        # Precompute rule i content scores
-        for df_ in (tops, bottoms):
+        # Precompute rule + content scores
+        for df_ in (tops, bottoms, outers):
             df_['rule'] = df_.apply(lambda r: self.rule_score(r, weather), axis=1)
             if df_.shape[0] > 1 and len(self.feature_cols) > 0:
                 sim = cosine_similarity(df_[self.feature_cols])
@@ -89,19 +87,42 @@ class OutfitPairRecommender:
             else:
                 df_['content'] = 0.5
 
-        # Tworzenie par
-        pairs = []
-        for _, t in tops.iterrows():
-            for _, b in bottoms.iterrows():
-                cs = self.color_compat(t['color'], b['color'])
-                rule_score_total = t['rule'] + b['rule'] + cs
-                content_score_total = (t['content'] + b['content']) / 2
-                total_score = self.rule_weight * rule_score_total + (1 - self.rule_weight) * content_score_total
-                pairs.append((t['item_id'], t['type'], b['item_id'], b['type'], total_score))
+        temp = weather.get('temperature', 20)
+        outfits = []
 
-        # Sortowanie i zwrócenie top_k
-        pairs = sorted(pairs, key=lambda x: x[4], reverse=True)[:top_k]
-        return pairs
+        if temp < 15:
+            bottoms = bottoms[~bottoms['type'].isin(['Skirt', 'Shorts'])]
+
+        # --- If temperature < 18°C → use 3-part outfit ---
+        if temp < 18 and len(outers) > 0:
+            for _, outer in outers.iterrows():
+                for _, top in tops.iterrows():
+                    for _, bottom in bottoms.iterrows():
+                        cs = (
+                            self.color_compat(outer['color'], top['color'])
+                            + self.color_compat(top['color'], bottom['color'])
+                        ) / 2
+                        rule_score_total = outer['rule'] + top['rule'] + bottom['rule'] + cs
+                        content_score_total = (outer['content'] + top['content'] + bottom['content']) / 3
+                        total = self.rule_weight * rule_score_total + (1 - self.rule_weight) * content_score_total
+                        outfits.append((outer['item_id'], outer['type'],
+                                        top['item_id'], top['type'],
+                                        bottom['item_id'], bottom['type'],
+                                        total))
+        else:
+            # --- Warm weather → classic top + bottom ---
+            for _, top in tops.iterrows():
+                for _, bottom in bottoms.iterrows():
+                    cs = self.color_compat(top['color'], bottom['color'])
+                    rule_score_total = top['rule'] + bottom['rule'] + cs
+                    content_score_total = (top['content'] + bottom['content']) / 2
+                    total = self.rule_weight * rule_score_total + (1 - self.rule_weight) * content_score_total
+                    outfits.append((None, None, top['item_id'], top['type'],
+                                    bottom['item_id'], bottom['type'],
+                                    total))
+
+        outfits = sorted(outfits, key=lambda x: x[-1], reverse=True)[:top_k]
+        return outfits
 
 
 def main():
@@ -123,31 +144,33 @@ def main():
         'wind_speed': args.wind
     }
 
-    pairs = rec.recommend_pairs(args.user_id, weather, top_k=args.top_k)
+    outfits = rec.recommend_pairs(args.user_id, weather, top_k=args.top_k)
 
-    if not pairs:
+    if not outfits:
         print("No sufficient clothing items to create an outfit.")
     else:
-        threshold = 0.5
-        if all(score < threshold for _, _, _, _, score in pairs):
-            print("No well-matched outfits found.\n"
-                  "Consider adding more items to your wardrobe.\n"
-                  "If you already have enough, maybe it’s time to go shopping :)")
-        else:
-            for i, (tid, tname, bid, bname, sc) in enumerate(pairs, 1):
-                print(f"Outfit {i}: Top -> [ID {tid}: {tname}], Bottom -> [ID {bid}: {bname}] (score: {sc:.2f})")
+        for i, outfit in enumerate(outfits, 1):
+            outer_id, outer_type, top_id, top_type, bottom_id, bottom_type, score = outfit
+            if outer_id:
+                print(f"Outfit {i}: Outer -> [ID {outer_id}: {outer_type}], "
+                      f"Top -> [ID {top_id}: {top_type}], Bottom -> [ID {bottom_id}: {bottom_type}] "
+                      f"(score: {score:.2f})")
+            else:
+                print(f"Outfit {i}: Top -> [ID {top_id}: {top_type}], "
+                      f"Bottom -> [ID {bottom_id}: {bottom_type}] "
+                      f"(score: {score:.2f})")
 
-        # Save recommendations to CSV
-        output_filename = 'recs.csv'
+        # Save to CSV
+        output_filename = 'recs_topOuter.csv'
         file_exists = os.path.exists(output_filename)
         with open(output_filename, mode='a', newline='', encoding='utf-8') as f:
             writer = csv.writer(f)
             if not file_exists:
                 writer.writerow(['user_id', 'temperature', 'rain_chance', 'wind_speed',
-                                 'top_id', 'top_name', 'bottom_id', 'bottom_name', 'score'])
-            for tid, tname, bid, bname, score in pairs:
-                writer.writerow([args.user_id, args.temperature, args.rain, args.wind,
-                                 tid, tname, bid, bname, round(score, 2)])
+                                 'outer_id', 'outer_type', 'top_id', 'top_type',
+                                 'bottom_id', 'bottom_type', 'score'])
+            for row in outfits:
+                writer.writerow([args.user_id, args.temperature, args.rain, args.wind] + list(row))
 
         print(f"\nRecommendations saved to: {output_filename}")
 
