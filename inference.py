@@ -45,11 +45,11 @@ def prepare_features(row_top, row_bottom, row_outer, weather, dataset):
     cat = torch.tensor([cat_vals], dtype=torch.long)
     return cat, num_data
 
+# tutaj trzeba ogarnac to user_id, czy jesli wychodzi request od konkretnego usera
+# to czy faktycznie potrzebujemy to user_id, imo nie ale moze ten react jakos tak dziala
+def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
-def recommend_outfits(model, dataset, wardrobe_path, user_id, weather, top_k=5):
-    wardrobe = pd.read_csv(wardrobe_path)
-
-    wardrobe = wardrobe[wardrobe["user_id"] == user_id]
+    wardrobe = wardrobe_df[wardrobe_df["user_id"] == user_id]
 
     if wardrobe.empty:
         print(f"No wardrobe items found for user {user_id}.")

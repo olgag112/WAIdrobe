@@ -1,84 +1,40 @@
+# backend.py
+from fastapi import FastAPI
+from pydantic import BaseModel
+from typing import List, Optional
 import torch
-import itertools
 import pandas as pd
-from model import RecommenderNet
-from dataset import FashionDataset
+from inference import load_model, recommend_outfits
 
-def prepare_features(row_top, row_bottom, row_outer, weather, dataset):
+app = FastAPI()
 
-    record = {
-        **{f"top_{c}": row_top[c] for c in ["type", "color", "material", "size", "style", "special_property"]},
-        **{f"bottom_{c}": row_bottom[c] for c in ["type", "color", "material", "size", "style", "special_property"]},
-    }
+model, dataset = load_model("model_fine_tuned_topOuter.pth", "training_topOuter3.csv")
 
-    if row_outer is not None:
-        record.update({
-            **{f"outer_{c}": row_outer[c] for c in ["type", "color", "material", "size", "style", "special_property"]}
-        })
-    else:
-        # Fill outer with 'missing'
-        for col in ["outer_type", "outer_color", "outer_material", "outer_size", "outer_style", "outer_special_property"]:
-            record[col] = "missing"
-
-    num_data = torch.tensor([[weather["temperature"], weather["rain"], weather["wind"],
-                              row_top["favorite"], row_bottom["favorite"]]], dtype=torch.float32)
-
-    cat_vals = []
-    for col in dataset.cat_features:
-        le = dataset.encoders[col]
-        val = record.get(col, "missing")
-        if val not in le.classes_:
-            val = "missing"
-        cat_vals.append(le.transform([val])[0])
-
-    cat = torch.tensor([cat_vals], dtype=torch.long)
-    return cat, num_data
+class Item(BaseModel):
+    id: int
+    type: str
+    color: str
+    material: str
+    size: str
+    style: str
+    favorite: int
+    special_property: str
 
 
-def recommend_outfits(model, dataset, wardrobe_df, weather, top_k=5):
-    # tutaj trzeba sie upewnic ze z frontu sciagane sa poprawne nazwy rzeczy
-    tops = wardrobe_df[wardrobe_df["type"].str.lower().isin(["Sweater", "Shirt", "T-shirt","Sweatshirt","Blazer"])]
-    bottoms = wardrobe_df[wardrobe_df["type"].str.lower().isin(["Skirt", "Trousers", "Shorts"])]
-    outers = wardrobe_df[wardrobe_df["type"].str.lower().isin(["Coat","Jacket"])]
+class RecommendRequest(BaseModel):
+    wardrobe: List[Item]
+    temperature: float
+    rain: float
+    wind: float
+    top_k: Optional[int] = 5
 
-    outfit_candidates = []
 
-    temp = weather["temperature"]
-    if temp < 18 and not outers.empty:
-        combos = itertools.product(outers.iterrows(), tops.iterrows(), bottoms.iterrows())
-        for (_, outer), (_, top), (_, bottom) in combos:
-            cat, num = prepare_features(top, bottom, outer, weather, dataset)
-            with torch.no_grad():
-                score = model(cat, num).item()
-            outfit_candidates.append({
-                "outer_id": outer["item_id"],
-                "top_id": top["item_id"],
-                "bottom_id": bottom["item_id"],
-                "score": score
-            })
-    else:
-        combos = itertools.product(tops.iterrows(), bottoms.iterrows())
-        for (_, top), (_, bottom) in combos:
-            cat, num = prepare_features(top, bottom, None, weather, dataset)
-            with torch.no_grad():
-                score = model(cat, num).item()
-            outfit_candidates.append({
-                "outer_id": None,
-                "top_id": top["item_id"],
-                "bottom_id": bottom["item_id"],
-                "score": score
-            })
+@app.post("/recommend")
+def recommend(req: RecommendRequest):
+    # Convert to DataFrame like your inference expects
+    wardrobe_df = pd.DataFrame([item.dict() for item in req.wardrobe])
+    wardrobe_df["user_id"] = 1  # single user
+    weather = {"temperature": req.temperature, "rain": req.rain, "wind": req.wind}
 
-    recs = sorted(outfit_candidates, key=lambda x: x["score"], reverse=True)[:top_k]
-
-    if not recs:
-        print("No suitable outfit recommendations found.")
-    else:
-        print("\nTop outfit recommendations:")
-        for r in recs:
-            if r["outer_id"]:
-                print(f"Outer {r['outer_id']}, Top {r['top_id']}, Bottom {r['bottom_id']} — Predicted score: {r['score']:.3f}")
-            else:
-                print(f"Top {r['top_id']}, Bottom {r['bottom_id']} — Predicted score: {r['score']:.3f}")
-
-    return recs
+    recs = recommend_outfits(model, dataset, wardrobe_df, user_id=1, weather=weather, top_k=req.top_k)
+    return {"recommendations": recs}
