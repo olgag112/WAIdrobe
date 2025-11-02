@@ -1,8 +1,8 @@
 import torch
 import pandas as pd
 import itertools
-from model import RecommenderNet
-from dataset import FashionDataset
+from .model import RecommenderNet
+from .dataset import FashionDataset
 
 def load_model(model_path, dataset_path):
     temp_dataset = FashionDataset(dataset_path)  # To get encoders & dims

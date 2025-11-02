@@ -139,7 +139,7 @@ def recommend(req: RecommendRequest):
     ]
     wardrobe_df = pd.DataFrame([item.dict() for item in items])
     wardrobe_df["user_id"] = req.user_id  # single user
-    wardrobe_df.rename(columns={"id": "item_id"})
+    wardrobe_df.rename(columns={"id": "item_id"}, inplace=True)
     weather = {"temperature": req.weather.temperature, "rain": req.weather.rain_chance, "wind": req.weather.wind_speed}
     print(wardrobe_df)
     recs = recommend_outfits(model, dataset, wardrobe_df, user_id=req.user_id, weather=weather)
@@ -257,6 +257,12 @@ async def upload_image(file: UploadFile = File(...)):
     # Save file to disk
     with open(file_path, "wb") as f:
         f.write(await file.read())
+
+    # with open(input_path, 'rb') as i:
+    #     with open(file_path, 'wb') as o:
+    #         input = i.read()
+    #         output = remove(input)
+    #         o.write(output)
 
     # Return path or URL to the frontend
     return {"filename": filename, "url": f"http://localhost:8000/uploads/{filename}"}
