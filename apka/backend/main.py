@@ -12,7 +12,9 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine, Base
 from models import WardrobeItemDB, UserDB
 from fastapi.staticfiles import StaticFiles
+from typing import Optional
 import uuid
+from siec.inference import load_model, recommend_outfits
 # from rembg import remove
 
 UPLOAD_DIR = "uploads"
@@ -20,11 +22,13 @@ app = FastAPI()
 # Pozwól frontendowi na dostęp
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
+model, dataset = load_model("siec/model_fine_tuned_topOuter.pth", "siec/training_topOuter3.csv")
 
 def get_db():
     db = SessionLocal()
@@ -37,6 +41,27 @@ def get_db():
 # Recommender
 # =============
 # Schemat pojedynczego elementu garderoby
+class Item(BaseModel):
+    id: int
+    type: str
+    color: str
+    material: str
+    size: str
+    style: str
+    favorite: int
+    special_property: str
+
+class Weather(BaseModel):
+    temperature: float
+    rain_chance: float
+    wind_speed: float
+    season: Optional[str] = None
+
+class RecommendRequest(BaseModel):
+    wardrobe: List[Item]
+    weather: Weather
+    user_id: int
+
 class WardrobeItem(BaseModel):
     type: str
     color: str
@@ -47,55 +72,79 @@ class WardrobeItem(BaseModel):
     favorite: int = Field(..., ge=0, le=1)
     special_property: str
     category: str
-    image_url: str
+    image_url: Optional[str] = None
 
 class UserCreate(BaseModel):
     password: str
     name: str
     surname: str
 
-# Schemat żądania do rekomendacji
-class RecommendRequest(BaseModel):
-    items: List[WardrobeItem]
-    weather: dict  # { "temperature": float, "rain_chance": float, "wind_speed": float, "season": str }
-    rule_weight: float = Field(0.5, ge=0.0, le=1.0)
-    top_k: int = Field(5, ge=1)
+# # Schemat żądania do rekomendacji
+# class RecommendRequest(BaseModel):
+#     items: List[WardrobeItem]
+#     weather: dict  # { "temperature": float, "rain_chance": float, "wind_speed": float, "season": str }
+#     rule_weight: float = Field(0.5, ge=0.0, le=1.0)
+#     top_k: int = Field(5, ge=1)
 
+# @app.post("/recommend")
+# async def recommend(req: RecommendRequest = Body(...)):
+#     # Utwórz DataFrame z listy elementów, nadając user_id=1 i kolejne item_id
+#     data = []
+#     item_id = 1
+#     for it in req.items:
+#         row = it.dict()
+#         row.update({"user_id": 1, "item_id": item_id})
+#         data.append(row)
+#         item_id += 1
+#     df = pd.DataFrame(data)
+
+#     # Sprawdź minimum 5 tops i 5 bottoms
+#     count_tops = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['TOP_TYPES'])].shape[0]
+#     count_bottoms = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['BOTTOM_TYPES'])].shape[0]
+#     if count_tops < 5 or count_bottoms < 5:
+#         raise HTTPException(status_code=400, detail="Potrzebujesz co najmniej 5 topów i 5 bottomów w garderobie.")
+
+#     # Przygotuj pogodę
+#     weather = req.weather
+#     if not all(k in weather for k in ['temperature', 'rain_chance', 'wind_speed', 'season']):
+#         raise HTTPException(status_code=400, detail="Brak kompletnych parametrów pogodowych.")
+
+#     recomm = OutfitPairRecommender(df, rule_weight=req.rule_weight)
+#     pairs = recomm.recommend_pairs(user_id=1, weather=weather, top_k=req.top_k)
+#     result = []
+#     for top_id, top_type, bot_id, bot_type, score in pairs:
+#         result.append({
+#             "topId": top_id,
+#             "topType": top_type,
+#             "bottomId": bot_id,
+#             "bottomType": bot_type,
+#             "score": score
+#         })
+#     return {"recommendations": result}
 @app.post("/recommend")
-async def recommend(req: RecommendRequest = Body(...)):
-    # Utwórz DataFrame z listy elementów, nadając user_id=1 i kolejne item_id
-    data = []
-    item_id = 1
-    for it in req.items:
-        row = it.dict()
-        row.update({"user_id": 1, "item_id": item_id})
-        data.append(row)
-        item_id += 1
-    df = pd.DataFrame(data)
+def recommend(req: RecommendRequest):
+    # Convert to DataFrame like your inference expects
+    print(req)
+    items = [
+        Item(
+            id=item.id,
+            type=item.type,
+            color=item.color,
+            material=item.material,
+            size=item.size,
+            style=item.style,
+            favorite=item.favorite,
+            special_property=item.special_property,
+        ) for item in req.wardrobe
+    ]
+    wardrobe_df = pd.DataFrame([item.dict() for item in items])
+    wardrobe_df["user_id"] = req.user_id  # single user
+    wardrobe_df.rename(columns={"id": "item_id"})
+    weather = {"temperature": req.weather.temperature, "rain": req.weather.rain_chance, "wind": req.weather.wind_speed}
+    print(wardrobe_df)
+    recs = recommend_outfits(model, dataset, wardrobe_df, user_id=req.user_id, weather=weather)
+    return {"recommendations": recs}
 
-    # Sprawdź minimum 5 tops i 5 bottoms
-    count_tops = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['TOP_TYPES'])].shape[0]
-    count_bottoms = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['BOTTOM_TYPES'])].shape[0]
-    if count_tops < 5 or count_bottoms < 5:
-        raise HTTPException(status_code=400, detail="Potrzebujesz co najmniej 5 topów i 5 bottomów w garderobie.")
-
-    # Przygotuj pogodę
-    weather = req.weather
-    if not all(k in weather for k in ['temperature', 'rain_chance', 'wind_speed', 'season']):
-        raise HTTPException(status_code=400, detail="Brak kompletnych parametrów pogodowych.")
-
-    recomm = OutfitPairRecommender(df, rule_weight=req.rule_weight)
-    pairs = recomm.recommend_pairs(user_id=1, weather=weather, top_k=req.top_k)
-    result = []
-    for top_id, top_type, bot_id, bot_type, score in pairs:
-        result.append({
-            "topId": top_id,
-            "topType": top_type,
-            "bottomId": bot_id,
-            "bottomType": bot_type,
-            "score": score
-        })
-    return {"recommendations": result}
 
 
 # =============
@@ -208,12 +257,6 @@ async def upload_image(file: UploadFile = File(...)):
     # Save file to disk
     with open(file_path, "wb") as f:
         f.write(await file.read())
-
-    # with open(input_path, 'rb') as i:
-    #     with open(file_path, 'wb') as o:
-    #         input = i.read()
-    #         output = remove(input)
-    #         o.write(output)
 
     # Return path or URL to the frontend
     return {"filename": filename, "url": f"http://localhost:8000/uploads/{filename}"}
