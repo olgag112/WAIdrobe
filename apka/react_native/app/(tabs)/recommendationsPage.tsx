@@ -241,13 +241,7 @@ setRecommendations(withScores);
               return (
                 <View
                   key={idx}
-                  style={{
-                    borderWidth: 1,
-                    borderColor: '#ccc',
-                    padding: 16,
-                    alignItems: 'center',
-                    marginBottom: 12,
-                  }}
+                  style={styles.container}
                 >
                   <View style={{ marginBottom: 8 }}>
                     <Text style={{ fontWeight: 'bold' }}>Komplet {idx + 1}:</Text>
@@ -280,7 +274,7 @@ setRecommendations(withScores);
                   </View>
 
                   <Text style={{ marginTop: 8 }}>Score: {score.toFixed(2)}</Text>
-                  <View style={styles.container}>
+                  <View style={styles.score_container}>
                     <Text style={styles.text}>User Score: {rec.userScore ?? "No score yet"}</Text>
 
                     <View style={styles.inputContainer}>
@@ -293,8 +287,16 @@ setRecommendations(withScores);
                         value={score[idx] ?? ""}
                         onChangeText={(text) => setScore({ ...score, [idx]: text })}
                       />
-                      <Button title="Submit Score" onPress={() => handleScoreChange(idx, score[idx])} />
-                      <Button title="Save the Outfit" onPress={() => console.log("Saving...")} />
+                      <Button 
+                        title="Submit Score" 
+                        color="#605139ff"
+                        onPress={() => handleScoreChange(idx, score[idx])} 
+                      />
+                      <Button 
+                        title="Save the Outfit" 
+                        onPress={() => console.log("Saving...")} 
+                        color="#605139ff"
+                      />
                     </View>
                   </View>
 
@@ -347,21 +349,34 @@ const styles = StyleSheet.create({
     backgroundColor: "#575445ff",
     color: "#fff"
   },
-  container: {
+  score_container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f8fafc',
+    backgroundColor: '#ffffffff',
+  },
+  container: {
+    padding: 16,
+    alignItems: 'center',
+    marginBottom: 12,
+    borderWidth: 2,
+    borderColor: '#f8f7f4ff', // border color different from background
+    borderRadius: 10,        // rounded corners
+    backgroundColor: '#ffffffff', // slightly different background
+
+    // iOS shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+
+    // Android shadow
+    elevation: 5,
   },
   button: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 10,
     marginVertical: 8,
-  },
-  confirmButton: {
-    backgroundColor: '#22c55e', // green for confirm
   },
   buttonText: {
     color: '#fff',
