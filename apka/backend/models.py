@@ -23,7 +23,7 @@ class WardrobeItemDB(Base):
 class UserDB(Base):
     __tablename__ = "users"
 
-    user_id = Column(Integer, default=1, primary_key=True, index=True)
+    user_id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     password = Column(String)
     name = Column(String)
     surname = Column(String)

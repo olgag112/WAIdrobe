@@ -7,37 +7,43 @@ import {BACKEND_API} from '../../constants/ip';
 
 export default function TabTwoScreen() {
 
-  const { user, setUser, wardrobe, setWardrobe } = useAppContext();
+  // global variables
+  const { setUser, setWardrobe } = useAppContext();
+
+  // local variables
   const [ tempUser, setTempUser] = useState('');
   const [ password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [ error, setError] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [registration, setRegistration] = useState(false);
   
-  const dudu = () => {
+  // switch interface between logging in and creating new account
+  const switcher = () => {
     setRegistration(prev => !prev);
   };
 
+  // handle logging user to his account
   const handleLogin = async () => {
-    // kiedy nie ma numeru wpisanego
+    // case: when either userID or password is empty
     if (!tempUser) return alert("Please enter a user ID");
+    if (!password) return alert("Please enter your password");
 
+    // verify if login and password (typed by user) is correct with our db
     try {
       let response = await fetch(`${BACKEND_API}/users/${tempUser}`)
       if (!response.ok) {
-        setError(`User ${tempUser} does not exist`)
-        throw new Error(`User ${tempUser} does not exist`);
+        return alert("User with this ID doesn't exist");
       }
       const user_db = await response.json();
       if (user_db.password !== password) {
-        setError("Wrong password!")
-        throw new Error(`Wrong password!`);
+        return alert("You're password is not correct!!!");
       }
+
       setUser(user_db);
       alert(`You are successfully logged in`);
 
-      // dane z tabeli wardrobe dla usera z danym user_id
+      // get all the clothing items that belong to the user from db
       response = await fetch(`${BACKEND_API}/wardrobe?user_id=${tempUser}`);
       if (!response.ok){
         setError("Failed to fetch wardrobe")
@@ -47,37 +53,39 @@ export default function TabTwoScreen() {
       const data = await response.json();
       setWardrobe(data.items);
     } catch (err) {
-      console.error("Error loading wardrobe:", err);
-      alert(error);
+      return alert("Can't load your wardrobe");
     }
   };
 
+  // handle creating an user account
   const addUser = async () => {
-  try {
-    const response = await fetch(`${BACKEND_API}/add_user`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: name,
-        surname: surname,
-        password: password,
-      }),
-    });
 
-    if (!response.ok) throw new Error("Failed to add user");
+    // send request to create new user to the backend
+    try {
+      const response = await fetch(`${BACKEND_API}/add_user`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: name,
+          surname: surname,
+          password: password,
+        }),
+      });
 
-    const data = await response.json();
-    console.log("User added:", data);
+      if (!response.ok) throw new Error("Failed to add user");
 
-    alert(`User created successfully!\n [!!!] YOUR USER ID: ${data.user_id}`);
-    setUser(data)
-    setTempUser(data.user_id)
-    dudu()
-  } catch (err) {
-    console.error("Error adding user:", err);
-    alert("Failed to add user.");
-  }
-};
+      const data = await response.json();
+      console.log("User added:", data);
+
+      alert(`User created successfully!\n [!!!] YOUR USER ID: ${data.user_id}`);
+      setUser(data)
+      setTempUser(data.user_id)
+      switcher()
+    } catch (err) {
+      console.error("Error adding user:", err);
+      alert("Failed to add user.");
+    }
+  };
 
   return (
     <ThemedView style={styles.titleContainer}>
@@ -117,7 +125,7 @@ export default function TabTwoScreen() {
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              onPress={dudu}
+              onPress={switcher}
               title="Create new user"
               color="#605139ff"
               accessibilityLabel="Learn more about this purple button"
@@ -164,7 +172,7 @@ export default function TabTwoScreen() {
           </View>
           <View style={styles.buttonContainer}>
             <Button
-              onPress={dudu}
+              onPress={switcher}
               title="Go back to log in"
               color="#605139ff"
               accessibilityLabel="Learn more about this purple button"
@@ -194,14 +202,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 10,
     marginTop: 5,
-    opacity: 0.9, // slightly soft look
+    opacity: 0.9,
   },
   container: {
-    width: '100%', // make inputs fit nicely
+    width: '100%',
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)', // translucent white box
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
     borderRadius: 15,
     padding: 20,
     shadowColor: '#000',
@@ -224,11 +232,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#fff',
     fontSize: 16,
-  },
-  output: {
-    marginTop: 10,
-    fontSize: 14,
-    color: '#333',
   },
   buttonContainer: {
     width: '90%',
