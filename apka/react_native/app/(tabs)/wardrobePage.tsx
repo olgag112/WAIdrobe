@@ -27,7 +27,7 @@ export default function TabTwoScreen() {
   const { image, setImage, wardrobe, setWardrobe, newItem, setNewItem, user } = useAppContext();
   const [addingItem, setAddingItem] = useState(false)
 
-  const dudu = () => {
+  const switcher = () => {
     setAddingItem(prev => !prev);
   };
 
@@ -105,7 +105,7 @@ export default function TabTwoScreen() {
 
     finalItem = {...finalItem, id: data.item_id};
     setWardrobe([...wardrobe, finalItem]);
-    dudu()
+    switcher()
 
     alert("Item added successfully!");
   } catch (err) {
@@ -264,7 +264,7 @@ const removeItem = async (id: string | null) => {
 )}
     </View>
     <Button
-        onPress={dudu}
+        onPress={switcher}
         title="Add new item"
         color="#6c503eff"
       />
