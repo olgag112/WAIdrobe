@@ -2,8 +2,6 @@ import { Image } from 'expo-image';
 import { Stack } from 'expo-router'
 import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Alert} from 'react-native';
 import React, { useState } from 'react';
-
-import { Collapsible } from '@/components/ui/collapsible';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -17,8 +15,6 @@ import * as ImagePicker from 'expo-image-picker'
 import axios from "axios";
 import {BACKEND_API, IP} from '../../constants/ip';
 
-// import FileSystem from 'expo-file-system';
-// import BlobCourier from 'react-native-blob-courier';
   
 
 
@@ -31,7 +27,7 @@ export default function TabTwoScreen() {
   const { image, setImage, wardrobe, setWardrobe, newItem, setNewItem, user } = useAppContext();
   const [addingItem, setAddingItem] = useState(false)
 
-  const dudu = () => {
+  const switcher = () => {
     setAddingItem(prev => !prev);
   };
 
@@ -109,7 +105,7 @@ export default function TabTwoScreen() {
 
     finalItem = {...finalItem, id: data.item_id};
     setWardrobe([...wardrobe, finalItem]);
-    dudu()
+    switcher()
 
     alert("Item added successfully!");
   } catch (err) {
@@ -268,7 +264,7 @@ const removeItem = async (id: string | null) => {
 )}
     </View>
     <Button
-        onPress={dudu}
+        onPress={switcher}
         title="Add new item"
         color="#6c503eff"
       />
@@ -409,38 +405,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  wardrobeItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    marginVertical: 5,
-    borderWidth: 2,
-    borderColor: '#f8f7f4ff', // border color different from background
-    borderRadius: 10,        // rounded corners
-    backgroundColor: '#ffffffff', // slightly different background
-
-    // iOS shadow
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-
-    // Android shadow
-    elevation: 5,
-  },
   itemImage: {
     width: 100,
     height: 100,
     borderRadius: 8,
     resizeMode: 'cover',
-  },
-  itemText: {
-    flexShrink: 1, // ensures text wraps instead of overflowing
-  },
-  textContainer: {
-    flex: 1, // allow text to take remaining space
-    marginRight: 10,
   },
   card: {
     width: 250,               // square/rectangular width

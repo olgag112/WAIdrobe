@@ -1,11 +1,8 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet, Alert, Button, Text, TextInput, View, TouchableOpacity } from 'react-native';
-import { Collapsible } from '@/components/ui/collapsible';
-import { ExternalLink } from '@/components/external-link';
+import { Platform, StyleSheet, Button, Text, TextInput, View } from 'react-native';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 import { Fonts } from '@/constants/theme';
 import { useAppContext } from "../appContext";
 import React, { useState } from 'react';
@@ -13,40 +10,46 @@ import DateTimePicker, {DateTimePickerEvent} from '@react-native-community/datet
 import {BACKEND_API, IP} from '../../constants/ip';
 
 export default function RecommendationPage() {
-    const { 
-      // date, setDate, 
-      city, setCity, 
-      forecastData, setForecastData, 
-      weather, setWeather, 
-      wardrobe,
-      recommendations, setRecommendations,
-      outfit, setOutfit,
-      user
-    } = useAppContext();
 
+  // global variables
+  const { 
+    date, setDate, 
+    city, setCity, 
+    forecastData, setForecastData, 
+    weather, setWeather, 
+    wardrobe,
+    recommendations, setRecommendations,
+    user
+  } = useAppContext();
+
+  // local variables
   const today = new Date();
   const maxDate = new Date();
   maxDate.setDate(today.getDate() + 7);
-  const [date, setDate] = useState(today);
+
   const [show, setShow] = useState(true);
   const [error, setError] = useState('');
   const [errorCity, setErrorCity] = useState('');
   const [loading, setLoading] = useState(false);
-  const [score, setScore] = useState({});
+  const [tempScore, setTempScore] = useState([]);
 
+  // set userScore for recommendation
   const handleScoreChange = (idx: number, value: any) => {
     const updated = recommendations.map((rec, i) =>
       i === idx ? { ...rec, userScore: value } : rec
     );
     setRecommendations(updated);
+    setTempScore({ ...value, [idx]: null });
   };
 
+  // choose specific date
   const onChange = (_event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
 
+  // get the weather using Weather API (for specific city for the next 7 days)
   const fetchWeather = async () => {
     try {
       const res = await fetch(`${BACKEND_API}/api/weather`, {
@@ -67,6 +70,7 @@ export default function RecommendationPage() {
     }
   };
 
+  // set the weather for the selected day
   const updateWeatherForDate = (selectedDate = date, forecast = forecastData) => {
     const todayWeather = forecast.find((f) => f.time === selectedDate.toISOString().split("T")[0]);
     if (!todayWeather) {
@@ -81,6 +85,7 @@ export default function RecommendationPage() {
     });
   };
 
+  // get recommendations from our model using http requests
   const fetchRecommendations = async () => {
     if (wardrobe.length === 0) {
       setError('You need to add your clothes first');
@@ -113,6 +118,8 @@ export default function RecommendationPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
+
+      // for each recommendation add 'userScore' field
       if (!response.ok) throw new Error('Server error');
       const data = await response.json();
       const withScores = (data.recommendations || []).map((rec: any) => ({
@@ -120,9 +127,7 @@ export default function RecommendationPage() {
         userScore: null
       }));
 
-setRecommendations(withScores);
-
-
+    
     setRecommendations(withScores);
     } catch (err) {
       console.error(err);
@@ -161,7 +166,7 @@ setRecommendations(withScores);
         />
       </View>
       <View>
-        {/* For mobile (iOS/Android) */}
+        {/* For phones */}
         {Platform.OS !== "web" && show && (
           <DateTimePicker
             value={date}
@@ -173,7 +178,7 @@ setRecommendations(withScores);
           />
         )}
 
-        {/* For web */}
+        {/* For websties */}
         {Platform.OS === "web" && (
           <input
             type="date"
@@ -284,13 +289,13 @@ setRecommendations(withScores);
                         keyboardType="numeric"
                         placeholder="0–10"
                         maxLength={2}
-                        value={score[idx] ?? ""}
-                        onChangeText={(text) => setScore({ ...score, [idx]: text })}
+                        value={tempScore[idx] ?? ""}
+                        onChangeText={(text) => setTempScore({ ...score, [idx]: text })}
                       />
                       <Button 
                         title="Submit Score" 
                         color="#605139ff"
-                        onPress={() => handleScoreChange(idx, score[idx])} 
+                        onPress={() => handleScoreChange(idx, tempScore[idx])} 
                       />
                       <Button 
                         title="Save the Outfit" 
@@ -378,22 +383,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 8,
   },
-  buttonText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  dateText: {
-    marginTop: 12,
-    fontSize: 16,
-    color: '#334155',
-  },
   text: {
     fontSize: 16,
     marginBottom: 8,
   },
   inputContainer: {
     flexDirection: "column",
+    alignItems: 'center',
     gap: 6,
   },
 });
