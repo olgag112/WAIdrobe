@@ -22,7 +22,6 @@ function Wardrobe() {
   const itemToAdd = { ...newItem, category };
 
   try {
-    // 1️⃣ Upload image first (if file selected)
     let imageUrl = null;
     if (file) {  // you’ll pass file from SingleFileUploader
       const formData = new FormData();
@@ -36,7 +35,6 @@ function Wardrobe() {
     }
     let finalItem = { ...itemToAdd, image_url: imageUrl}
 
-    // 3️⃣ Save item to DB
     const response = await fetch(`http://localhost:8000/add_item?user_id=${user}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -46,7 +44,7 @@ function Wardrobe() {
     if (!response.ok) throw new Error("Failed to save item");
 
     const data = await response.json();
-    console.log("✅ Item saved:", data);
+    console.log("Item saved:", data);
 
     finalItem = {...finalItem, id: data.item_id};
 
@@ -68,7 +66,6 @@ function Wardrobe() {
       throw new Error("Failed to delete item");
     }
 
-    // Remove from local state
     setWardrobe(wardrobe.filter(item => item.id !== id));
     console.log(`Item ${id} deleted`);
   } catch (err) {
