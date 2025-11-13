@@ -61,12 +61,12 @@ function LoginPage() {
     if (!response.ok) throw new Error("Failed to add user");
 
     const data = await response.json();
-    console.log("✅ User added:", data);
+    console.log("User added:", data);
 
     alert(`User created successfully!\n [!!!] YOUR USER ID: ${data.user_id}`);
     setNewUser(false)
   } catch (err) {
-    console.error("❌ Error adding user:", err);
+    console.error("Error adding user:", err);
     alert("Failed to add user.");
   }
 };
