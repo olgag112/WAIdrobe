@@ -25,7 +25,7 @@ const SingleFileUploader = () => {
       });
 
       const data = await result.json();
-      console.log("✅ Image uploaded:", data);
+      console.log("Image uploaded:", data);
 
       // Return the uploaded image URL
       return data.url;
