@@ -19,7 +19,7 @@ from siec.inference import load_model, recommend_outfits
 
 UPLOAD_DIR = "uploads"
 app = FastAPI()
-# Pozwól frontendowi na dostęp
+# Pozwolenie frontendowi na dostęp
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -37,9 +37,7 @@ def get_db():
     finally:
         db.close()
 
-# =============
 # Recommender
-# =============
 # Schemat pojedynczego elementu garderoby
 class Item(BaseModel):
     id: int
@@ -146,10 +144,7 @@ def recommend(req: RecommendRequest):
     return {"recommendations": recs}
 
 
-
-# =============
 # WEATHER
-# =============
 class WeatherRequest(BaseModel):
     city: str
     long_term: bool = True
