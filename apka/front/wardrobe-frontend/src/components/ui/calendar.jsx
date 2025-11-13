@@ -21,7 +21,7 @@ export function CalendarInput({ value, onChange }) {
       content={
         <input
           type="date"
-          value={value}          // ✅ use string directly
+          value={value}          // use string directly
           min={minDate}
           max={maxDate}
           onChange={e => onChange(e.target.value)}
@@ -32,7 +32,7 @@ export function CalendarInput({ value, onChange }) {
       <input
         type="text"
         readOnly
-        value={value}           // ✅ display string directly
+        value={value}           // display string directly
         className="border rounded p-2 cursor-pointer w-full"
       />
     </Popover>
