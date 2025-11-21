@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column', // stack everything vertically
     justifyContent: 'center', // center vertically
     alignItems: 'center', // center horizontally
-    backgroundColor: '#b9988aff', // light background
+    backgroundColor: '#b9988aff',
     padding: 20,
   },
   loginImage: {

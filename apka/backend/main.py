@@ -15,7 +15,8 @@ from fastapi.staticfiles import StaticFiles
 from typing import Optional
 import uuid
 from siec.inference import load_model, recommend_outfits
-# from rembg import remove
+from rembg import remove
+from PIL import Image
 
 UPLOAD_DIR = "uploads"
 app = FastAPI()
@@ -250,6 +251,7 @@ async def get_wardrobe(user_id: int = Query(..., description="User ID"), db: Ses
 
 @app.post("/upload_image")
 async def upload_image(file: UploadFile = File(...)):
+    
     # Generate a unique filename
     filename = f"{uuid.uuid4()}_{file.filename}"
     file_path = os.path.join(UPLOAD_DIR, filename)
@@ -257,15 +259,27 @@ async def upload_image(file: UploadFile = File(...)):
     # Save file to disk
     with open(file_path, "wb") as f:
         f.write(await file.read())
+    
+    # remove background
+    img = Image.open(file_path)
+    output = remove(img)
 
-    # with open(input_path, 'rb') as i:
-    #     with open(file_path, 'wb') as o:
-    #         input = i.read()
-    #         output = remove(input)
-    #         o.write(output)
+    # detect output format from file extension
+    root, ext = os.path.splitext(file_path)
+    ext = ext.lower()
+
+    # change to png to have clear background
+    if ext in [".jpg", ".jpeg"]:
+        new_path = root + ".png"
+    else:
+        new_path = file_path
+
+    new_filename = os.path.basename(new_path)
+    output.save(new_path)
+    os.remove(file_path)
 
     # Return path or URL to the frontend
-    return {"filename": filename, "url": f"http://localhost:8000/uploads/{filename}"}
+    return {"filename": new_filename, "url": f"http://localhost:8000/uploads/{new_filename}"}
 
 
 
