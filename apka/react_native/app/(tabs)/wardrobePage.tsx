@@ -1,36 +1,48 @@
-import { Image } from 'expo-image';
-import { Stack } from 'expo-router'
 import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Alert} from 'react-native';
 import React, { useState } from 'react';
+import { Fonts } from '@/constants/theme';
+
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
-import { Fonts } from '@/constants/theme';
-import DropdownComponent from '../../components/ui/dropdown';
-import * as DROPDOWN from '../../constants/dropdowns';
-
 import { Ionicons } from '@expo/vector-icons';
-import { useAppContext } from "../appContext";
+import DropdownComponent from '../../components/ui/dropdown';
+import { Stack } from 'expo-router'
+
+import { Image } from 'expo-image';
 import * as ImagePicker from 'expo-image-picker'
 import axios from "axios";
+
+import * as DROPDOWN from '../../constants/dropdowns';
+import * as TYPES from '../../constants/clothing_types';
 import {BACKEND_API, IP} from '../../constants/ip';
 
-  
+import { useAppContext } from "../appContext";
 
+// == PAGE THAT MANAGE USER'S WARDROBE ==
+// Functions:
+// - display clothes (divided into 3 categories: top, bottom, outer clothing category)
+// - add new items to your wardrobe
+// - remove existing items from the wardrobe
+export default function WardrobePage() {
 
-export default function TabTwoScreen() {
+  // global variables
+  const { 
+    image, setImage, 
+    wardrobe, setWardrobe, 
+    newItem, setNewItem, 
+    user 
+  } = useAppContext();
 
-  const topTypes = ["Sweater", "Shirt", "T-shirt","Sweatshirt","Blazer", "Dress"];
-  const bottomTypes = ["Skirt", "Trousers", "Shorts"];
-  const outerTypes = ["Coat","Jacket"]
-
-  const { image, setImage, wardrobe, setWardrobe, newItem, setNewItem, user } = useAppContext();
+  // bool value that is used to display interface to add a new item
   const [addingItem, setAddingItem] = useState(false)
 
+  // function to turn on/off interface to add a new item to the wardrobe
   const switcher = () => {
     setAddingItem(prev => !prev);
   };
 
+  // function to allow user to upload an image
   const pickImage = async () => {
     // Ask for permission
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -40,11 +52,12 @@ export default function TabTwoScreen() {
       return;
     }
 
+    // assign image to variable and format it
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [3, 4],
-      quality: 1,
+      quality: 0.4,
     });
 
     if (!result.canceled) {
@@ -52,86 +65,87 @@ export default function TabTwoScreen() {
     }
   };
 
+  // function to add an item (to the backend db along with an image)
   const addItem = async () => {
-  let category = 'other';
-  if (topTypes.includes(newItem.type)) category = 'top';
-  else if (bottomTypes.includes(newItem.type)) category = 'bottom';
-  else if (outerTypes.includes(newItem.type)) category = 'outer';
-  const itemToAdd = { ...newItem, category };
- 
-  try {
-    // 1️⃣ Upload image first (if file selected)
-    let imageUrl = null;
-    
-    if (image) {
-      const uriParts = image.split(".");
-      const fileType = uriParts[uriParts.length - 1];
+    // assign category to the item based on its type
+    let category = null;
+    if (TYPES.top.includes(newItem.type)) category = 'top';
+    else if (TYPES.bottom.includes(newItem.type)) category = 'bottom';
+    else if (TYPES.outer.includes(newItem.type)) category = 'outer';
+    const itemToAdd = { ...newItem, category };
+  
+    // try 
+    try {
 
-      // Create FormData
-      const formData = new FormData();
-      formData.append("file", {
-        uri: image,
-        name: `photo.${fileType}`,
-        type: `image/${fileType}`,
-      } as any);
+      // get an image (if the user upload one)
+      let imageUrl = null;
+      if (image) {
+        const uriParts = image.split(".");
+        const fileType = uriParts[uriParts.length - 1];
 
-      try {
-        const response = await axios.post(`${BACKEND_API}/upload_image`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
-        console.log("Upload success:", response.data);
-        Alert.alert("Upload success!");
-        imageUrl = response.data.url;
-      } catch (error) {
-        console.error("Upload failed:", error);
-        Alert.alert("Upload failed!");
+        // assign it to the form data to later send it to backend
+        const formData = new FormData();
+        formData.append("file", {
+          uri: image,
+          name: `photo.${fileType}`,
+          type: `image/${fileType}`,
+        } as any);
+
+        // send it to the backed
+        try {
+          const response = await axios.post(`${BACKEND_API}/upload_image`, formData, {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          });
+          Alert.alert("Upload success!");
+          imageUrl = response.data.url;
+        } catch (error) {
+          console.error("Upload failed:", error);
+          Alert.alert("Upload failed!");
+        }
       }
+      let finalItem = { ...itemToAdd, image_url: imageUrl} // add image_url to the item
+
+      // send a request to the backend to add a new item to the user's wardrobe
+      const response = await fetch(`${BACKEND_API}/add_item?user_id=${user.user_id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(finalItem),
+      }); 
+      if (!response.ok) throw new Error("Failed to save item");
+      const data = await response.json();
+
+      // update wardrobe and turn off interface for adding an item
+      finalItem = {...finalItem, id: data.item_id};
+      setWardrobe([...wardrobe, finalItem]);
+      switcher()
+      alert("Item added successfully!");
+    } catch (err) {
+      console.error("Error adding item:", err);
+      alert("Failed to add item.");
     }
-    let finalItem = { ...itemToAdd, image_url: imageUrl}
+  };
 
-    // 3️⃣ Save item to DB
-    const response = await fetch(`${BACKEND_API}/add_item?user_id=${user.user_id}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(finalItem),
-    }); 
+  // function to remove an item (from the database along with an image)
+  const removeItem = async (id: string | null) => {
+    // send request to the backend to delete an item
+    try {
+      const response = await fetch(`${BACKEND_API}/delete_item/${id}`, {
+        method: "DELETE",
+      });
 
-    if (!response.ok) throw new Error("Failed to save item");
+      if (!response.ok) {
+        throw new Error("Failed to delete item");
+      }
 
-    const data = await response.json();
-    console.log("✅ Item saved:", data);
-
-    finalItem = {...finalItem, id: data.item_id};
-    setWardrobe([...wardrobe, finalItem]);
-    switcher()
-
-    alert("Item added successfully!");
-  } catch (err) {
-    console.error("Error adding item:", err);
-    alert("Failed to add item.");
-  }
-};
-
-const removeItem = async (id: string | null) => {
-  try {
-    const response = await fetch(`${BACKEND_API}/delete_item/${id}`, {
-      method: "DELETE",
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to delete item");
+      // Remove from the front end
+      setWardrobe(wardrobe.filter(item => item.id !== id));
+      alert(`Item ${id} deleted`);
+    } catch (err) {
+      console.error("Error deleting item:", err);
     }
-
-    // Remove from local state
-    setWardrobe(wardrobe.filter(item => item.id !== id));
-    console.log(`Item ${id} deleted`);
-  } catch (err) {
-    console.error("Error deleting item:", err);
-  }
-};
-
+  };
 
   return (
     <ParallaxScrollView
@@ -151,13 +165,12 @@ const removeItem = async (id: string | null) => {
           Your Digital Wardrobe
         </ThemedText>
       </ThemedView>
-      {/* <ThemedText>This app includes example code to help you get started.</ThemedText> */}
       <View className="col-span-1 sm:col-span-2 lg:col-span-4">
       {wardrobe.length === 0 ? (
-  <Text>Brak dodanych elementów.</Text>
-) : (
-  <View>
-  <ThemedText
+        <Text>You haven&apos;t added anything to your digital wardrobe</Text>
+      ) : (
+        <View>
+        <ThemedText
           type="title"
           style={{
             fontFamily: Fonts.rounded,
@@ -165,111 +178,110 @@ const removeItem = async (id: string | null) => {
           }}>
           Top items
         </ThemedText>
-  <ScrollView
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={{ marginVertical: 10 }}>
-    {wardrobe.filter(item => item.category === "top").map((item) => (
-      <View key={item.id} style={styles.card}>
-        {item.image_url && (
-          <>
-          <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
-          </>
-        )}
-        <Text style={styles.cardText}>
-          <Text style={{ fontWeight: 'bold' }}>
-            {item.type}
-          </Text>{'\n'}
-          {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
-          ulubione: {item.favorite ? 'Tak' : 'Nie'}
-          {item.special_property ? `, ${item.special_property}` : ''}
-        </Text>
-        <View style={styles.buttonItem}>
-          <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: 10 }}>
+          {wardrobe.filter(item => item.category === "top").map((item) => (
+            <View key={item.id} style={styles.card}>
+              {item.image_url && (
+                <>
+                <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
+                </>
+              )}
+              <Text style={styles.cardText}>
+                <Text style={{ fontWeight: 'bold' }}>
+                  {item.type}
+                </Text>{'\n'}
+                {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
+                ulubione: {item.favorite ? 'Tak' : 'Nie'}
+                {item.special_property ? `, ${item.special_property}` : ''}
+              </Text>
+              <View style={styles.buttonItem}>
+                <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+        <ThemedText
+          type="title"
+          style={{
+            fontFamily: Fonts.rounded,
+            fontSize: 15
+          }}>
+          Bottom items
+        </ThemedText>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: 10 }}>
+          {wardrobe.filter(item => item.category === "bottom").map((item) => (
+            <View key={item.id} style={styles.card}>
+              {item.image_url && (
+                <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
+              )}
+              <Text style={styles.cardText}>
+                <Text style={{ fontWeight: 'bold', color: "#000000ff" }}>
+                  {item.type}
+                </Text>{
+                '\n'}
+                <Text style={{color: "#646464ff"}}>
+                  {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
+                  ulubione: {item.favorite ? 'Tak' : 'Nie'}
+                  {item.special_property ? `, ${item.special_property}` : ''}
+                </Text>
+              </Text>
+              <View style={styles.buttonItem}>
+                <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
+              </View>
+            </View>
+          ))}
+        </ScrollView>
+        <ThemedText
+          type="title"
+          style={{
+            fontFamily: Fonts.rounded,
+            fontSize: 15
+          }}>
+          Outer items
+        </ThemedText>
+        <ScrollView
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          style={{ marginVertical: 10 }}>
+          {wardrobe.filter(item => item.category === "outer").map((item) => (
+            <View key={item.id} style={styles.card}>
+              {item.image_url && (
+                <>
+                <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
+                </>
+              )}
+              <Text style={styles.cardText}>
+                <Text style={{ fontWeight: 'bold', color: "#000000ff" }}>
+                  {item.type}
+                </Text>{
+                '\n'}
+                <Text style={{color: "#646464ff"}}>
+                  {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
+                  ulubione: {item.favorite ? 'Tak' : 'Nie'}
+                  {item.special_property ? `, ${item.special_property}` : ''}
+                </Text>
+              </Text>
+              <View style={styles.buttonItem}>
+                <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
+              </View>
+            </View>
+          ))}
+        </ScrollView>
         </View>
-      </View>
-    ))}
-  </ScrollView>
-  <ThemedText
-    type="title"
-    style={{
-      fontFamily: Fonts.rounded,
-      fontSize: 15
-    }}>
-    Bottom items
-  </ThemedText>
-  <ScrollView
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={{ marginVertical: 10 }}>
-    {wardrobe.filter(item => item.category === "bottom").map((item) => (
-      <View key={item.id} style={styles.card}>
-        {item.image_url && (
-          <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
-        )}
-        <Text style={styles.cardText}>
-          <Text style={{ fontWeight: 'bold', color: "#000000ff" }}>
-            {item.type}
-          </Text>{
-          '\n'}
-          <Text style={{color: "#646464ff"}}>
-            {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
-            ulubione: {item.favorite ? 'Tak' : 'Nie'}
-            {item.special_property ? `, ${item.special_property}` : ''}
-          </Text>
-        </Text>
-        <View style={styles.buttonItem}>
-          <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
-        </View>
-      </View>
-    ))}
-  </ScrollView>
-  <ThemedText
-    type="title"
-    style={{
-      fontFamily: Fonts.rounded,
-      fontSize: 15
-    }}>
-    Outer items
-  </ThemedText>
-  <ScrollView
-    horizontal={true}
-    showsHorizontalScrollIndicator={false}
-    style={{ marginVertical: 10 }}>
-    {wardrobe.filter(item => item.category === "outer").map((item) => (
-      <View key={item.id} style={styles.card}>
-        {item.image_url && (
-          <>
-          <Image source={{ uri: item.image_url.replace("localhost", IP) }} style={styles.cardImage} />
-          </>
-        )}
-        <Text style={styles.cardText}>
-          <Text style={{ fontWeight: 'bold', color: "#000000ff" }}>
-            {item.type}
-          </Text>{
-          '\n'}
-          <Text style={{color: "#646464ff"}}>
-            {item.color}, {item.material}, {item.size}, {item.season}, {item.style}{'\n'}
-            ulubione: {item.favorite ? 'Tak' : 'Nie'}
-            {item.special_property ? `, ${item.special_property}` : ''}
-          </Text>
-        </Text>
-        <View style={styles.buttonItem}>
-          <Button title="Usuń" color="#776153ff" onPress={() => removeItem(item.id)} />
-        </View>
-      </View>
-    ))}
-  </ScrollView>
-  </View>
-)}
+      )}
     </View>
     <Button
         onPress={switcher}
         title="Add new item"
         color="#6c503eff"
       />
-      {addingItem ?
-      (
+      {addingItem ? (
         <View>
           <View style={{ padding: 20 }}>
             <Stack.Screen options ={{title: 'Wardrobe'}}/>
@@ -353,7 +365,7 @@ const removeItem = async (id: string | null) => {
             />
           </View>
         </View>
-      ):null}
+      ) : null}
     </ParallaxScrollView>
   );
 }
@@ -404,12 +416,6 @@ const styles = StyleSheet.create({
   previewImage: {
     width: "100%",
     height: "100%"
-  },
-  itemImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    resizeMode: 'cover',
   },
   card: {
     width: 250,               // square/rectangular width

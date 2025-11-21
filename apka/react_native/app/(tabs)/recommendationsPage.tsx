@@ -9,6 +9,11 @@ import React, { useState } from 'react';
 import DateTimePicker, {DateTimePickerEvent} from '@react-native-community/datetimepicker';
 import {BACKEND_API, IP} from '../../constants/ip';
 
+// == PAGE THAT SCRAPES THE WEATHER AND GIVES RECOMMENDATIONS TO THE USER ==
+// Functions:
+// - get a weather (temperature, rain_change, wind_speed) based on the city
+// - get recommendations based on user's clothes
+// - option to rate suggested outfits
 export default function RecommendationPage() {
 
   // global variables
@@ -27,6 +32,7 @@ export default function RecommendationPage() {
   const maxDate = new Date();
   maxDate.setDate(today.getDate() + 7);
 
+
   const [show, setShow] = useState(true);
   const [error, setError] = useState('');
   const [errorCity, setErrorCity] = useState('');
@@ -42,7 +48,7 @@ export default function RecommendationPage() {
     setTempScore({ ...value, [idx]: null });
   };
 
-  // choose specific date
+  // choose specific date in calendar
   const onChange = (_event: DateTimePickerEvent, selectedDate?: Date) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
@@ -70,7 +76,7 @@ export default function RecommendationPage() {
     }
   };
 
-  // set the weather for the selected day
+  // set the weather for the selected day (in the calendar)
   const updateWeatherForDate = (selectedDate = date, forecast = forecastData) => {
     const todayWeather = forecast.find((f) => f.time === selectedDate.toISOString().split("T")[0]);
     if (!todayWeather) {
@@ -85,17 +91,20 @@ export default function RecommendationPage() {
     });
   };
 
-  // get recommendations from our model using http requests
+  // get recommendations from our model using requests to the backend
   const fetchRecommendations = async () => {
+    // stop if user doesn't have any clothes
     if (wardrobe.length === 0) {
       setError('You need to add your clothes first');
       return;
     }
+    // stop if user doesn't have at least 5 bottom and 5 top items
     if (wardrobe.filter(i => i.category === "top").length < 5 ||
         wardrobe.filter(i => i.category === "bottom").length < 5) {
       setError('You need min 5 tops and 5 bottoms');
       return;
     }
+    // stop if user didn't get the weather first
     if (!weather.temperature || !weather.rain_chance || !weather.wind_speed) {
       setError('You need to add your city first');
       return;
@@ -103,6 +112,7 @@ export default function RecommendationPage() {
     setError('');
     setLoading(true);
     try {
+      // format what will be send to the backend
       const body = {
         wardrobe: wardrobe,
         weather: {
@@ -113,22 +123,22 @@ export default function RecommendationPage() {
         },
         user_id: user.user_id
       };
+      // send request to get recommendations from our model
       const response = await fetch(`${BACKEND_API}/recommend`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
       });
 
-      // for each recommendation add 'userScore' field
+      // for each recommendation add 'userScore' field (set it to null at first)
       if (!response.ok) throw new Error('Server error');
       const data = await response.json();
       const withScores = (data.recommendations || []).map((rec: any) => ({
         values: rec,
         userScore: null
       }));
-
-    
     setRecommendations(withScores);
+    
     } catch (err) {
       console.error(err);
       setError('Błąd podczas pobierania rekomendacji');
@@ -178,7 +188,7 @@ export default function RecommendationPage() {
           />
         )}
 
-        {/* For websties */}
+        {/* For websites */}
         {Platform.OS === "web" && (
           <input
             type="date"
