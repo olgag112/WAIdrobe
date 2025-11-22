@@ -122,7 +122,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         outfit, setOutfit,
         error, setError,
         loading, setLoading,
-        file, setFile,
         user, setUser,
         image, setImage,
       }}
