@@ -1,0 +1,11 @@
+pip install fastapi
+pip install uvicorn
+pip install pandas
+pip install numpy
+pip install scikit-learn
+pip install pydantic
+pip install python-multipart
+pip install requests
+pip install sqlalchemy
+pip install torch
+pip install rembg
