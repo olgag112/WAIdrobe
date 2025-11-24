@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 import argparse
 from sklearn.metrics.pairwise import cosine_similarity
-from DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
+from WAIdrobe.apka.backend.siec.data.DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
 import csv
 
 class OutfitPairRecommender:

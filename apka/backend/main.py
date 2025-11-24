@@ -5,12 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List
 import pandas as pd
-from recommender import OutfitPairRecommender
-from datetime import datetime
 from weather import fetch_weather
 from sqlalchemy.orm import Session
-from database import SessionLocal, engine, Base
-from models import WardrobeItemDB, UserDB
+from WAIdrobe.apka.backend.database.database import SessionLocal
+from WAIdrobe.apka.backend.database.db_schema import WardrobeItemDB, UserDB
 from fastapi.staticfiles import StaticFiles
 from typing import Optional
 import uuid
