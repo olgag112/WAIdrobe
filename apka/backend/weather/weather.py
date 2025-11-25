@@ -1,14 +1,10 @@
 import requests
 from datetime import datetime
 
-# router = APIRouter()
-
 API_KEY = "be8cb59580baae4afd1256d90ee2b181"
 
-
-
+# Get latitude and longitude for a given city name
 def get_lon_lat(city: str):
-    """Get latitude and longitude for a given city name."""
     url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={API_KEY}"
     response = requests.get(url)
     data = response.json()
@@ -18,8 +14,9 @@ def get_lon_lat(city: str):
     lon = data[0]['lon']
     return lat, lon
 
+
+# Fetch 7-day weather forecast for a city.
 def fetch_weather(city: str, long_term: bool = True):
-    """Fetch 7-day weather forecast for a city."""
     lat, lon = get_lon_lat(city)
     url = f"https://api.openweathermap.org/data/3.0/onecall?lat={lat}&lon={lon}&exclude=minutely,hourly,alerts&units=metric&appid={API_KEY}"
     response = requests.get(url)

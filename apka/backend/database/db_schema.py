@@ -1,7 +1,8 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from database import Base
+from .db_engine import Base
 
+# schema of wardrobe_items table
 class WardrobeItemDB(Base):
     __tablename__ = "wardrobe_items"
 
@@ -20,6 +21,7 @@ class WardrobeItemDB(Base):
 
     user = relationship("UserDB", back_populates="wardrobe_items")
 
+# schema of users table
 class UserDB(Base):
     __tablename__ = "users"
 

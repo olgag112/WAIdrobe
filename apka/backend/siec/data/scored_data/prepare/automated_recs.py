@@ -3,11 +3,11 @@ import random
 import subprocess
 
 # === Parametry stałe ===
-INPUT_FILE = "wardrobe_topOuter.csv"   # plik z garderobą
+INPUT_FILE = "../../raw_data/wardrobe_topOuter.csv"   # plik z garderobą
 RULE_WEIGHT = 0.6                       # stała waga reguł
 TOP_K = 5                               # liczba wyników
 USERS_COUNT = 50                        # liczba użytkowników
-SCRIPT = "Recommendation_topOuter.py"            # Twój główny skrypt rekomendacji
+SCRIPT = "../Recommendation.py"            # Twój główny skrypt rekomendacji
 
 # === Zakresy losowych wartości ===
 TEMP_RANGE = (-5, 30)   # temperatura od -5 do 30
