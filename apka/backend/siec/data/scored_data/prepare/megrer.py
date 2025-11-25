@@ -1,8 +1,8 @@
 import pandas as pd
 
 # Load data
-rec_df = pd.read_csv("recs_topOuter.csv")
-wardrobe_df = pd.read_csv("wardrobe_topOuter.csv")
+rec_df = pd.read_csv("../out/recs_topOuter.csv")
+wardrobe_df = pd.read_csv("../../raw_data/wardrobe_topOuter.csv")
 
 # Create separate dataframes for top, bottom, outer
 top_df = wardrobe_df.rename(columns=lambda x: "top_" + x if x not in ["user_id", "item_id"] else x)
@@ -22,5 +22,5 @@ merged = (
     .merge(outer_df, on=["user_id", "outer_id"], how="left")
 )
 
-merged.to_csv("training_topOuter3.csv", index=False)
+merged.to_csv("../out/training_topOuter3.csv", index=False)
 print("Saved training_topOuter.csv with outer_* columns added.")

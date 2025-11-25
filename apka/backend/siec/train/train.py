@@ -1,7 +1,7 @@
 import torch
 from torch.utils.data import DataLoader, random_split
-from dataset import FashionDataset
-from model import RecommenderNet
+from WAIdrobe.apka.backend.siec.train.dataset import FashionDataset
+from WAIdrobe.apka.backend.siec.train.model import RecommenderNet
 import os
 
 # Parameters
@@ -24,7 +24,7 @@ def custom_collate_fn(batch):
     )
 
 # Dataset split
-dataset = FashionDataset("training_topOuter2.csv")
+dataset = FashionDataset("../data/scored_data/out/training_topOuter2.csv")
 train_size = int((1 - VAL_SPLIT) * len(dataset))
 val_size = len(dataset) - train_size
 train_dataset, val_dataset = random_split(dataset, [train_size, val_size])

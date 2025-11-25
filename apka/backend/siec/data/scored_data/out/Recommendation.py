@@ -1,11 +1,13 @@
-# recommender.py
 import os
+import sys
 import pandas as pd
 import numpy as np
 import argparse
 from sklearn.metrics.pairwise import cosine_similarity
-from WAIdrobe.apka.backend.siec.data.DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
 import csv
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
+from data.raw_data.DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
 
 class OutfitPairRecommender:
     def __init__(self, df, rule_weight=0.5):

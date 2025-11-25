@@ -1,7 +1,7 @@
 import torch
 import pandas as pd
 import itertools
-from .model import RecommenderNet
+from .train.model import RecommenderNet
 from .train.dataset import FashionDataset
 
 def load_model(model_path, dataset_path):
@@ -102,7 +102,7 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
 if __name__ == "__main__":
 
-    model, dataset = load_model("model_fine_tuned_topOuter.pth", "data/training_topOuter3.csv")
+    model, dataset = load_model("model_fine_tuned_topOuter.pth", "data/scored_data/out/training_topOuter3.csv")
 
     user_id = 1
     weather = {"temperature": 12.0, "rain": 10.0, "wind": 10.0}
@@ -110,7 +110,7 @@ if __name__ == "__main__":
     recommend_outfits(
         model=model,
         dataset=dataset,
-        wardrobe_path="data/wardrobe_topOuter.csv",
+        wardrobe_path="data/scored_data/out/wardrobe_topOuter.csv",
         user_id=user_id,
         weather=weather,
         top_k=5
