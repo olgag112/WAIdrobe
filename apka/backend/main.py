@@ -5,10 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from typing import List
 import pandas as pd
-from weather import fetch_weather
+from weather.weather import fetch_weather
 from sqlalchemy.orm import Session
-from WAIdrobe.apka.backend.database.database import SessionLocal
-from WAIdrobe.apka.backend.database.db_schema import WardrobeItemDB, UserDB
+from database.db_engine import SessionLocal
+from database.db_schema import WardrobeItemDB, UserDB
 from fastapi.staticfiles import StaticFiles
 from typing import Optional
 import uuid
@@ -27,7 +27,7 @@ app.add_middleware(
 )
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
-model, dataset = load_model("siec/model_fine_tuned_topOuter.pth", "siec/training_topOuter3.csv")
+model, dataset = load_model("siec/model_fine_tuned_topOuter.pth", "siec/data/scored_data/out/training_topOuter3.csv")
 
 def get_db():
     db = SessionLocal()
@@ -37,7 +37,7 @@ def get_db():
         db.close()
 
 # =============
-# Recommender
+# Schemas
 # =============
 # Schemat pojedynczego elementu garderoby
 class Item(BaseModel):
@@ -78,48 +78,15 @@ class UserCreate(BaseModel):
     name: str
     surname: str
 
-# # Schemat żądania do rekomendacji
-# class RecommendRequest(BaseModel):
-#     items: List[WardrobeItem]
-#     weather: dict  # { "temperature": float, "rain_chance": float, "wind_speed": float, "season": str }
-#     rule_weight: float = Field(0.5, ge=0.0, le=1.0)
-#     top_k: int = Field(5, ge=1)
+class WeatherRequest(BaseModel):
+    city: str
+    long_term: bool = True
 
-# @app.post("/recommend")
-# async def recommend(req: RecommendRequest = Body(...)):
-#     # Utwórz DataFrame z listy elementów, nadając user_id=1 i kolejne item_id
-#     data = []
-#     item_id = 1
-#     for it in req.items:
-#         row = it.dict()
-#         row.update({"user_id": 1, "item_id": item_id})
-#         data.append(row)
-#         item_id += 1
-#     df = pd.DataFrame(data)
+# =============
+# FastAPI CRUDs
+# =============
 
-#     # Sprawdź minimum 5 tops i 5 bottoms
-#     count_tops = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['TOP_TYPES'])].shape[0]
-#     count_bottoms = df[df['type'].isin(OutfitPairRecommender.__init__.__globals__['BOTTOM_TYPES'])].shape[0]
-#     if count_tops < 5 or count_bottoms < 5:
-#         raise HTTPException(status_code=400, detail="Potrzebujesz co najmniej 5 topów i 5 bottomów w garderobie.")
-
-#     # Przygotuj pogodę
-#     weather = req.weather
-#     if not all(k in weather for k in ['temperature', 'rain_chance', 'wind_speed', 'season']):
-#         raise HTTPException(status_code=400, detail="Brak kompletnych parametrów pogodowych.")
-
-#     recomm = OutfitPairRecommender(df, rule_weight=req.rule_weight)
-#     pairs = recomm.recommend_pairs(user_id=1, weather=weather, top_k=req.top_k)
-#     result = []
-#     for top_id, top_type, bot_id, bot_type, score in pairs:
-#         result.append({
-#             "topId": top_id,
-#             "topType": top_type,
-#             "bottomId": bot_id,
-#             "bottomType": bot_type,
-#             "score": score
-#         })
-#     return {"recommendations": result}
+# get recommendations from users wardrobe
 @app.post("/recommend")
 def recommend(req: RecommendRequest):
     # Convert to DataFrame like your inference expects
@@ -145,20 +112,13 @@ def recommend(req: RecommendRequest):
     return {"recommendations": recs}
 
 
-
-# =============
-# WEATHER
-# =============
-class WeatherRequest(BaseModel):
-    city: str
-    long_term: bool = True
-
+# get full 7-day weather forecast for the given city
 @app.post("/api/weather")
 async def weather(req: WeatherRequest = Body(...)):
-    """Return full 7-day weather forecast for the given city."""
     return fetch_weather(req.city, req.long_term)
 
 
+# add new item to the wardrobe_items table with the link to the given user
 @app.post("/add_item")
 async def add_item(item: WardrobeItem = Body(...), user_id: int = Query(...), db: Session = Depends(get_db)):
     db_item = WardrobeItemDB(**item.dict(), user_id=user_id)
@@ -167,9 +127,10 @@ async def add_item(item: WardrobeItem = Body(...), user_id: int = Query(...), db
     db.refresh(db_item)
     return {"message": "Item saved", "item_id": db_item.id}
 
+# add new user to the users table
 @app.post("/add_user")
 def add_user(user: UserCreate, db: Session = Depends(get_db)):
-    # Optional: check if a user with the same name+surname exists
+    # check if a user with the same name+surname exists
     existing_user = db.query(UserDB).filter_by(name=user.name, surname=user.surname).first()
     if existing_user:
         raise HTTPException(status_code=400, detail="User already exists")
@@ -184,9 +145,9 @@ def add_user(user: UserCreate, db: Session = Depends(get_db)):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)  # Refresh to get the generated user_id
-
     return {"message": "User saved", "user_id": db_user.user_id}
 
+# get information about user from users table by his id
 @app.get("/users/{user_id}")
 async def get_user(user_id: int = Path(...), db: Session = Depends(get_db)):
     user = db.query(UserDB).filter(UserDB.user_id == user_id).first()
@@ -201,6 +162,7 @@ async def get_user(user_id: int = Path(...), db: Session = Depends(get_db)):
     }
 
 
+# delete an item from wardrobe_items table (if image is linked to this item, delete it as well)
 @app.delete("/delete_item/{item_id}")
 async def delete_item(item_id: int = Path(..., description="ID of the item to delete"), 
                       db: Session = Depends(get_db)):
@@ -225,6 +187,8 @@ async def delete_item(item_id: int = Path(..., description="ID of the item to de
     
     return {"message": f"Item {item_id} deleted successfully"}
 
+
+# get all items that belong to given user
 @app.get("/wardrobe")
 async def get_wardrobe(user_id: int = Query(..., description="User ID"), db: Session = Depends(get_db)):
     items = db.query(WardrobeItemDB).filter(WardrobeItemDB.user_id == user_id).all()
@@ -247,6 +211,7 @@ async def get_wardrobe(user_id: int = Query(..., description="User ID"), db: Ses
         ]
     }
 
+# transfer images from frontend to backend and save it in "uploads/"
 @app.post("/upload_image")
 async def upload_image(file: UploadFile = File(...)):
     
@@ -276,7 +241,6 @@ async def upload_image(file: UploadFile = File(...)):
     output.save(new_path)
     os.remove(file_path)
 
-    # Return path or URL to the frontend
     return {"filename": new_filename, "url": f"http://localhost:8000/uploads/{new_filename}"}
 
 
