@@ -1,8 +1,8 @@
 import torch
 import pandas as pd
 import itertools
-from .train.model import RecommenderNet
-from .train.dataset import FashionDataset
+from model import RecommenderNet
+from dataset import FashionDataset
 
 def load_model(model_path, dataset_path):
     temp_dataset = FashionDataset(dataset_path)  # To get encoders & dims
@@ -31,8 +31,11 @@ def prepare_features(row_top, row_bottom, row_outer, weather, dataset):
         for col in ["outer_type", "outer_color", "outer_material", "outer_size", "outer_style", "outer_special_property"]:
             record[col] = "missing"
 
+    has_outer = 1 if row_outer is not None else 0
+    outer_fav = row_outer["favorite"] if row_outer is not None else 0.0
+
     num_data = torch.tensor([[weather["temperature"], weather["rain"], weather["wind"],
-                              row_top["favorite"], row_bottom["favorite"]]], dtype=torch.float32)
+                              row_top["favorite"], row_bottom["favorite"], outer_fav, has_outer]], dtype=torch.float32)
 
     cat_vals = []
     for col in dataset.cat_features:
@@ -102,15 +105,16 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
 if __name__ == "__main__":
 
-    model, dataset = load_model("model_fine_tuned_topOuter.pth", "data/scored_data/out/training_topOuter3.csv")
+    model, dataset = load_model("final30.pth", "training_topOuter_clean.csv")
+    wardrobe_df = pd.read_csv("test.csv")
 
-    user_id = 1
-    weather = {"temperature": 12.0, "rain": 10.0, "wind": 10.0}
+    user_id = 99
+    weather = {"temperature": 20.0, "rain": 0.0, "wind": 20.0}
 
     recommend_outfits(
         model=model,
         dataset=dataset,
-        wardrobe_path="data/scored_data/out/wardrobe_topOuter.csv",
+        wardrobe_df=wardrobe_df,
         user_id=user_id,
         weather=weather,
         top_k=5
