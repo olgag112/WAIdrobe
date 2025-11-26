@@ -1,7 +1,6 @@
-import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Alert} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Alert, Platform} from 'react-native';
 import React, { useState } from 'react';
 import { Fonts } from '@/constants/theme';
-
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -74,24 +73,31 @@ export default function WardrobePage() {
     else if (TYPES.outer.includes(newItem.type)) category = 'outer';
     const itemToAdd = { ...newItem, category };
   
-    // try 
     try {
 
       // get an image (if the user upload one)
+      const formData = new FormData();
       let imageUrl = null;
       if (image) {
-        const uriParts = image.split(".");
-        const fileType = uriParts[uriParts.length - 1];
-
         // assign it to the form data to later send it to backend
-        const formData = new FormData();
-        formData.append("file", {
-          uri: image,
-          name: `photo.${fileType}`,
-          type: `image/${fileType}`,
-        } as any);
+        // for websites 
+        if (Platform.OS === "web") {
+          const blob = await fetch(image).then(r => r.blob());
+          formData.append("file", new File([blob], "photo.jpg", { type: blob.type }));
+        } 
+        // for phones
+        else {
+          const uriParts = image.split(".");
+          const fileType = uriParts[uriParts.length - 1];
 
-        // send it to the backed
+          formData.append("file", {
+            uri: image,
+            name: `photo.${fileType}`,
+            type: `image/${fileType}`,
+          } as any);
+        }
+
+        // send it to the backend
         try {
           const response = await axios.post(`${BACKEND_API}/upload_image`, formData, {
             headers: {
@@ -105,7 +111,8 @@ export default function WardrobePage() {
           Alert.alert("Upload failed!");
         }
       }
-      let finalItem = { ...itemToAdd, image_url: imageUrl} // add image_url to the item
+      // add image_url to the item
+      let finalItem = { ...itemToAdd, image_url: imageUrl}
 
       // send a request to the backend to add a new item to the user's wardrobe
       const response = await fetch(`${BACKEND_API}/add_item?user_id=${user.user_id}`, {
@@ -170,12 +177,10 @@ export default function WardrobePage() {
         <Text>You haven&apos;t added anything to your digital wardrobe</Text>
       ) : (
         <View>
+        {/* View for displaying top clothing items */}
         <ThemedText
           type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-            fontSize: 15
-          }}>
+          style={{ fontFamily: Fonts.rounded, fontSize: 15}}>
           Top items
         </ThemedText>
         <ScrollView
@@ -203,12 +208,10 @@ export default function WardrobePage() {
             </View>
           ))}
         </ScrollView>
+        {/* View for displaying bottom clothing items */}
         <ThemedText
           type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-            fontSize: 15
-          }}>
+          style={{ fontFamily: Fonts.rounded, fontSize: 15}}>
           Bottom items
         </ThemedText>
         <ScrollView
@@ -237,12 +240,10 @@ export default function WardrobePage() {
             </View>
           ))}
         </ScrollView>
+        {/* View for displaying outer clothing items */}
         <ThemedText
           type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-            fontSize: 15
-          }}>
+          style={{fontFamily: Fonts.rounded,fontSize: 15}}>
           Outer items
         </ThemedText>
         <ScrollView
@@ -276,6 +277,7 @@ export default function WardrobePage() {
         </View>
       )}
     </View>
+    {/* Interface for adding new items to the wardrobe */}
     <Button
         onPress={switcher}
         title="Add new item"
@@ -285,14 +287,12 @@ export default function WardrobePage() {
         <View>
           <View style={{ padding: 20 }}>
             <Stack.Screen options ={{title: 'Wardrobe'}}/>
+            {/* View to add an image */}
             <View style={styles.container}>
               <Text style={styles.title}>Item Image</Text>
-              {image?<Text>{image.uri}</Text>:null}
               <TouchableOpacity style={styles.imagePicker} onPress={pickImage}>
                 {image ? (
-                <>
-                  <Image source={{ uri: image }} style={styles.previewImage} />
-                </>
+                <><Image source={{ uri: image }} style={styles.previewImage}/></>
                 ):(
                   <View style={styles.placeholderContainer}>
                     <Ionicons name="image-outline" size={40} color={'#393E46'}/>
@@ -301,6 +301,7 @@ export default function WardrobePage() {
                 )}
               </TouchableOpacity>
             </View>
+            {/* Dropdowns to add tags to the new clothing item */}
             <DropdownComponent
               data={DROPDOWN.CLOTHING_ITEMS}
               label="Type"
@@ -357,6 +358,7 @@ export default function WardrobePage() {
               value={newItem.special_property}
               onChange={(val) => setNewItem((prev) => ({...prev, special_property: val}))}
             />
+            {/* Button to add a new item */}
             <Button
               onPress={addItem}
               title="Add new item"

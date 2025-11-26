@@ -1,3 +1,5 @@
+// dropdown options for adding a wardrobe item
+// Clothing type
 export const CLOTHING_ITEMS = [
   { label: 'T-shirt', value: 'T-shirt' },
   { label: 'Shirt', value: 'Shirt' },

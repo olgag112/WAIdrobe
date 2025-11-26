@@ -5,7 +5,11 @@ import { ThemedView } from '@/components/themed-view';
 import { useAppContext } from "../appContext";
 import {BACKEND_API} from '../../constants/ip';
 
-export default function TabTwoScreen() {
+// == PAGE THAT ALLOWS USERS TO LOG IN OR CREATE NEW ACCOUNT ==
+// Functions:
+// - log in to the account (checking credentials with backend datababse)
+// - create new account
+export default function LoginPage() {
 
   // global variables
   const { setUser, setWardrobe } = useAppContext();
@@ -13,7 +17,6 @@ export default function TabTwoScreen() {
   // local variables
   const [ tempUser, setTempUser] = useState('');
   const [ password, setPassword] = useState('');
-  const [ error, setError] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [registration, setRegistration] = useState(false);
@@ -46,7 +49,6 @@ export default function TabTwoScreen() {
       // get all the clothing items that belong to the user from db
       response = await fetch(`${BACKEND_API}/wardrobe?user_id=${tempUser}`);
       if (!response.ok){
-        setError("Failed to fetch wardrobe")
         throw new Error("Failed to fetch wardrobe");
       }
 
@@ -59,7 +61,6 @@ export default function TabTwoScreen() {
 
   // handle creating an user account
   const addUser = async () => {
-
     // send request to create new user to the backend
     try {
       const response = await fetch(`${BACKEND_API}/add_user`, {
@@ -75,11 +76,16 @@ export default function TabTwoScreen() {
       if (!response.ok) throw new Error("Failed to add user");
 
       const data = await response.json();
-      console.log("User added:", data);
 
+      // notify that account was created successfully
+      console.log("User added:", data);
       alert(`User created successfully!\n [!!!] YOUR USER ID: ${data.user_id}`);
+
+      // set variables to the logged in user
       setUser(data)
       setTempUser(data.user_id)
+
+      // switch interface from registering new account to logging in
       switcher()
     } catch (err) {
       console.error("Error adding user:", err);
@@ -93,6 +99,7 @@ export default function TabTwoScreen() {
         source={require('@/assets/images/login_image.png')}
         style={styles.loginImage}
       />
+      {/* Interface to log in */}
       <View style={styles.container}>
         { !registration ? (
           <>
@@ -120,7 +127,6 @@ export default function TabTwoScreen() {
               onPress={handleLogin}
               title="Log in"
               color="#605139ff"
-              accessibilityLabel="Learn more about this purple button"
             />
           </View>
           <View style={styles.buttonContainer}>
@@ -128,12 +134,12 @@ export default function TabTwoScreen() {
               onPress={switcher}
               title="Create new user"
               color="#605139ff"
-              accessibilityLabel="Learn more about this purple button"
             />
           </View>
         </>
-        ):(
+        ):( // Interface to register an account
           <>
+          {/* Inputs for name, surname and password */}
           <Text style={styles.label}>Your name:</Text>
           <TextInput
             style={styles.input}
@@ -162,20 +168,20 @@ export default function TabTwoScreen() {
             autoCapitalize="none"
             keyboardType="default"
           />
+          {/* button to register a new account */}
           <View style={styles.buttonContainer}>
             <Button
               onPress={addUser}
               title="Submit"
               color="#605139ff"
-              accessibilityLabel="Learn more about this purple button"
             />
           </View>
+          {/* button to go back to log in interface */}
           <View style={styles.buttonContainer}>
             <Button
               onPress={switcher}
               title="Go back to log in"
               color="#605139ff"
-              accessibilityLabel="Learn more about this purple button"
             />
           </View>
           </>
@@ -190,9 +196,9 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   titleContainer: {
     flex: 1,
-    flexDirection: 'column', // stack everything vertically
-    justifyContent: 'center', // center vertically
-    alignItems: 'center', // center horizontally
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center', 
     backgroundColor: '#b9988aff',
     padding: 20,
   },

@@ -2,7 +2,7 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
 
-// types
+// structure of the Weather data type
 interface Weather {
   temperature: string;
   rain_chance: string;
@@ -11,6 +11,7 @@ interface Weather {
   season: string;
 }
 
+// structure of the Clothing item data type
 interface WardrobeItem {
   type: string;
   color: string;
@@ -25,6 +26,7 @@ interface WardrobeItem {
   id: string | null;
 }
 
+// structure of the User data type
 interface User {
   user_id: number | null;
   password: string | null;
@@ -32,7 +34,7 @@ interface User {
   surname: string | null;
 }
 
-
+// structure of App Context data type (list of all global variables)
 interface AppContextType {
   date: Date;
   setDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -48,12 +50,6 @@ interface AppContextType {
   setNewItem: React.Dispatch<React.SetStateAction<WardrobeItem>>;
   recommendations: any[];
   setRecommendations: React.Dispatch<React.SetStateAction<any[]>>;
-  outfit: WardrobeItem[];
-  setOutfit: React.Dispatch<React.SetStateAction<WardrobeItem[]>>;
-  error: string;
-  setError: React.Dispatch<React.SetStateAction<string>>;
-  loading: boolean;
-  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   user: User;
   setUser: React.Dispatch<React.SetStateAction<User>>;
   image: any | null;
@@ -68,7 +64,8 @@ interface AppProviderProps {
 }
 
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
-  // weather
+
+  // weather-related variables
   const [date, setDate] = useState(new Date());
   const [city, setCity] = useState<string>("");
   const [forecastData, setForecastData] = useState<any[]>([]);
@@ -77,10 +74,10 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     rain_chance: '',
     wind_speed: '',
     feels_like: '',
-    season: 'Lato'
+    season: 'Summer'
   });
 
-  // garderoba
+  // Wardrobe-related variables
   const [wardrobe, setWardrobe] = useState<WardrobeItem[]>([]);
   const [image, setImage] = useState<string | null>(null);
   const [newItem, setNewItem] = useState<WardrobeItem>({
@@ -96,12 +93,9 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
     image_url: null,
     id: null
   });
-
   const [recommendations, setRecommendations] = useState<any[]>([]);
-  const [outfit, setOutfit] = useState<WardrobeItem[]>([]);
 
-  const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  // user-related variables
   const [user, setUser] = useState<User>({
     user_id: null,
     password: null,
@@ -119,9 +113,6 @@ export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
         wardrobe, setWardrobe,
         newItem, setNewItem,
         recommendations, setRecommendations,
-        outfit, setOutfit,
-        error, setError,
-        loading, setLoading,
         user, setUser,
         image, setImage,
       }}

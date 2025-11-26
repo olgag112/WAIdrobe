@@ -6,9 +6,9 @@ import os
 
 # Parameters
 BATCH_SIZE = 32
-EPOCHS = 10
+EPOCHS = 30
 LEARNING_RATE = 0.0005   #for fine tuning, make it 0.0005
-MODEL_PATH = "model_fine_tuned_topOuter.pth"
+MODEL_PATH = "../final30.pth"
 VAL_SPLIT = 0.2
 WEIGHT_DECAY = 0.0001
 
@@ -24,7 +24,7 @@ def custom_collate_fn(batch):
     )
 
 # Dataset split
-dataset = FashionDataset("../data/scored_data/out/training_topOuter2.csv")
+dataset = FashionDataset("../data/scored_data/out/training_topOuter_clean.csv")
 train_size = int((1 - VAL_SPLIT) * len(dataset))
 val_size = len(dataset) - train_size
 train_dataset, val_dataset = random_split(dataset, [train_size, val_size])
@@ -35,16 +35,10 @@ val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False, colla
 # Model and optimizer
 cat_dims = [len(enc.classes_) for enc in dataset.encoders.values()]
 emb_dims = [min(50, (dim + 1) // 2) for dim in cat_dims]
-num_input_dim = 6 #adding +1 for user_rating
-#
-# print("sum of embedding dims:", sum(emb_dims))
-# print("numeric input dim:", num_input_dim)
-# print("total input_dim:", sum(emb_dims) + num_input_dim)
-
+num_input_dim = 7
 
 model = RecommenderNet(cat_dims, emb_dims, num_input_dim)
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
-#criterion = torch.nn.MSELoss()
 criterion = torch.nn.HuberLoss()
 
 # --- Load checkpoint if exists ---
@@ -63,6 +57,9 @@ for param in model.embeddings.parameters():     # saving embeddings
 
 for name, param in model.embeddings[0].named_parameters():
     param.requires_grad = True
+    
+train_losses = []
+val_losses = []
 
 for epoch in range(EPOCHS):  # run only for the new session
     model.train()
@@ -85,6 +82,9 @@ for epoch in range(EPOCHS):  # run only for the new session
             val_loss += criterion(preds, label).item()
     val_loss /= len(val_loader)
 
+    train_losses.append(train_loss)
+    val_losses.append(val_loss)
+    
     print(f"Epoch {epoch + 1}/{EPOCHS}- Train Loss: {train_loss:.4f} Validation Loss: {val_loss:.4f}")
 
     # Save updated checkpoint
@@ -93,6 +93,48 @@ for epoch in range(EPOCHS):  # run only for the new session
         "model_state_dict": model.state_dict(),
         "optimizer_state_dict": optimizer.state_dict(),
     }, MODEL_PATH)
+
+# --- Plot 1: Training vs validation loss ---
+plt.figure(figsize=(8,5))
+plt.plot(train_losses, label="Training loss")
+plt.plot(val_losses, label="Validation loss")
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.title("Training vs validation loss")
+plt.legend()
+plt.grid()
+plt.show()
+
+# --- Plot 2: Predictions vs true values  ---
+all_preds = []
+all_true = []
+
+model.eval()
+with torch.no_grad():
+    for cat, num, label, _, _ in val_loader:
+        preds = model(cat, num)
+        all_preds.extend(preds.numpy())
+        all_true.extend(label.numpy())
+
+plt.figure(figsize=(6,6))
+plt.scatter(all_true, all_preds, alpha=0.4)
+plt.xlabel("True values")
+plt.ylabel("Predicted values")
+plt.title("Predicted vs true values")
+plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], color="red")  # diagonal line
+plt.grid()
+plt.show()
+
+# --- Plot 3: Histogram of residuals ---
+residuals = [p - t for p, t in zip(all_preds, all_true)]
+
+plt.figure(figsize=(8,5))
+plt.hist(residuals, bins=40, edgecolor='black')
+plt.title("Distribution of prediction errors")
+plt.xlabel("Prediction error")
+plt.ylabel("Count")
+plt.grid()
+plt.show()
 
 # --- Example predictions ---
 print("\nExample predictions:")
