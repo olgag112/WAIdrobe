@@ -1,6 +1,7 @@
 import requests
 from datetime import datetime
 
+# api key to access openweather 
 API_KEY = "be8cb59580baae4afd1256d90ee2b181"
 
 # Get latitude and longitude for a given city name

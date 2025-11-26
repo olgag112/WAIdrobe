@@ -12,13 +12,17 @@ from database.db_schema import WardrobeItemDB, UserDB
 from fastapi.staticfiles import StaticFiles
 from typing import Optional
 import uuid
-from siec.inference import load_model, recommend_outfits
+from network.inference import load_model, recommend_outfits
 from rembg import remove
 from PIL import Image
 
+# directory where images are stored
 UPLOAD_DIR = "uploads"
+
+# create fastAPI application
 app = FastAPI()
-# Pozwól frontendowi na dostęp
+
+# enable all origins to access this app
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -27,8 +31,10 @@ app.add_middleware(
 )
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
-model, dataset = load_model("siec/model_fine_tuned_topOuter.pth", "siec/data/scored_data/out/training_topOuter3.csv")
+# load the model and dataset
+model, dataset = load_model("network/final30.pth", "network/data/scored_data/out/training_topOuter_clean.csv")
 
+# create database session
 def get_db():
     db = SessionLocal()
     try:
@@ -39,28 +45,7 @@ def get_db():
 # =============
 # Schemas
 # =============
-# Schemat pojedynczego elementu garderoby
-class Item(BaseModel):
-    id: int
-    type: str
-    color: str
-    material: str
-    size: str
-    style: str
-    favorite: int
-    special_property: str
-
-class Weather(BaseModel):
-    temperature: float
-    rain_chance: float
-    wind_speed: float
-    season: Optional[str] = None
-
-class RecommendRequest(BaseModel):
-    wardrobe: List[Item]
-    weather: Weather
-    user_id: int
-
+# schema of a wardrobe item stored in the database
 class WardrobeItem(BaseModel):
     type: str
     color: str
@@ -73,24 +58,48 @@ class WardrobeItem(BaseModel):
     category: str
     image_url: Optional[str] = None
 
+# shrunk version of a wardrobe item used for recommendations
+class Item(BaseModel):
+    id: int
+    type: str
+    color: str
+    material: str
+    size: str
+    style: str
+    favorite: int
+    special_property: str
+
+# Schema for creating a new user
 class UserCreate(BaseModel):
     password: str
     name: str
     surname: str
 
+# weather info used for outfit recommendations
+class Weather(BaseModel):
+    temperature: float
+    rain_chance: float
+    wind_speed: float
+    season: Optional[str] = None
+
+# request body for getting weather from the openweather API
 class WeatherRequest(BaseModel):
     city: str
     long_term: bool = True
 
+# input for generating outfit recommendations
+class RecommendRequest(BaseModel):
+    wardrobe: List[Item]
+    weather: Weather
+    user_id: int
+
 # =============
 # FastAPI CRUDs
 # =============
-
 # get recommendations from users wardrobe
 @app.post("/recommend")
 def recommend(req: RecommendRequest):
     # Convert to DataFrame like your inference expects
-    print(req)
     items = [
         Item(
             id=item.id,
@@ -107,7 +116,6 @@ def recommend(req: RecommendRequest):
     wardrobe_df["user_id"] = req.user_id  # single user
     wardrobe_df.rename(columns={"id": "item_id"}, inplace=True)
     weather = {"temperature": req.weather.temperature, "rain": req.weather.rain_chance, "wind": req.weather.wind_speed}
-    print(wardrobe_df)
     recs = recommend_outfits(model, dataset, wardrobe_df, user_id=req.user_id, weather=weather)
     return {"recommendations": recs}
 

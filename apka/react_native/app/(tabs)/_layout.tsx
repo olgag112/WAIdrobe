@@ -1,13 +1,10 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-
 import { HapticTab } from '@/components/haptic-tab';
 import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
 
+// Bar at the bottom of the screen to navigate between pages
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
 
   return (
     <Tabs
@@ -17,9 +14,9 @@ export default function TabLayout() {
         headerShown: false,
         tabBarButton: HapticTab,
         tabBarStyle: {
-          backgroundColor: '#66554dff',              // tab bar background
+          backgroundColor: '#66554dff',
           borderTopColor: '#2f2f2fff', 
-          borderTopWidth: 2              // optional: top border
+          borderTopWidth: 2          
         },
       }}>
       <Tabs.Screen

@@ -12,10 +12,10 @@ class RecommenderNet(nn.Module):
 
         # Wyjściowy wymiar wektora cech - liczba embedingow + liczba kategorii numerycznych
         input_dim = sum(emb_dims) + num_input_dim
-
+        print(num_input_dim, input_dim)
         # Prosty MLP
         self.model = nn.Sequential(
-            nn.Linear(63, 128),
+            nn.Linear(input_dim, 128),
             nn.ReLU(),  # funckcja aktywacji, wprowadza nieliniowosc
             nn.Linear(128, 64),  # new hidden layer
             nn.ReLU(),
@@ -29,7 +29,4 @@ class RecommenderNet(nn.Module):
         emb = [emb_layer(cat_data[:, i]) for i, emb_layer in enumerate(self.embeddings)]
         # jeden tensor wejsciowy ze wszytskimi embedingami i danymi numerycznymi
         x = torch.cat(emb + [num_data], dim=1)
-        # print("cat",  cat_data.shape,  "num",  num_data.shape)
-        # print("embeddings", len(self.embeddings))
-        # print("x", x.shape[1])
         return self.model(x).squeeze(1)

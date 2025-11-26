@@ -31,7 +31,7 @@ class FashionDataset(Dataset):
 
         # numeric features (keep temperature, rain, wind, favorites)
         self.numeric = self.df[['temperature', 'rain_chance', 'wind_speed',
-                                'top_favorite', 'bottom_favorite']].values.astype(float)
+                                'top_favorite', 'bottom_favorite', 'outer_favorite', 'has_outer']].values.astype(float)
         self.labels = self.df['score'].values.astype(float)
 
         # user_id

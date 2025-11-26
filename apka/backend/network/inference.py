@@ -1,8 +1,8 @@
 import torch
 import pandas as pd
 import itertools
-from model import RecommenderNet
-from dataset import FashionDataset
+from .train.model import RecommenderNet
+from .train.dataset import FashionDataset
 
 def load_model(model_path, dataset_path):
     temp_dataset = FashionDataset(dataset_path)  # To get encoders & dims
@@ -105,8 +105,8 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
 if __name__ == "__main__":
 
-    model, dataset = load_model("final30.pth", "training_topOuter_clean.csv")
-    wardrobe_df = pd.read_csv("test.csv")
+    model, dataset = load_model("final30.pth", "data/scored_data/out/training_topOuter_clean.csv")
+    wardrobe_df = pd.read_csv("data/scored_data/out/test.csv")
 
     user_id = 99
     weather = {"temperature": 20.0, "rain": 0.0, "wind": 20.0}

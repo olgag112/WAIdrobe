@@ -32,11 +32,8 @@ export default function RecommendationPage() {
   const maxDate = new Date();
   maxDate.setDate(today.getDate() + 7);
 
-
   const [show, setShow] = useState(true);
   const [error, setError] = useState('');
-  const [errorCity, setErrorCity] = useState('');
-  const [loading, setLoading] = useState(false);
   const [tempScore, setTempScore] = useState([]);
 
   // set userScore for recommendation
@@ -67,12 +64,11 @@ export default function RecommendationPage() {
 
       const data = await res.json();
       setForecastData(data.forecast);
-      setErrorCity("");
       // If date is already selected, immediately update weather
       if (date) updateWeatherForDate(date, data.forecast);
     } catch (err) {
       console.error(err);
-      setErrorCity("This city doesn't exist!");
+      alert("This city doesn't exist!");
     }
   };
 
@@ -105,12 +101,14 @@ export default function RecommendationPage() {
       return;
     }
     // stop if user didn't get the weather first
-    if (!weather.temperature || !weather.rain_chance || !weather.wind_speed) {
+    if (weather.temperature === '' ||
+        weather.rain_chance === '' ||
+        weather.wind_speed === ''
+    ) {
       setError('You need to add your city first');
       return;
     }
     setError('');
-    setLoading(true);
     try {
       // format what will be send to the backend
       const body = {
@@ -143,7 +141,6 @@ export default function RecommendationPage() {
       console.error(err);
       setError('Błąd podczas pobierania rekomendacji');
     }
-    setLoading(false);
   };
   
   return (
@@ -155,15 +152,16 @@ export default function RecommendationPage() {
           style={{ width: '100%', height: 250, resizeMode: 'cover' }}
         />
       }>
+
+      {/* Interface for getting and displaying weather data */}
       <ThemedView style={styles.titleContainer}>
         <ThemedText
           type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}>
+          style={{ fontFamily: Fonts.rounded,}}>
           Weather
         </ThemedText>
       </ThemedView>
+      {/* Input to type city name */}
       <View>
         <Text style={styles.label}>Your city:</Text>
         <TextInput
@@ -175,6 +173,7 @@ export default function RecommendationPage() {
           keyboardType="default"
         />
       </View>
+      {/* Input to pick the date (next 7 days only) */}
       <View>
         {/* For phones */}
         {Platform.OS !== "web" && show && (
@@ -187,7 +186,6 @@ export default function RecommendationPage() {
             onChange={onChange}
           />
         )}
-
         {/* For websites */}
         {Platform.OS === "web" && (
           <input
@@ -205,6 +203,7 @@ export default function RecommendationPage() {
           />
         )}
       </View>
+      {/* button to fetch the weather from backend server */}
       <View style={styles.buttonContainer}>
           <Button
             onPress={fetchWeather}
@@ -213,6 +212,7 @@ export default function RecommendationPage() {
             accessibilityLabel="Learn more about this purple button"
           />
         </View>
+      {/* Display weather details for selected day */}
       {weather ? (
         <>
         <Text>Date: {date.toISOString().split("T")[0]}</Text>
@@ -223,7 +223,9 @@ export default function RecommendationPage() {
           Wind Speed: {weather.wind_speed}{"\n"}
         </Text>
         </>
-      ):null}
+      ) : null}
+
+      {/* Interface to get and display recommendations */}
       <ThemedView style={styles.titleContainer}>
         <ThemedText
           type="title"
@@ -233,15 +235,17 @@ export default function RecommendationPage() {
           Reccomendations
         </ThemedText>
       </ThemedView>
+      {/* Button to get the recommendation from backend server */}
       <View style={styles.buttonContainer}>
-          <Button
-            onPress={fetchRecommendations}
-            title="Get Recommendations"
-            color="#fbfbfbff"
-            accessibilityLabel="Learn more about this purple button"
-          />
-        </View>
-      {error?(error):null}
+        <Button
+          onPress={fetchRecommendations}
+          title="Get Recommendations"
+          color="#fbfbfbff"
+          accessibilityLabel="Learn more about this purple button"
+        />
+      </View>
+      { error ? (error) : null}
+      {/* Display recommendations */}
       {recommendations.length > 0 && (
         <View>
           <Text>Rekomendowane komplety</Text>
@@ -287,11 +291,11 @@ export default function RecommendationPage() {
                       />
                     )}
                   </View>
-
-                  <Text style={{ marginTop: 8 }}>Score: {score.toFixed(2)}</Text>
+                  {/* Display score estimated by model and user score */}
+                  <Text style={{ marginTop: 8 }}> Score: {score.toFixed(2)} </Text>
                   <View style={styles.score_container}>
-                    <Text style={styles.text}>User Score: {rec.userScore ?? "No score yet"}</Text>
-
+                    <Text style={styles.text}> User Score: {rec.userScore ?? "No score yet"} </Text>
+                    {/* Allow user to score the outfit */}
                     <View style={styles.inputContainer}>
                       <Text style={styles.label}>Score this outfit (0–10)</Text>
                       <TextInput
@@ -307,6 +311,8 @@ export default function RecommendationPage() {
                         color="#605139ff"
                         onPress={() => handleScoreChange(idx, tempScore[idx])} 
                       />
+                      {/* Allow user to save the outfit */}
+                      {/* Not developed yet */}
                       <Button 
                         title="Save the Outfit" 
                         onPress={() => console.log("Saving...")} 
@@ -314,7 +320,6 @@ export default function RecommendationPage() {
                       />
                     </View>
                   </View>
-
                 </View>
               );
             })}
@@ -375,17 +380,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 12,
     borderWidth: 2,
-    borderColor: '#f8f7f4ff', // border color different from background
-    borderRadius: 10,        // rounded corners
-    backgroundColor: '#ffffffff', // slightly different background
+    borderColor: '#f8f7f4ff',
+    borderRadius: 10,   
+    backgroundColor: '#ffffffff', 
 
-    // iOS shadow
+    // ios shadow
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
 
-    // Android shadow
+    // android shadow
     elevation: 5,
   },
   button: {
