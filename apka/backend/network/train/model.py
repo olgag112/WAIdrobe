@@ -12,7 +12,6 @@ class RecommenderNet(nn.Module):
 
         # Wyjściowy wymiar wektora cech - liczba embedingow + liczba kategorii numerycznych
         input_dim = sum(emb_dims) + num_input_dim
-        print(num_input_dim, input_dim)
         # Prosty MLP
         self.model = nn.Sequential(
             nn.Linear(input_dim, 128),

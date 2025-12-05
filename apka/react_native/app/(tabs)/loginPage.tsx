@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { StyleSheet, Button, View, Text, TextInput} from 'react-native';
+import { StyleSheet, Button, View, Text, TextInput, KeyboardAvoidingView, Platform, ScrollView} from 'react-native';
 import React, { useState } from 'react';
 import { ThemedView } from '@/components/themed-view';
 import { useAppContext } from "../appContext";
@@ -12,11 +12,11 @@ import {BACKEND_API} from '../../constants/ip';
 export default function LoginPage() {
 
   // global variables
-  const { setUser, setWardrobe } = useAppContext();
+  const {setUser, setWardrobe, setRecommendations } = useAppContext();
 
   // local variables
-  const [ tempUser, setTempUser] = useState('');
-  const [ password, setPassword] = useState('');
+  const [tempUser, setTempUser] = useState('');
+  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [registration, setRegistration] = useState(false);
@@ -54,6 +54,7 @@ export default function LoginPage() {
 
       const data = await response.json();
       setWardrobe(data.items);
+      setRecommendations([])
     } catch (err) {
       return alert("Can't load your wardrobe");
     }
@@ -94,102 +95,109 @@ export default function LoginPage() {
   };
 
   return (
-    <ThemedView style={styles.titleContainer}>
-      <Image
-        source={require('@/assets/images/login_image.png')}
-        style={styles.loginImage}
-      />
-      {/* Interface to log in */}
-      <View style={styles.container}>
-        { !registration ? (
-          <>
-          <Text style={styles.label}>User ID:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Type your User ID"
-            value={tempUser}
-            onChangeText={setTempUser}
-            autoCapitalize="none"
-            keyboardType="default"
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === "ios" ? "padding" : "height"}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyboardShouldPersistTaps="handled"
+      >
+        <ThemedView style={styles.titleContainer}>
+          <Image
+            source={require('@/assets/images/login_image.png')}
+            style={styles.loginImage}
           />
-          <Text style={styles.label}>Password:</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            placeholder="Type your password"
-            value={password}
-            onChangeText={setPassword}
-            autoCapitalize="none"
-            keyboardType="default"
-          />
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={handleLogin}
-              title="Log in"
-              color="#605139ff"
-            />
+          {/* Interface to log in */}
+          <View style={styles.container}>
+            { !registration ? (
+              <>
+              <Text style={styles.label}>User ID:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Type your User ID"
+                value={tempUser}
+                onChangeText={setTempUser}
+                autoCapitalize="none"
+                keyboardType="default"
+              />
+              <Text style={styles.label}>Password:</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry={true}
+                placeholder="Type your password"
+                value={password}
+                onChangeText={setPassword}
+                autoCapitalize="none"
+                keyboardType="default"
+              />
+              <View style={styles.buttonContainer}>
+                <Button
+                  onPress={handleLogin}
+                  title="Log in"
+                  color="#605139ff"
+                />
+              </View>
+              <View style={styles.buttonContainer}>
+                <Button
+                  onPress={switcher}
+                  title="Create new user"
+                  color="#605139ff"
+                />
+              </View>
+            </>
+            ):( // Interface to register an account
+              <>
+              {/* Inputs for name, surname and password */}
+              <Text style={styles.label}>Your name:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Type your name"
+                value={name}
+                onChangeText={setName}
+                autoCapitalize="none"
+                keyboardType="default"
+              />
+              <Text style={styles.label}>Your surname:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Type your surname"
+                value={surname}
+                onChangeText={setSurname}
+                autoCapitalize="none"
+                keyboardType="default"
+              />
+              <Text style={styles.label}>Your new password:</Text>
+              <TextInput
+                style={styles.input}
+                secureTextEntry={true}
+                placeholder="Type your new password"
+                value={password}
+                onChangeText={setPassword}
+                autoCapitalize="none"
+                keyboardType="default"
+              />
+              {/* button to register a new account */}
+              <View style={styles.buttonContainer}>
+                <Button
+                  onPress={addUser}
+                  title="Submit"
+                  color="#605139ff"
+                />
+              </View>
+              {/* button to go back to log in interface */}
+              <View style={styles.buttonContainer}>
+                <Button
+                  onPress={switcher}
+                  title="Go back to log in"
+                  color="#605139ff"
+                />
+              </View>
+              </>
+            )}
+            
+            
           </View>
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={switcher}
-              title="Create new user"
-              color="#605139ff"
-            />
-          </View>
-        </>
-        ):( // Interface to register an account
-          <>
-          {/* Inputs for name, surname and password */}
-          <Text style={styles.label}>Your name:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Type your name"
-            value={name}
-            onChangeText={setName}
-            autoCapitalize="none"
-            keyboardType="default"
-          />
-          <Text style={styles.label}>Your surname:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Type your surname"
-            value={surname}
-            onChangeText={setSurname}
-            autoCapitalize="none"
-            keyboardType="default"
-          />
-          <Text style={styles.label}>Your new password:</Text>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            placeholder="Type your new password"
-            value={password}
-            onChangeText={setPassword}
-            autoCapitalize="none"
-            keyboardType="default"
-          />
-          {/* button to register a new account */}
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={addUser}
-              title="Submit"
-              color="#605139ff"
-            />
-          </View>
-          {/* button to go back to log in interface */}
-          <View style={styles.buttonContainer}>
-            <Button
-              onPress={switcher}
-              title="Go back to log in"
-              color="#605139ff"
-            />
-          </View>
-          </>
-        )}
-        
-        
-      </View>
-    </ThemedView>
+        </ThemedView>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

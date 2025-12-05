@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Alert, Platform} from 'react-native';
+import { StyleSheet, View, Text, ScrollView, Button, TouchableOpacity, Platform} from 'react-native';
 import React, { useState } from 'react';
 import { Fonts } from '@/constants/theme';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
@@ -36,8 +36,15 @@ export default function WardrobePage() {
   // bool value that is used to display interface to add a new item
   const [addingItem, setAddingItem] = useState(false)
 
+  const MAX_FILE_SIZE_MB = 5;
+  const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
+  const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/heic"];
+
   // function to turn on/off interface to add a new item to the wardrobe
   const switcher = () => {
+    if (!user.user_id) {
+      return alert("You can't use this functionality, unless you're logged in");
+    }
     setAddingItem(prev => !prev);
   };
 
@@ -47,19 +54,26 @@ export default function WardrobePage() {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
     if (!permissionResult.granted) {
-      Alert.alert("Permission to access camera roll is required!");
-      return;
+      return alert("Permission to access camera roll is required!");
     }
 
     // assign image to variable and format it
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
-      aspect: [3, 4],
+      aspect: [8, 3],
       quality: 0.4,
     });
 
     if (!result.canceled) {
+      const asset = result.assets[0];
+
+      if (!asset.mimeType || !ALLOWED_MIME_TYPES.includes(asset.mimeType)) {
+        return alert("Selected file type is not supported.");
+      }
+      if (asset.fileSize && asset.fileSize > MAX_FILE_SIZE_BYTES) {
+        return alert("The file size is too big (it can't exceed 5Mb)");
+      }
       setImage(result.assets[0].uri);
     }
   };
@@ -104,11 +118,11 @@ export default function WardrobePage() {
               "Content-Type": "multipart/form-data",
             },
           });
-          Alert.alert("Upload success!");
+          alert("Upload success!");
           imageUrl = response.data.url;
         } catch (error) {
           console.error("Upload failed:", error);
-          Alert.alert("Upload failed!");
+          alert("Upload failed!");
         }
       }
       // add image_url to the item
@@ -397,7 +411,7 @@ const styles = StyleSheet.create({
   },
   imagePicker: {
     width: "100%",
-    height: 200,
+    height: 250,
     backgroundColor: "#eee9dfff",
     borderRadius: 12,
     borderWidth: 1,

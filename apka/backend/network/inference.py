@@ -70,6 +70,9 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
     temp = weather["temperature"]
 
+    if temp < 15:
+        bottoms = bottoms[~bottoms['type'].isin(['Skirt', 'Shorts'])]
+
     if temp < 18 and not outers.empty:
         combos = itertools.product(outers.iterrows(), tops.iterrows(), bottoms.iterrows())
         for (_, outer), (_, top), (_, bottom) in combos:
@@ -105,7 +108,7 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
 if __name__ == "__main__":
 
-    model, dataset = load_model("final30.pth", "data/scored_data/out/training_topOuter_clean.csv")
+    model, dataset = load_model("final_version.pth", "data/scored_data/out/training_topOuter_clean.csv")
     wardrobe_df = pd.read_csv("data/scored_data/out/test.csv")
 
     user_id = 99

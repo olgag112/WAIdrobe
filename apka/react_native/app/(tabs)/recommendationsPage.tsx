@@ -33,7 +33,6 @@ export default function RecommendationPage() {
   maxDate.setDate(today.getDate() + 7);
 
   const [show, setShow] = useState(true);
-  const [error, setError] = useState('');
   const [tempScore, setTempScore] = useState([]);
 
   // set userScore for recommendation
@@ -55,6 +54,9 @@ export default function RecommendationPage() {
   // get the weather using Weather API (for specific city for the next 7 days)
   const fetchWeather = async () => {
     try {
+      if (!user.user_id) {
+        return alert("You can't use this functionality, unless you're logged in");
+      }
       const res = await fetch(`${BACKEND_API}/api/weather`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -89,26 +91,26 @@ export default function RecommendationPage() {
 
   // get recommendations from our model using requests to the backend
   const fetchRecommendations = async () => {
+    // stop if user isn't logged in
+    if (!user.user_id) {
+        return alert("You can't use this functionality, unless you're logged in");
+      }
     // stop if user doesn't have any clothes
     if (wardrobe.length === 0) {
-      setError('You need to add your clothes first');
-      return;
+      return alert('You need to add your clothes first');
     }
     // stop if user doesn't have at least 5 bottom and 5 top items
     if (wardrobe.filter(i => i.category === "top").length < 5 ||
         wardrobe.filter(i => i.category === "bottom").length < 5) {
-      setError('You need min 5 tops and 5 bottoms');
-      return;
+      return alert('You need min 5 tops and 5 bottoms');
     }
     // stop if user didn't get the weather first
     if (weather.temperature === '' ||
         weather.rain_chance === '' ||
         weather.wind_speed === ''
     ) {
-      setError('You need to add your city first');
-      return;
+      return alert('You need to add your city first');
     }
-    setError('');
     try {
       // format what will be send to the backend
       const body = {
@@ -139,7 +141,7 @@ export default function RecommendationPage() {
     
     } catch (err) {
       console.error(err);
-      setError('Błąd podczas pobierania rekomendacji');
+      alert('Błąd podczas pobierania rekomendacji');
     }
   };
   
@@ -244,11 +246,9 @@ export default function RecommendationPage() {
           accessibilityLabel="Learn more about this purple button"
         />
       </View>
-      { error ? (error) : null}
       {/* Display recommendations */}
       {recommendations.length > 0 && (
         <View>
-          <Text>Rekomendowane komplety</Text>
           <View>
             {recommendations.map((rec, idx) => {
               const [outerId, topId, bottomId, score] = rec.values;
@@ -263,9 +263,9 @@ export default function RecommendationPage() {
                   style={styles.container}
                 >
                   <View style={{ marginBottom: 8 }}>
-                    <Text style={{ fontWeight: 'bold' }}>Komplet {idx + 1}:</Text>
-                    <Text>Góra: {topItem ? `[ID ${topItem.id}] ${topItem.type}` : 'Brak'}</Text>
-                    <Text>Dół: {bottomItem ? `[ID ${bottomItem.id}] ${bottomItem.type}` : 'Brak'}</Text>
+                    <Text style={{ fontWeight: 'bold' }}>Outfit {idx + 1}:</Text>
+                    <Text>Top: {topItem ? `[ID ${topItem.id}] ${topItem.type}` : 'None'}</Text>
+                    <Text>Bottom: {bottomItem ? `[ID ${bottomItem.id}] ${bottomItem.type}` : 'None'}</Text>
                     {outerItem && (
                       <Text>Outer: [ID {outerItem.id}] {outerItem.type}</Text>
                     )}
