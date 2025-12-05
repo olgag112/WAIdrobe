@@ -105,7 +105,7 @@ def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
 if __name__ == "__main__":
 
-    model, dataset = load_model("final30.pth", "training_topOuter_clean.csv")
+    model, dataset = load_model("final_version.pth", "training_topOuter_clean.csv")
     wardrobe_df = pd.read_csv("test.csv")
 
     user_id = 99
