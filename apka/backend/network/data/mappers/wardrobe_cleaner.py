@@ -1,9 +1,9 @@
+# The dataset was synthetically generated, based on some rules and results from a survey. 
+# It was decided that it would be beneficial to perform a cleaning process of the dataset.
+
 import pandas as pd
 
-# === 1. Wczytanie pliku CSV ===
 df = pd.read_csv("wardrobe_no_season.csv")
-
-# === 2. Stałe i słowniki tłumaczeń ===
 
 TOP_TYPES = ["T-shirt", "Bluza", "Sweter", "Koszula", "Marynarka", "Kurtka", "Płaszcz"]
 BOTTOM_TYPES = ["Spodnie", "Szorty", "Spódnica"]
@@ -15,8 +15,6 @@ SIZES = ["XS", "S", "M", "L", "XL", "XXL"]
 STYLES = ["Codzienny", "Formalny", "Sportowy", "Wieczorowy"]
 SPECIAL = ["Ocieplane", "Przeciwdeszczowe", "Przeciwwiatrowe", "Szybkoschnące",
            "Niwelujące otarcia", "Oddychające", "Niekrępujące ruchu", "Brak"]
-
-# === 3. Słowniki tłumaczeń ===
 
 translate_type = {
     "T-shirt": "T-shirt",
@@ -70,15 +68,14 @@ translate_special = {
     "Brak": "None"
 }
 
-# === 4. Tłumaczenie kolumn ===
+# Column translation
 df["type"] = df["type"].map(translate_type)
 df["color"] = df["color"].map(translate_color)
 df["material"] = df["material"].map(translate_material)
 df["style"] = df["style"].map(translate_style)
 df["special_property"] = df["special_property"].map(translate_special)
 
-# === 5. Czyszczenie danych wg zasad ===
-
+# Making sure that data reflects real-life features of clothes
 def clean_special(row):
     prop = row["special_property"]
     item = row["type"]
@@ -91,7 +88,6 @@ def clean_special(row):
 
 df["special_property"] = df.apply(clean_special, axis=1)
 
-# === 6. Zapis oczyszczonego pliku ===
 df.to_csv("wardrobe_no_season_cleaned.csv", index=False)
 
-print("Plik został przetłumaczony i oczyszczony: 'wardrobe_no_season_cleaned.csv'")
+print("The file was translated and cleaned: 'wardrobe_no_season_cleaned.csv'")
