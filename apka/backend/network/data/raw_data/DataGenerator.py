@@ -1,19 +1,21 @@
+# This is the data generating file, used to create wardrobe_topOuter.csv
+
 import pandas as pd
 import numpy as np
 import argparse
 
 # Define categories for tops and bottoms
 TOP_TYPES = ["Sweater", "Shirt", "T-shirt","Sweatshirt","Blazer"]
-TOP_OUTER_TYPES = ["Coat","Jacket"] #added
+TOP_OUTER_TYPES = ["Coat","Jacket"]   # added in later phase of the project
 BOTTOM_TYPES = ["Skirt", "Trousers", "Shorts"]
 ALL_TYPES = TOP_TYPES + TOP_OUTER_TYPES + BOTTOM_TYPES + ["Dress"]
 
 COLORS = ["White", "Black", "Blue", "Red", "Green", "Gray", "Beige"]
 MATERIALS = ["Cotton", "Polyester", "Wool", "Linen", "Leather", "Jeans"]
 SIZES = ["XS", "S", "M", "L", "XL", "XXL"]
-SEASONS = ["Summer", "Winter", "All-year", "Spring/Autumn"]
+SEASONS = ["Summer", "Winter", "All-year", "Spring/Autumn"]   # this column was removed after generating data
 STYLES = ["Casual", "Formal", "Sporty", "Evening"]
-SPECIAL = ["Insulated", "Waterproof", "Windproof", "Quick-drying",  # insulated = quilted
+SPECIAL = ["Insulated", "Waterproof", "Windproof", "Quick-drying", 
            "Anti-chafing", "Breathable", "Non-restrictive", "None"]
 
 
@@ -29,9 +31,11 @@ def generate_synthetic_data(num_users, min_tops, min_outers, min_bottoms, min_ot
             records.append(_make_item(user_id, item_id, TOP_OUTER_TYPES)); item_id += 1
         for _ in range(min_bottoms):
             records.append(_make_item(user_id, item_id, BOTTOM_TYPES)); item_id += 1
+                   
         # Optional others
         for _ in range(min_others):
             records.append(_make_item(user_id, item_id, ["Dress"])); item_id += 1
+                   
         # Extra random items
         extra = np.random.randint(0, min_tops + min_bottoms + 1)
         for _ in range(extra):
