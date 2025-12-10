@@ -5,17 +5,23 @@ from .train.model import RecommenderNet
 from .train.dataset import FashionDataset
 
 def load_model(model_path, dataset_path):
+    # Load dataset only to extract encoders and numeric feature dimensions
     temp_dataset = FashionDataset(dataset_path)  # To get encoders & dims
+    # Category sizes for embeddings
     cat_dims = [len(enc.classes_) for enc in temp_dataset.encoders.values()]
+    # Embedding dimensions
     emb_dims = [min(50, (dim + 1) // 2) for dim in cat_dims]
     num_input_dim = temp_dataset.numeric.shape[1]
 
     model = RecommenderNet(cat_dims, emb_dims, num_input_dim)
+    # Load trained weights
     checkpoint = torch.load(model_path, map_location="cpu")
     model.load_state_dict(checkpoint["model_state_dict"], strict=False)
     model.eval()
     return model, temp_dataset
-
+    
+# Convert one outfit combination (top/bottom/outer + weather)
+# into properly encoded categorical + numerical tensors
 def prepare_features(row_top, row_bottom, row_outer, weather, dataset):
 
     record = {
@@ -48,8 +54,7 @@ def prepare_features(row_top, row_bottom, row_outer, weather, dataset):
     cat = torch.tensor([cat_vals], dtype=torch.long)
     return cat, num_data
 
-# tutaj trzeba ogarnac to user_id, czy jesli wychodzi request od konkretnego usera
-# to czy faktycznie potrzebujemy to user_id, imo nie ale moze ten react jakos tak dziala
+# Generate outfit recommendations for a given user
 def recommend_outfits(model, dataset, wardrobe_df, user_id, weather, top_k=5):
 
     wardrobe = wardrobe_df[wardrobe_df["user_id"] == user_id]
