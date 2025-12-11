@@ -14,7 +14,8 @@ bottom_df = bottom_df.rename(columns={"item_id": "bottom_id"})
 outer_df = wardrobe_df.rename(columns=lambda x: "outer_" + x if x not in ["user_id", "item_id"] else x)
 outer_df = outer_df.rename(columns={"item_id": "outer_id"})
 
-# Merge all 3 types
+# Merge the recommendation dataframe with all item dataframes
+# Left join is used to keep all recommendations, adding item details where available
 merged = (
     rec_df
     .merge(top_df, on=["user_id", "top_id"], how="left")
