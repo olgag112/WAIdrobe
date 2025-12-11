@@ -9,12 +9,14 @@ import numpy as np
 # Parameters
 BATCH_SIZE = 32
 EPOCHS = 60
-LEARNING_RATE = 0.0005   #for fine tuning
-MODEL_PATH = "final_version.pth"
+LEARNING_RATE = 0.0005  
+MODEL_PATH = "final_version.pth"  # File with saved model
 VAL_SPLIT = 0.2
 WEIGHT_DECAY = 0.0001
 
 # Collate function
+# Batch elements contain mixed datatypes (tensors + dicts),
+#     so this custom collate ensures everything is grouped properly.
 def custom_collate_fn(batch):
     cats, nums, labels, user_ids, weathers = zip(*batch)
     return (
@@ -27,11 +29,12 @@ def custom_collate_fn(batch):
 
 # Dataset split
 dataset = FashionDataset("training_topOuter_clean.csv")
-# --- 3-way split: 70% train, 15% val, 15% test ---
+
+# 3-way split: 80% train, 1% val, 1% test ---
 total_len = len(dataset)
 train_size = int(0.8 * total_len)
 val_size = int(0.1 * total_len)
-test_size = total_len - train_size - val_size   # ensures exact total
+test_size = total_len - train_size - val_size   
 
 train_dataset, val_dataset, test_dataset = random_split(
     dataset, [train_size, val_size, test_size]
@@ -51,7 +54,7 @@ model = RecommenderNet(cat_dims, emb_dims, num_input_dim)
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=WEIGHT_DECAY)
 criterion = torch.nn.HuberLoss()
 
-# --- Load checkpoint if exists ---
+# Load checkpoint if exists
 if os.path.exists(MODEL_PATH):
     checkpoint = torch.load(MODEL_PATH, map_location="cpu")
     model.load_state_dict(checkpoint["model_state_dict"], strict=False) #letting the model take in a new dimension
@@ -61,19 +64,22 @@ if os.path.exists(MODEL_PATH):
 else:
     start_epoch = 0
     print("Starting training from scratch.")
-
-for param in model.embeddings.parameters():     # saving embeddings
+    
+# Eembeddings freesing for fine-tuning
+for param in model.embeddings.parameters():    
     param.requires_grad = False
 
 for name, param in model.embeddings[0].named_parameters():
     param.requires_grad = True
 
+# Training loop
 train_losses = []
 val_losses = []
 
-for epoch in range(EPOCHS):  # run only for the new session
+for epoch in range(EPOCHS):  
     model.train()
     train_loss = 0
+    #Training
     for cat, num, label, _, _ in train_loader:
         optimizer.zero_grad()
         preds = model(cat, num)
@@ -104,7 +110,7 @@ for epoch in range(EPOCHS):  # run only for the new session
         "optimizer_state_dict": optimizer.state_dict(),
     }, MODEL_PATH)
 
-# --- Plot 1: Training vs Validation Loss ---
+#Plot 1: Training vs Validation Loss 
 plt.figure(figsize=(8,5))
 plt.plot(train_losses, label="Training loss")
 plt.plot(val_losses, label="Validation loss")
@@ -115,7 +121,7 @@ plt.legend()
 plt.grid()
 plt.show()
 
-# --- Plot 2: Predictions vs true values  ---
+# Plot 2: Predictions vs true values
 all_preds = []
 all_true = []
 
@@ -135,7 +141,7 @@ plt.plot([min(all_true), max(all_true)], [min(all_true), max(all_true)], color="
 plt.grid()
 plt.show()
 
-# --- Plot 3: Histogram of residuals ---
+#  Plot 3: Histogram of residuals 
 residuals = [p - t for p, t in zip(all_preds, all_true)]
 
 plt.figure(figsize=(8,5))
@@ -146,7 +152,7 @@ plt.ylabel("Count")
 plt.grid()
 plt.show()
 
-# --- Example predictions ---
+#  Example predictions 
 print("\nExample predictions:")
 model.eval()
 with torch.no_grad():
@@ -159,8 +165,8 @@ with torch.no_grad():
             )
         break
 
-
-test_loader = test_loader   # use the real test set now
+# Test phase
+test_loader = test_loader   
 
 # Evaluate on test set
 all_test_preds = []
@@ -191,7 +197,7 @@ print(f"MAE:                       {mae:.4f}")
 print(f"sMAPE:       {smape_val:.2f}%")
 print(f"MAPE:   {mape_val:.2f}%")
 
-# --- Test plots ---
+#  Test plots 
 plt.figure(figsize=(6,6))
 plt.scatter(all_test_true, all_test_preds, alpha=0.4)
 plt.xlabel("True values")
