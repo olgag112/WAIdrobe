@@ -32,7 +32,7 @@ app.add_middleware(
 app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
 
 # load the model and dataset
-model, dataset = load_model("network/final30.pth", "network/data/scored_data/out/training_topOuter_clean.csv")
+model, dataset = load_model("network/final_version.pth", "network/data/scored_data/out/training_topOuter_clean.csv")
 
 # create database session
 def get_db():
