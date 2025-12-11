@@ -9,14 +9,21 @@ import csv
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from data.raw_data.DataGenerator import TOP_TYPES, BOTTOM_TYPES, TOP_OUTER_TYPES
 
+# A hybrid (rule-based + content-based) recommender system for suggesting
+# outfits based on user wardrobe data and weather conditions.
 class OutfitPairRecommender:
     def __init__(self, df, rule_weight=0.5):
+        # df: clothing item dataframe
+        # rule_weight: controls balance between rule-based and content-based scoring
+        #              (1.0 = pure rules, 0.0 = pure similarity)
         self.df = df.copy()
         self.rule_weight = rule_weight
+        #  One-hot encode clothing attributes for similarity scoring 
         feats = pd.get_dummies(self.df[['type', 'color', 'material', 'style', 'special_property']])
         self.feature_cols = feats.columns
         self.df = pd.concat([self.df, feats], axis=1)
 
+    # Returns a compatibility score between two colors.
     def color_compat(self, c1, c2):
         if c1 == c2:
             return 1.0
@@ -24,13 +31,14 @@ class OutfitPairRecommender:
         return 0.75 if (c1, c2) in pairs or (c2, c1) in pairs else 0.3
 
     def rule_score(self, row, weather):
-        """Rule-based score given weather conditions."""
+        # Rule-based score given weather conditions
+        # Higher score = better match for current conditions.
         score = 0.0
         temp = weather.get('temperature', 20)
         rain = weather.get('rain_chance', 0)
         wind = weather.get('wind_speed', 0)
 
-        # --- Temperature rules ---
+        #  Temperature rules 
         if temp < 5:
             score += 2
             if row['material'] in ['Wool', 'Fleece']:
@@ -45,7 +53,7 @@ class OutfitPairRecommender:
             if row['special_property'] in ['Breathable', 'Quick-drying']:
                 score += 1
 
-        # --- Rain rules ---
+        #  Rain rules 
         if rain > 70:
             if row['special_property'] == 'Waterproof':
                 score += 2
@@ -55,27 +63,33 @@ class OutfitPairRecommender:
             if row['special_property'] in ['Quick-drying', 'Waterproof']:
                 score += 1
 
-        # --- Wind rules ---
+        #  Wind rules 
         if wind > 25:
             if row['type'] in ['Jacket', 'Sweatshirt', 'Coat']:
                 score += 1
             if row['special_property'] == 'Windproof':
                 score += 1.5
 
-        # --- Universal comfort / favorite ---
+        #  Universal comfort / favorite 
         if row.get('special_property') == 'Non-restrictive':
             score += 0.5
         if row.get('favorite', 0) == 1:
             score += 0.5
 
-        # --- Extra bonus for wool outerwear if cold ---
+        #  Extra bonus for wool outerwear if cold 
         if temp < 10 and row['type'] in ['Jacket', 'Coat'] and row['material'] == 'Wool':
             score += 2
 
         return round(score, 2)
 
+    # Returns top-k outfit recommendations for one user based on weather.
+    #     Logic:
+    #     - compute rule-based and content-based scores
+    #     - combine them with rule_weight
+    #     - evaluate all valid (outer, top, bottom) or (top, bottom) combos
     def recommend_pairs(self, user_id, weather, top_k=5):
         user = self.df[self.df['user_id'] == user_id].copy()
+        # Separate tops / bottoms / outwear
         tops = user[user['type'].isin(TOP_TYPES)].copy()
         bottoms = user[user['type'].isin(BOTTOM_TYPES)].copy()
         outers = user[user['type'].isin(TOP_OUTER_TYPES)].copy()
@@ -83,19 +97,21 @@ class OutfitPairRecommender:
         # Precompute rule + content scores
         for df_ in (tops, bottoms, outers):
             df_['rule'] = df_.apply(lambda r: self.rule_score(r, weather), axis=1)
+            # Content-based similarity score (mean cosine similarity)
             if df_.shape[0] > 1 and len(self.feature_cols) > 0:
                 sim = cosine_similarity(df_[self.feature_cols])
                 df_['content'] = sim.mean(axis=1)
             else:
-                df_['content'] = 0.5
+                df_['content'] = 0.5 # neutral score if only one item
 
+        
         temp = weather.get('temperature', 20)
         outfits = []
-
+         # Cold weather: avoid shorts/skirts
         if temp < 15:
             bottoms = bottoms[~bottoms['type'].isin(['Skirt', 'Shorts'])]
 
-        # --- If temperature < 18°C → use 3-part outfit ---
+        #  If temperature < 18°C - 3-part outfit 
         if temp < 18 and len(outers) > 0:
             for _, outer in outers.iterrows():
                 for _, top in tops.iterrows():
@@ -112,7 +128,7 @@ class OutfitPairRecommender:
                                         bottom['item_id'], bottom['type'],
                                         total))
         else:
-            # --- Warm weather → classic top + bottom ---
+            #  Warm weather - classic top + bottom 
             for _, top in tops.iterrows():
                 for _, bottom in bottoms.iterrows():
                     cs = self.color_compat(top['color'], bottom['color'])
@@ -123,6 +139,7 @@ class OutfitPairRecommender:
                                     bottom['item_id'], bottom['type'],
                                     total))
 
+        # Rank by final score
         outfits = sorted(outfits, key=lambda x: x[-1], reverse=True)[:top_k]
         return outfits
 
@@ -146,6 +163,7 @@ def main():
         'wind_speed': args.wind
     }
 
+    # Generate recommendations
     outfits = rec.recommend_pairs(args.user_id, weather, top_k=args.top_k)
 
     if not outfits:
