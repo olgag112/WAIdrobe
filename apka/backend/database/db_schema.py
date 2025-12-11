@@ -14,8 +14,8 @@ class WardrobeItemDB(Base):
     size = Column(String)
     season = Column(String)
     style = Column(String)
-    favorite = Column(Integer)
-    special_property = Column(String)
+    favorite = Column(Integer) # 0 or 1
+    special_property = Column(String, nullable=True)
     category = Column(String)
     image_url = Column(String, nullable=True) 
 
@@ -30,4 +30,4 @@ class UserDB(Base):
     name = Column(String)
     surname = Column(String)
 
-    wardrobe_items = relationship("WardrobeItemDB", back_populates="user")
+    wardrobe_items = relationship("WardrobeItemDB", back_populates="user", cascade="all, delete-orphan")

@@ -70,7 +70,7 @@ export default function RecommendationPage() {
       if (date) updateWeatherForDate(date, data.forecast);
     } catch (err) {
       console.error(err);
-      alert("This city doesn't exist!");
+      return alert("This city doesn't exist!");
     }
   };
 
@@ -78,7 +78,7 @@ export default function RecommendationPage() {
   const updateWeatherForDate = (selectedDate = date, forecast = forecastData) => {
     const todayWeather = forecast.find((f) => f.time === selectedDate.toISOString().split("T")[0]);
     if (!todayWeather) {
-      fetchWeather()
+      return fetchWeather()
     }
     setWeather({
       temperature: todayWeather.temperature,
@@ -210,7 +210,7 @@ export default function RecommendationPage() {
           <Button
             onPress={fetchWeather}
             title="Submit"
-            color="#ffffffff"
+            color="#575445ff"
             accessibilityLabel="Learn more about this purple button"
           />
         </View>
@@ -241,9 +241,8 @@ export default function RecommendationPage() {
       <View style={styles.buttonContainer}>
         <Button
           onPress={fetchRecommendations}
+          color="#575445ff"
           title="Get Recommendations"
-          color="#fbfbfbff"
-          accessibilityLabel="Learn more about this purple button"
         />
       </View>
       {/* Display recommendations */}
@@ -366,8 +365,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     marginTop: 15,
-    backgroundColor: "#575445ff",
-    color: "#fff"
+    backgroundColor: "#fff",
+    color: "#fff",
   },
   score_container: {
     flex: 1,

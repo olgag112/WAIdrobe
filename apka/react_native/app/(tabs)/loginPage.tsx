@@ -20,6 +20,7 @@ export default function LoginPage() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [registration, setRegistration] = useState(false);
+  const containerWidth = Platform.OS === 'web' ? '60%' : '100%';
   
   // switch interface between logging in and creating new account
   const switcher = () => {
@@ -106,7 +107,7 @@ export default function LoginPage() {
             style={styles.loginImage}
           />
           {/* Interface to log in */}
-          <View style={styles.container}>
+          <View style={[styles.container, {width: containerWidth}]}>
             { !registration ? (
               <>
               <Text style={styles.label}>User ID:</Text>
@@ -219,7 +220,6 @@ const styles = StyleSheet.create({
     opacity: 0.9,
   },
   container: {
-    width: '100%',
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
