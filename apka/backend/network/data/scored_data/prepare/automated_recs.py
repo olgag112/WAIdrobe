@@ -2,19 +2,21 @@ import os
 import random
 import subprocess
 
-# === Parametry stałe ===
-INPUT_FILE = "../../raw_data/wardrobe_topOuter.csv"   # plik z garderobą
-RULE_WEIGHT = 0.6                       # stała waga reguł
-TOP_K = 5                               # liczba wyników
-USERS_COUNT = 50                        # liczba użytkowników
-SCRIPT = "../out/Recommendation.py"            # Twój główny skrypt rekomendacji
+#Parameters
+INPUT_FILE = "../../raw_data/wardrobe_topOuter.csv"   # wardrobe file
+RULE_WEIGHT = 0.6                       
+TOP_K = 5                               # Number of recommended outfits per user
+USERS_COUNT = 50                      
+SCRIPT = "../out/Recommendation.py"     # Main recommendation script
 
-# === Zakresy losowych wartości ===
-TEMP_RANGE = (-5, 30)   # temperatura od -5 do 30
-RAIN_RANGE = (0, 100)   # deszcz od 0 do 100%
-WIND_RANGE = (0, 30)    # wiatr od 0 do 30 km/h
+#  Weather ranges
+TEMP_RANGE = (-5, 30)  
+RAIN_RANGE = (0, 100)  
+WIND_RANGE = (0, 30)    
 
-# === Generowanie i wykonywanie komend ===
+# For each user, we randomly sample weather conditions, build
+# a command-line call to the Recommendation.py script, print
+# the command, and then execute it using subprocess.
 for user_id in range(1, USERS_COUNT + 1):
     temperature = round(random.uniform(*TEMP_RANGE), 1)
     rain = round(random.uniform(*RAIN_RANGE), 1)
@@ -32,9 +34,8 @@ for user_id in range(1, USERS_COUNT + 1):
         "--wind", str(wind)
     ]
 
-    # Wydrukuj komendę dla podglądu
+    #  Print the command for visibility/debugging 
     print(f"\n=== Generating recommendations for user {user_id} ===")
     print(" ".join(cmd))
 
-    # Uruchom skrypt rekomendacji
     subprocess.run(cmd)
